@@ -6,14 +6,11 @@
     <title>Punn Knowledge Hub - ศูนย์รวมความรู้และโปรเจค</title>
     <meta name="description" content="ศูนย์รวมความรู้ Blog โปรเจค และเว็บไซต์ต่างๆ ของ Punn ในที่เดียว" />
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
     <style>
@@ -939,7 +936,6 @@
 </head>
 <body class="overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 glass">
     
-    <!-- ===== BACKGROUND EFFECTS ===== -->
     <div class="particles">
         <div class="particle sparkle-1"></div>
         <div class="particle sparkle-2"></div>
@@ -956,7 +952,6 @@
         <div class="shape shape-diamond"></div>
     </div>
     
-    <!-- ===== SIDEBAR ===== -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">
@@ -978,8 +973,7 @@
                     <i data-lucide="globe" class="w-5 h-5"></i>
                 </div>
                 <span class="menu-text">เว็บไซต์</span>
-                <!--<span class="menu-badge">2</span>-->
-            </a>
+                </a>
             
             <a href="#" class="menu-item" data-section="colab">
                 <div class="menu-icon">
@@ -993,42 +987,24 @@
                     <i data-lucide="github" class="w-5 h-5"></i>
                 </div>
                 <span class="menu-text">GitHub</span>
-                <!--<span class="menu-badge">2</span>-->
-            </a>
+                </a>
             
             <a href="#" class="menu-item" data-section="blog">
                 <div class="menu-icon">
                     <i data-lucide="book-open" class="w-5 h-5"></i>
                 </div>
                 <span class="menu-text">บล็อก</span>
-                <!--<span class="menu-badge">NEW</span>-->
-            </a>
+                </a>
             
-            <!--<a href="#" class="menu-item" data-section="tutorials">
-                <div class="menu-icon">
-                    <i data-lucide="graduation-cap" class="w-5 h-5"></i>
-                </div>
-                <span class="menu-text">บทเรียน</span>
-            </a>-->
-            
-            <!--<a href="#" class="menu-item" data-section="resources">
-                <div class="menu-icon">
-                    <i data-lucide="folder" class="w-5 h-5"></i>
-                </div>
-                <span class="menu-text">ทรัพยากร</span>
-            </a>-->
-        </div>
+            </div>
     </nav>
     
-    <!-- ===== MOBILE MENU BUTTON ===== -->
     <button class="mobile-menu-btn lg:hidden" onclick="toggleMobileSidebar()">
         <i data-lucide="menu" class="w-6 h-6 text-gray-700"></i>
     </button>
     
-    <!-- ===== MAIN CONTENT ===== -->
     <main class="main-content" id="main-content">
         
-        <!-- ===== HERO SECTION (แสดงเฉพาะหน้า Home) ===== -->
         <div class="content-header" id="hero-section">
             <div class="text-center animate-fade-in-up">
                 <div class="inline-flex items-center gap-3 px-6 py-3 bg-white/70 backdrop-blur-sm rounded-full border border-gray-200 shadow-lg mb-8 animate-glow">
@@ -1044,7 +1020,6 @@
                     ค้นหาเว็บไซต์ โปรแกรม บล็อก บทเรียน และทรัพยากรต่างๆ ได้อย่างง่ายดาย<br>
                     <span class="text-blue-600 font-medium">สำรวจและเรียนรู้ไปพร้อมกัน</span>
                 </p>
-                <!-- ===== SEARCH SYSTEM ===== -->
                 <div class="search-container">
                     <input type="text" 
                            id="search-input" 
@@ -1053,10 +1028,8 @@
                            autocomplete="off">
                     <i data-lucide="search" class="search-icon w-5 h-5"></i>
                     <div id="search-suggestions" class="search-suggestions">
-                        <!-- Search suggestions will be populated here -->
-                    </div>
+                        </div>
                 </div>
-                <!-- Stats -->
                 <div class="flex justify-center gap-8 mt-8">
                     <div class="bg-white/80 backdrop-blur-sm rounded-2xl px-6 py-4 border border-gray-200 shadow-sm animate-bounce-in">
                         <div class="text-3xl font-bold text-blue-600" id="total-projects">6</div>
@@ -1070,10 +1043,8 @@
             </div>
         </div>
         
-        <!-- ===== CONTENT SECTIONS ===== -->
         <div class="content-body">
             
-            <!-- Home Section -->
             <div id="home-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">
@@ -1085,7 +1056,6 @@
                     </p>
                 </div>
                 
-                <!-- Quick Access Cards -->
                 <div class="project-grid">
                     <div class="project-card animate-bounce-in" onclick="showSection('websites')" style="animation-delay: 0.1s;">
                         <div class="project-icon">
@@ -1142,10 +1112,7 @@
                         </a>
                     </div>
                 </div>
-            </div> <!-- ปิด div #home-section ให้ครบ -->
-            
-            <!-- Search Results Section -->
-            <div id="search-results-section" class="content-section hidden">
+            </div> <div id="search-results-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">
                         🔍 ผลการค้นหา
@@ -1155,8 +1122,7 @@
                 </div>
                 
                 <div id="search-results-grid" class="project-grid">
-                    <!-- Search results will be populated here -->
-                </div>
+                    </div>
                 
                 <div id="no-results" class="no-results">
                     <div class="text-6xl mb-6">🔍</div>
@@ -1168,7 +1134,6 @@
                 </div>
             </div>
             
-            <!-- Websites Section -->
             <div id="websites-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">🌐 เว็บไซต์</h2>
@@ -1202,7 +1167,7 @@
                     </div>
                     </a>
 
-            <a href="hhttps://ddme36.github.io/PUNN-CHATBOT/" target="_blank" style="text-decoration: none; color: inherit;">
+            <a href="https://ddme36.github.io/PUNN-CHATBOT/" target="_blank" style="text-decoration: none; color: inherit;">
                 <div class="project-card animate-bounce-in" style="animation-delay: 0.1s;">
                     <div class="project-icon" style="background: linear-gradient(135deg, #305dd8, #5644fd);">
                         <i data-lucide="bot-message-square" class="w-8 h-8 text-white"></i>
@@ -1217,7 +1182,6 @@
             </div>
         </div>
             
-            <!-- Colab Section -->
             <div id="colab-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">☁️ Colab</h2>
@@ -1252,7 +1216,6 @@
                 </div>
             </div>
             
-            <!-- Programs Section -->
             <div id="programs-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">🖥 โปรแกรม</h2>
@@ -1288,7 +1251,6 @@
                 </div>
             </div>
             
-            <!-- GitHub Section -->
             <div id="github-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">💻 GitHub</h2>
@@ -1310,7 +1272,6 @@
                     </a>
                 </div>
             </div>
-            <!-- Blog Section -->
             <div id="blog-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">📝 บล็อก</h2>
@@ -1323,7 +1284,6 @@
                 </div>
             </div>
             
-            <!-- Tutorials Section -->
             <div id="tutorials-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">🎓 บทเรียน</h2>
@@ -1337,7 +1297,6 @@
                 </div>
             </div>
             
-            <!-- Resources Section -->
             <div id="resources-section" class="content-section hidden">
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-bold text-gray-800 mb-4">📁 ทรัพยากร</h2>
@@ -1353,257 +1312,106 @@
         </div>
     </main>
     
-    <!-- ===== PROJECT MODAL ===== -->
     <div id="project-modal" class="modal">
         <div class="modal-content">
             <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-red-500 transition-colors z-10">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            <div id="modal-content"></div>
+            <div id="modal-content-container"></div>
         </div>
     </div>
     
-    <!-- ===== JAVASCRIPT ===== -->
     <script>
+        // ===== PROJECT DATABASE (FIXED) =====
+        const projectDetails = {
+            'web1': {
+                title: 'DuangJaiThai',
+                category: 'เว็บไซต์',
+                icon: 'globe',
+                color: 'text-white',
+                bgColor: 'from-pink-500 to-purple-500',
+                desc: 'เว็บดูดวงและทดสอบบุคลิกภาพแบบไทยๆ ที่ออกแบบมาให้ใช้งานง่ายและสวยงาม มาพร้อมกับฟีเจอร์สนุกๆ มากมาย เช่น การดูดวงรายวัน, การวิเคราะห์บุคลิกจากศาสตร์ไทยโบราณ และอื่นๆ ที่จะทำให้คุณรู้จักตัวเองมากขึ้น',
+                features: ['ดูดวงแบบไทย', 'ทดสอบบุคลิกภาพ', 'ระบบแนะนำ', 'UI สวยงาม', 'การทำนายแม่นยำ', 'Responsive Design'],
+                tech: ['HTML5', 'CSS3', 'JavaScript', 'TailwindCSS', 'GitHub Pages'],
+                link: 'https://ddme36.github.io/DuangJaiThai/'
+            },
+            'web2': {
+                title: 'KhomunPang',
+                category: 'เว็บไซต์',
+                icon: 'arrow-up-a-z',
+                color: 'text-white',
+                bgColor: 'from-yellow-500 to-red-500',
+                desc: 'บริการรับจัดการข้อมูล Excel ขนาดใหญ่ให้กลายเป็นเว็บแคตตาล็อกสินค้าที่สวยงามและใช้งานง่าย เหมาะสำหรับร้านค้าที่ต้องการนำเสนอสินค้าออนไลน์อย่างมืออาชีพ พร้อมระบบจัดการหลังบ้านที่ครบครัน',
+                features: ['แคตตาล็อกสินค้า', 'ระบบค้นหา', 'จัดการสต็อก', 'Responsive Design', 'นำเข้าข้อมูลจาก Excel'],
+                tech: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
+                link: 'https://ddme36.github.io/KhomunPang/'
+            },
+            'web3': {
+                title: 'PUNN-CHATBOT',
+                category: 'เว็บไซต์',
+                icon: 'bot-message-square',
+                color: 'text-white',
+                bgColor: 'from-blue-500 to-indigo-600',
+                desc: 'บริการรับทำ Chatbot อัจฉริยะสำหรับธุรกิจของคุณ สามารถปรับแต่งให้เข้ากับความต้องการเฉพาะด้านได้ เช่น Chatbot ตอบคำถามลูกค้า, Chatbot สำหรับการขาย หรือ Chatbot สำหรับบริการภายในองค์กร',
+                features: ['Customizable Logic', 'Integration API', 'Natural Language', 'Multi-platform', 'Analytics Dashboard'],
+                tech: ['Dialogflow', 'Node.js', 'LINE API', 'Facebook API', 'Gemini API'],
+                link: 'https://ddme36.github.io/PUNN-CHATBOT/'
+            },
+            'colab1': {
+                title: 'Super Typhoon - Multi-Modal AI Assistant',
+                category: 'Colab',
+                icon: 'cloud',
+                color: 'text-white',
+                bgColor: 'from-cyan-500 to-blue-600',
+                desc: 'โปรเจค Open source ต่อยอดจาก Typhoon Translate ให้กลายเป็น AI Assistant แบบ Multi-Modal ที่สามารถเข้าใจได้ทั้งข้อความและรูปภาพ ใช้งานง่ายบน Google Colab โดยไม่ต้องใช้ทรัพยากรเครื่องสูง',
+                features: ['AI Translation', 'Multi-Modal Support', 'Resource Efficient', 'Easy to Use', 'Open Source'],
+                tech: ['Python', 'Google Colab', 'AI Models', 'NLP', 'Computer Vision'],
+                link: 'https://colab.research.google.com/drive/1KNo1oqcYkOwozP6SObd2nJ_-wPAKMLWs?usp=sharing'
+            },
+            'colab2': {
+                title: 'AICoverGen',
+                category: 'Colab',
+                icon: 'music',
+                color: 'text-white',
+                bgColor: 'from-sky-500 to-indigo-500',
+                desc: 'โปรแกรมแปลงเสียงร้องเพลงด้วย AI (RVC) ที่สามารถสร้าง Cover เพลงใหม่จากเสียงของเรา หรือเปลี่ยนเสียงร้องในเพลงให้เป็นเสียงตัวละครต่างๆ ได้อย่างน่าทึ่ง รันง่ายๆ บน Google Colab',
+                features: ['Voice Conversion', 'Auto Cover Generation', 'Multiple Voice Models', 'High Quality Output'],
+                tech: ['Python', 'Google Colab', 'AI Audio', 'Deep Learning', 'RVC'],
+                link: 'https://colab.research.google.com/drive/1yn0kxWBFyjM4_DqioxVLGn3vdzHIIEdY?usp=sharing'
+            },
+             'prog1': {
+                title: 'Punn CLI',
+                category: 'โปรแกรม',
+                icon: 'terminal',
+                color: 'text-white',
+                bgColor: 'from-green-500 to-teal-500',
+                desc: 'เครื่องมือ Command Line สำหรับนักพัฒนาและผู้ที่ต้องการทำงานแบบ Automation ช่วยจัดการไฟล์, โปรเจค, และงานต่างๆ ได้อย่างรวดเร็วผ่านบรรทัดคำสั่ง (ยังไม่เปิดให้ดาวน์โหลด)',
+                features: ['Command Line Tools', 'Automation Scripts', 'File Management', 'Git Integration', 'Project Generator'],
+                tech: ['Python', 'Click', 'Shell Scripts', 'YAML'],
+                link: '#'
+            },
+             'github1': {
+                title: 'PunnHub on GitHub',
+                category: 'GitHub',
+                icon: 'github',
+                color: 'text-white',
+                bgColor: 'from-gray-600 to-gray-800',
+                desc: 'Repository กลางสำหรับรวมโค้ดโอเพ่นซอร์สและโปรเจคตัวอย่างทั้งหมดของ Punn ที่เปิดให้ทุกคนสามารถเข้ามาดู ศึกษา หรือนำไปต่อยอดได้',
+                features: ['Open Source', 'Project Samples', 'Code Snippets', 'Version Control'],
+                tech: ['Git', 'GitHub', 'Markdown', 'Various Languages'],
+                link: 'https://github.com/ddme36'
+            }
+        };
+
         // Initialize icons
         lucide.createIcons();
         
         // ===== SEARCH SYSTEM =====
         const searchInput = document.getElementById('search-input');
-        
-        // เก็บ HTML ของหมวดหมู่หลักไว้
-        const mainCategoriesHTML = `
-            <div class="project-card animate-bounce-in" onclick="showSection('websites')" style="animation-delay: 0.1s;">
-                <div class="project-icon">
-                    <i data-lucide="globe" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">เว็บไซต์</h3>
-                <p class="project-desc">รวมเว็บไซต์และเว็บแอปพลิเคชันต่างๆ ที่พัฒนาขึ้น</p>
-                <a href="#" class="project-link">
-                    ดูเว็บไซต์ทั้งหมด <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-            
-            <div class="project-card animate-bounce-in" onclick="showSection('programs')" style="animation-delay: 0.2s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #10b981, #06b6d4);">
-                    <i data-lucide="terminal" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">โปรแกรม</h3>
-                <p class="project-desc">เครื่องมือและโปรแกรมที่พัฒนาขึ้นเพื่อช่วยในการทำงาน</p>
-                <a href="#" class="project-link">
-                    ดูโปรแกรมทั้งหมด <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-            
-            <div class="project-card animate-bounce-in" onclick="showSection('colab')" style="animation-delay: 0.3s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
-                    <i data-lucide="cloud" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">Colab</h3>
-                <p class="project-desc">เครื่องมือเขียนและรันโค้ด Python ออนไลน์ฟรีบนคลาวด์</p>
-                <a href="https://colab.research.google.com/drive/1KNo1oqcYkOwozP6SObd2nJ_-wPAKMLWs?usp=sharing" target="_blank" class="project-link">
-                    ดู Colab <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-            
-            <div class="project-card animate-bounce-in" onclick="showSection('github')" style="animation-delay: 0.4s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #6b7280, #374151);">
-                    <i data-lucide="github" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">GitHub</h3>
-                <p class="project-desc">โค้ดโอเพ่นซอร์สและที่เก็บโปรเจคต่างๆ บน GitHub</p>
-                <a href="#" class="project-link">
-                    ดู Repository <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-            
-            <div class="project-card animate-bounce-in" onclick="showSection('blog')" style="animation-delay: 0.5s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
-                    <i data-lucide="book-open" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">บล็อกและบทเรียน</h3>
-                <p class="project-desc">บทความความรู้ บทเรียน และทรัพยากรการเรียนรู้</p>
-                <a href="#" class="project-link">
-                    เร็วๆ นี้ <i data-lucide="clock" class="w-4 h-4"></i>
-                </a>
-            </div>
-        `;
-
-        // เก็บ HTML ของโปรเจคย่อยไว้
-        const projectsHTML = `
-            <!-- DuangJaiThai -->
-            <div class="project-card animate-bounce-in" onclick="expandProject('web1')" style="animation-delay: 0.1s;">
-                <div class="project-icon">
-                    <i data-lucide="globe" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">DuangJaiThai</h3>
-                <p class="project-desc">เว็บดูดวง/บุคลิกภาพแบบไทยๆ พร้อมแบบทดสอบและฟีเจอร์สนุกสนาน</p>
-                <div class="project-features hidden">
-                    <li>ดูดวงแบบไทย</li>
-                    <li>ทดสอบบุคลิกภาพ</li>
-                    <li>ระบบแนะนำ</li>
-                    <li>UI สวยงาม</li>
-                    <li>การทำนายแม่นยำ</li>
-                </div>
-                <div class="tech-stack hidden">
-                    <span class="tech-badge">HTML5</span>
-                    <span class="tech-badge">CSS3</span>
-                    <span class="tech-badge">JavaScript</span>
-                    <span class="tech-badge">Bootstrap</span>
-                    <span class="tech-badge">Thai Culture API</span>
-                </div>
-                <a href="https://ddme36.github.io/DuangJaiThai/" target="_blank" class="project-link">
-                    เยี่ยมชม <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            <!-- KhomunPang -->
-            <div class="project-card animate-bounce-in" onclick="expandProject('web2')" style="animation-delay: 0.2s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #ec4899, #f59e0b);">
-                    <i data-lucide="layers" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">KhomunPang</h3>
-                <p class="project-desc">รับจัดการข้อมูล Excel ขนาดใหญ่ พร้อมระบบจัดการที่ครบครัน</p>
-                <div class="project-features hidden">
-                    <li>แคตตาล็อกสินค้า</li>
-                    <li>ระบบค้นหา</li>
-                    <li>การจัดการสต็อก</li>
-                    <li>ระบบสั่งซื้อ</li>
-                    <li>Payment Gateway</li>
-                </div>
-                <div class="tech-stack hidden">
-                    <span class="tech-badge">React</span>
-                    <span class="tech-badge">Node.js</span>
-                    <span class="tech-badge">MongoDB</span>
-                    <span class="tech-badge">Express</span>
-                    <span class="tech-badge">Payment API</span>
-                </div>
-                <a href="https://ddme36.github.io/KhomunPang/" target="_blank" class="project-link">
-                    เยี่ยมชม <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            <!-- Super Typhoon -->
-            <div class="project-card animate-bounce-in" onclick="expandProject('colab1')" style="animation-delay: 0.3s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
-                    <i data-lucide="cloud" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">Super Typhoon</h3>
-                <p class="project-desc">Multi-Modal AI Assistant บน Colab ใช้งานง่าย ประหยัดทรัพยากร</p>
-                <div class="project-features hidden">
-                    <li>AI Translation</li>
-                    <li>Multi-Modal Support</li>
-                    <li>Resource Efficient</li>
-                    <li>Easy to Use</li>
-                </div>
-                <div class="tech-stack hidden">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Colab</span>
-                    <span class="tech-badge">AI Models</span>
-                    <span class="tech-badge">NLP</span>
-                </div>
-                <a href="https://colab.research.google.com/drive/1KNo1oqcYkOwozP6SObd2nJ_-wPAKMLWs?usp=sharing" target="_blank" class="project-link">
-                    เปิดใน Colab <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            <!-- AICoverGen -->
-            <div class="project-card animate-bounce-in" onclick="expandProject('colab2')" style="animation-delay: 0.4s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #0ea5e9, #6366f1);">
-                    <i data-lucide="music" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">AICoverGen</h3>
-                <p class="project-desc">โปรแกรมแปลงเสียงร้องเพลงด้วย AI สร้าง Cover เพลงอัตโนมัติ</p>
-                <div class="project-features hidden">
-                    <li>Voice Conversion</li>
-                    <li>Auto Cover Generation</li>
-                    <li>Multiple Voice Models</li>
-                    <li>High Quality Output</li>
-                </div>
-                <div class="tech-stack hidden">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Colab</span>
-                    <span class="tech-badge">AI Audio</span>
-                    <span class="tech-badge">Deep Learning</span>
-                </div>
-                <a href="https://colab.research.google.com/drive/1yn0kxWBFyjM4_DqioxVLGn3vdzHIIEdY?usp=sharing" target="_blank" class="project-link">
-                    เปิดใน Colab <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            <!-- Punn CLI -->
-            <div class="project-card animate-bounce-in" onclick="expandProject('prog1')" style="animation-delay: 0.5s;">
-                <div class="project-icon" style="background: linear-gradient(135deg, #10b981, #06b6d4);">
-                    <i data-lucide="terminal" class="w-8 h-8 text-white"></i>
-                </div>
-                <h3 class="project-title">Punn CLI</h3>
-                <p class="project-desc">เครื่องมือบรรทัดคำสั่งสำหรับ Developer และ Automation</p>
-                <div class="project-features hidden">
-                    <li>Command Line Tools</li>
-                    <li>Automation Scripts</li>
-                    <li>File Management</li>
-                    <li>Git Integration</li>
-                    <li>Project Generator</li>
-                </div>
-                <div class="tech-stack hidden">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Click</span>
-                    <span class="tech-badge">Git</span>
-                    <span class="tech-badge">Shell Scripts</span>
-                    <span class="tech-badge">YAML</span>
-                </div>
-                <a href="#" class="project-link">
-                    ดาวน์โหลด <i data-lucide="download" class="w-4 h-4"></i>
-                </a>
-            </div>
-        `;
-
-        searchInput.addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-            const projectGrid = document.querySelector('#home-section .project-grid');
-            
-            if (!projectGrid) return;
-
-            if (query.length === 0) {
-                // ถ้าไม่มีการค้นหา แสดงหมวดหมู่หลัก
-                projectGrid.innerHTML = mainCategoriesHTML;
-                lucide.createIcons();
-                return;
-            }
-
-            // ถ้ามีการค้นหา แสดงโปรเจคย่อยทั้งหมด
-            projectGrid.innerHTML = projectsHTML;
-            lucide.createIcons();
-
-            // กรองโปรเจคตามคำค้นหา
-            const projectCards = projectGrid.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
-                const desc = card.querySelector('.project-desc')?.textContent.toLowerCase() || '';
-                const features = Array.from(card.querySelectorAll('.project-features li')).map(f => f.textContent.toLowerCase());
-                const techs = Array.from(card.querySelectorAll('.tech-badge')).map(t => t.textContent.toLowerCase());
-                
-                if (title.includes(query) || 
-                    desc.includes(query) || 
-                    features.some(f => f.includes(query)) || 
-                    techs.some(t => t.includes(query))) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-
-        function clearSearch() {
-            if (searchInput) {
-                searchInput.value = '';
-                const projectGrid = document.querySelector('#home-section .project-grid');
-                if (projectGrid) {
-                    projectGrid.innerHTML = mainCategoriesHTML;
-                    lucide.createIcons();
-                }
-            }
-        }
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const searchResultsGrid = document.getElementById('search-results-grid');
+        const noResultsDiv = document.getElementById('no-results');
+        const searchQueryText = document.getElementById('search-query-text');
         
         // ===== NAVIGATION FUNCTIONS =====
         function showSection(sectionName) {
@@ -1634,14 +1442,20 @@
                 }
             }
             
-            // ซ่อน Hero Section ถ้าไม่ใช่หน้า Home
+            // Toggle Hero Section visibility
             const heroSection = document.getElementById('hero-section');
             if (heroSection) {
-                if (sectionName === 'home') {
+                if (sectionName === 'home' || sectionName === 'search-results') {
                     heroSection.style.display = '';
                 } else {
                     heroSection.style.display = 'none';
                 }
+            }
+            
+             // Close mobile sidebar on navigation
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar && sidebar.classList.contains('mobile-open')) {
+                toggleMobileSidebar();
             }
         }
         
@@ -1650,7 +1464,8 @@
             const data = projectDetails[key];
             if (!data) return;
             
-            document.getElementById('modal-content').innerHTML = `
+            const modalContentContainer = document.getElementById('modal-content-container');
+            modalContentContainer.innerHTML = `
                 <div class="text-center">
                     <div class="flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br ${data.bgColor} mb-6 mx-auto relative">
                         <i data-lucide="${data.icon}" class="w-12 h-12 ${data.color}"></i>
@@ -1664,10 +1479,11 @@
                     
                     <div class="mb-8">
                         <h3 class="font-semibold text-gray-800 mb-4 text-left">✨ ฟีเจอร์หลัก</h3>
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             ${data.features.map(feature => `
-                                <div class="text-sm text-gray-600 bg-gray-50 rounded-lg px-3 py-2 text-left">
-                                    • ${feature}
+                                <div class="flex items-start gap-2 text-sm text-gray-700 bg-gray-100/50 rounded-lg px-3 py-2 text-left">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                    <span>${feature}</span>
                                 </div>
                             `).join('')}
                         </div>
@@ -1677,7 +1493,7 @@
                         <h3 class="font-semibold text-gray-800 mb-4 text-left">🛠 เทคโนโลยี</h3>
                         <div class="flex flex-wrap gap-2">
                             ${data.tech.map(tech => `
-                                <span class="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                                <span class="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">
                                     ${tech}
                                 </span>
                             `).join('')}
@@ -1687,7 +1503,7 @@
                     <a href="${data.link}" target="_blank" 
                        class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-semibold shadow-lg hover:scale-105 transition-all">
                         <i data-lucide="external-link" class="w-5 h-5"></i> 
-                        ${data.category === 'เว็บไซต์' ? 'เยี่ยมชมเว็บไซต์' : data.category === 'โปรแกรม' ? 'ดาวน์โหลด' : 'ดู Repository'}
+                        ${data.category === 'เว็บไซต์' ? 'เยี่ยมชมเว็บไซต์' : (data.category === 'โปรแกรม' ? 'ดาวน์โหลด' : 'เปิดใน Colab/GitHub')}
                     </a>
                 </div>
             `;
@@ -1704,13 +1520,7 @@
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('sidebar');
             if (sidebar) {
-                if (sidebar.classList.contains('mobile-open')) {
-                    sidebar.style.transform = 'translateX(-100%)';
-                    sidebar.classList.remove('mobile-open');
-                } else {
-                    sidebar.style.transform = 'translateX(0)';
-                    sidebar.classList.add('mobile-open');
-                }
+                sidebar.classList.toggle('mobile-open');
             }
         }
         
@@ -1723,20 +1533,18 @@
                     const section = this.getAttribute('data-section');
                     if (section) {
                         showSection(section);
-                        // Close mobile sidebar
-                        const sidebar = document.getElementById('sidebar');
-                        if (sidebar) sidebar.classList.remove('mobile-open');
                     }
                 });
             });
+
             // Modal close events
             const projectModal = document.getElementById('project-modal');
             if (projectModal) {
                 projectModal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
+                    if (e.target === this) {
+                        closeModal();
+                    }
+                });
             }
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
@@ -1744,139 +1552,73 @@
                     hideSuggestions();
                 }
             });
+
             // Animate counters
-            animateCounter('total-projects', countProjects());
-            animateCounter('total-categories', countCategories());
+            updateProjectStats();
+            
+            // Show Home section by default
+            showSection('home');
+
             console.log('🚀 Punn Knowledge Hub loaded successfully!');
         });
         
         // ===== UTILITY FUNCTIONS =====
-        function animateCounter(elementId, targetValue) {
+        function animateNumber(elementId, target) {
             const element = document.getElementById(elementId);
             if (!element) return;
+            let start = 0;
+            const duration = 1500;
+            const range = target - start;
+            let current = start;
+            const increment = target > start ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(duration / range));
             
-            let current = 0;
-            const increment = targetValue / 50;
             const timer = setInterval(() => {
                 current += increment;
-                element.textContent = Math.ceil(current);
-                if (current >= targetValue) {
-                    element.textContent = targetValue;
+                element.innerHTML = current;
+                if (current == target) {
                     clearInterval(timer);
                 }
-            }, 30);
+            }, stepTime);
         }
 
         // ===== AUTO COUNT PROJECTS & CATEGORIES =====
         function countProjects() {
             return Object.keys(projectDetails).length;
         }
+
         function countCategories() {
             const categories = new Set(Object.values(projectDetails).map(p => p.category));
             return categories.size;
+        }
+
+        function updateProjectStats() {
+            animateNumber('total-projects', countProjects());
+            animateNumber('total-categories', countCategories());
         }
 
         // ===== SIDEBAR EXPAND MAIN-CONTENT SHIFT (DESKTOP) =====
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('main-content');
         if (sidebar && mainContent) {
-            sidebar.addEventListener('mouseenter', function() {
-                if (window.innerWidth > 1024) {
-                    mainContent.style.marginLeft = '280px';
-                }
+            sidebar.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 1024) mainContent.style.marginLeft = '280px';
             });
-            sidebar.addEventListener('mouseleave', function() {
-                if (window.innerWidth > 1024) {
-                    mainContent.style.marginLeft = '80px';
-                }
+            sidebar.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 1024) mainContent.style.marginLeft = '80px';
             });
         }
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', () => {
             if (mainContent) {
-                if (window.innerWidth <= 1024) {
-                    mainContent.style.marginLeft = '0';
-                } else {
-                    mainContent.style.marginLeft = '80px';
-                }
+                mainContent.style.marginLeft = window.innerWidth > 1024 ? '80px' : '0';
             }
-        });
-
-        // ===== SCROLL HANDLER FOR SIDEBAR =====
-        window.addEventListener('scroll', function() {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar && window.innerWidth > 1024) { // ทำงานเฉพาะบน desktop
-                sidebar.style.transform = `translateY(${window.scrollY}px)`;
-            }
-        });
-
-        // Reset sidebar position when window is resized
-        window.addEventListener('resize', function() {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar) {
-                if (window.innerWidth <= 1024) {
-                    sidebar.style.transform = 'translateX(-100%)'; // mobile state
-                } else {
-                    sidebar.style.transform = `translateY(${window.scrollY}px)`; // desktop state
-                }
-            }
-        });
-
-        // ===== COUNT PROJECTS & CATEGORIES =====
-        function updateProjectStats() {
-            // นับจำนวนโปรเจคทั้งหมด
-            const totalProjects = Object.keys(projectDetails).length;
-            
-            // นับจำนวนหมวดหมู่ (ไม่นับซ้ำ)
-            const categories = new Set();
-            Object.values(projectDetails).forEach(project => {
-                if (project.category) {
-                    categories.add(project.category);
-                }
-            });
-            const totalCategories = categories.size;
-
-            // อัพเดตตัวเลขแบบ animate
-            animateNumber('total-projects', totalProjects);
-            animateNumber('total-categories', totalCategories);
-        }
-
-        function animateNumber(elementId, target) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-
-            const duration = 1000; // 1 วินาที
-            const start = parseInt(element.textContent) || 0;
-            const increment = (target - start) / (duration / 16); // 60fps
-            let current = start;
-
-            const animate = () => {
-                current += increment;
-                element.textContent = Math.round(current);
-
-                if (increment > 0 && current < target || increment < 0 && current > target) {
-                    requestAnimationFrame(animate);
-                } else {
-                    element.textContent = target;
-                }
-            };
-
-            animate();
-        }
-
-        // เรียกใช้ฟังก์ชันเมื่อโหลดหน้าเว็บ
-        document.addEventListener('DOMContentLoaded', function() {
-            updateProjectStats();
-            // ... existing DOMContentLoaded code ...
         });
     </script>
     
-    <!-- พื้นหลังเคลื่อนไหว -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse-slow animate-morph"></div>
-        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-red-600/20 rounded-full blur-3xl animate-pulse-slow animate-morph" style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-blue-600/10 rounded-full blur-3xl animate-pulse-slow animate-morph" style="animation-delay: 4s;"></div>
-        <div class="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-yellow-400/15 to-orange-600/15 rounded-full blur-2xl animate-float"></div>
-        <div class="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-cyan-400/15 to-blue-600/15 rounded-full blur-2xl animate-float" style="animation-delay: 3s;"></div>
+    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-red-600/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-blue-600/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
     </div>
 </body>
 </html>
