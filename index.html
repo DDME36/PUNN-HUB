@@ -790,6 +790,9 @@
         @media (max-width: 1024px) {
             .sidebar {
                 width: 280px;
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease, width 0.3s ease;
             }
@@ -797,6 +800,9 @@
             .sidebar.mobile-open {
                 transform: translateX(0);
                 box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
             }
 
             .sidebar .sidebar-title,
@@ -851,7 +857,7 @@
 
         @media (min-width: 1025px) {
             .mobile-menu-btn {
-                display: none;
+                display: none !important;
             }
         }
 
@@ -885,10 +891,16 @@
         @media (min-width: 769px) and (max-width: 1024px) {
             .sidebar {
                 width: 260px;
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
             }
 
             .sidebar.mobile-open {
                 width: 260px;
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
             }
         }
 
@@ -897,6 +909,9 @@
             .sidebar {
                 width: 75vw;
                 max-width: 280px;
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
             }
 
             .sidebar.mobile-open {
@@ -929,17 +944,23 @@
             .sidebar {
                 width: 80vw;
                 max-width: 260px;
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
             }
 
             .sidebar.mobile-open {
                 width: 80vw;
                 max-width: 260px;
+                height: 100vh;
+                min-height: 100vh;
+                max-height: 100vh;
             }
         }
 
         @media (min-width: 1025px) {
             .mobile-menu-btn {
-                display: none;
+                display: none !important;
             }
         }
 
@@ -1263,7 +1284,7 @@
 
     <div id="mobile-overlay" class="mobile-overlay" onclick="toggleMobileSidebar()"></div>
 
-    <button class="mobile-menu-btn lg:hidden" onclick="toggleMobileSidebar()">
+    <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
         <i data-lucide="menu" class="w-6 h-6 text-gray-700"></i>
     </button>
 
