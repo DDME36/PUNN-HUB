@@ -12,32 +12,32 @@ export const Hero = () => {
         // Wave
         {
             y: [0, -5, 0, -3, 0],
-            transition: { duration: 0.6, ease: "easeInOut" }
+            transition: { duration: 0.6, ease: "easeInOut" as const }
         },
         // Bounce
         {
             scale: [1, 1.1, 0.95, 1.05, 1],
-            transition: { duration: 0.5, ease: "easeInOut" }
+            transition: { duration: 0.5, ease: "easeInOut" as const }
         },
         // Shake
         {
             x: [0, -3, 3, -3, 3, 0],
-            transition: { duration: 0.4, ease: "easeInOut" }
+            transition: { duration: 0.4, ease: "easeInOut" as const }
         },
         // Glow pulse
         {
             filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
-            transition: { duration: 0.8, ease: "easeInOut" }
+            transition: { duration: 0.8, ease: "easeInOut" as const }
         },
         // Rotate wiggle
         {
             rotate: [0, -5, 5, -3, 3, 0],
-            transition: { duration: 0.5, ease: "easeInOut" }
+            transition: { duration: 0.5, ease: "easeInOut" as const }
         },
         // Scale pulse
         {
             scale: [1, 1.15, 1],
-            transition: { duration: 0.4, ease: "easeInOut" }
+            transition: { duration: 0.4, ease: "easeInOut" as const }
         }
     ];
 
