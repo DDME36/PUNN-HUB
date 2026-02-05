@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Share2, Check, Facebook, Twitter, Link as LinkIcon } from "lucide-react";
-import { SiLine } from "react-icons/si";
+import { SiLine, SiDiscord } from "react-icons/si";
 
 interface ShareButtonsProps {
     title: string;
@@ -12,13 +12,25 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ title, url }: ShareButtonsProps) {
     const [copied, setCopied] = useState(false);
+    const [discordCopied, setDiscordCopied] = useState(false);
     const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+    const discordUrl = shareUrl + '?v=1'; // เพิ่ม ?v=1 สำหรับ Discord
 
     const handleCopyLink = async () => {
         try {
             await navigator.clipboard.writeText(shareUrl);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
+
+    const handleCopyDiscord = async () => {
+        try {
+            await navigator.clipboard.writeText(discordUrl);
+            setDiscordCopied(true);
+            setTimeout(() => setDiscordCopied(false), 2000);
         } catch (err) {
             console.error('Failed to copy:', err);
         }
@@ -79,6 +91,28 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={handleCopyDiscord}
+                    className={`${
+                        discordCopied 
+                            ? 'bg-green-600 hover:bg-green-700' 
+                            : 'bg-[#5865F2] hover:bg-[#4752C4]'
+                    } text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center gap-2 text-sm`}
+                >
+                    {discordCopied ? (
+                        <>
+                            <Check size={16} />
+                            คัดลอกแล้ว!
+                        </>
+                    ) : (
+                        <>
+                            <SiDiscord size={16} />
+                            Discord
+                        </>
+                    )}
+                </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={handleCopyLink}
                     className={`${
                         copied 
@@ -94,7 +128,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                     ) : (
                         <>
                             <LinkIcon size={16} />
-                            คัดลอกลิงก์
+                            คัดลอก
                         </>
                     )}
                 </motion.button>
