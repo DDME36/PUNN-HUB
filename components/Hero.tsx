@@ -10,36 +10,21 @@ export const Hero = () => {
     // Random animations
     const animations = [
         // Wave
-        {
-            y: [0, -5, 0, -3, 0],
-            transition: { duration: 0.6, ease: "easeInOut" as const }
-        },
+        { y: [0, -5, 0, -3, 0] },
         // Bounce
-        {
-            scale: [1, 1.1, 0.95, 1.05, 1],
-            transition: { duration: 0.5, ease: "easeInOut" as const }
-        },
+        { scale: [1, 1.1, 0.95, 1.05, 1] },
         // Shake
-        {
-            x: [0, -3, 3, -3, 3, 0],
-            transition: { duration: 0.4, ease: "easeInOut" as const }
-        },
-        // Glow pulse
-        {
-            filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
-            transition: { duration: 0.8, ease: "easeInOut" as const }
-        },
+        { x: [0, -3, 3, -3, 3, 0] },
         // Rotate wiggle
-        {
-            rotate: [0, -5, 5, -3, 3, 0],
-            transition: { duration: 0.5, ease: "easeInOut" as const }
-        },
+        { rotate: [0, -5, 5, -3, 3, 0] },
         // Scale pulse
-        {
-            scale: [1, 1.15, 1],
-            transition: { duration: 0.4, ease: "easeInOut" as const }
-        }
+        { scale: [1, 1.15, 1] }
     ];
+
+    const animationTransition = {
+        duration: 0.5,
+        ease: "easeInOut" as const
+    };
 
     useEffect(() => {
         // Random animation every 5-10 seconds
@@ -81,6 +66,7 @@ export const Hero = () => {
                         href="/"
                         initial={false}
                         animate={currentAnimation}
+                        transition={animationTransition}
                         whileTap={{ scale: 0.95 }}
                         className="font-bold bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent cursor-pointer inline-block"
                     >
