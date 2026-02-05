@@ -21,14 +21,51 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const post = await getPostBySlug(slug).catch(() => null);
+    
     if (!post) {
         return {
             title: "Article Not Found",
         }
     }
+
+    const content = await getPostContent(post.id).catch(() => "");
+    const description = content.slice(0, 160).replace(/[#*`\n]/g, ' ').trim() || `อ่านบทความ "${post.title}" ใน PUNN HUB`;
+
     return {
         title: `${post.title} - PUNN HUB`,
-        description: `อ่านบทความ "${post.title}" ใน PUNN HUB - ศูนย์รวมความรู้และไอเดียเทคโนโลยี`,
+        description: description,
+        openGraph: {
+            title: post.title,
+            description: description,
+            url: `https://punn.site/blog/${slug}`,
+            siteName: 'PUNN HUB',
+            images: post.cover ? [
+                {
+                    url: post.cover,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                }
+            ] : [
+                {
+                    url: 'https://punn.site/icon-512.png',
+                    width: 512,
+                    height: 512,
+                    alt: 'PUNN HUB',
+                }
+            ],
+            locale: 'th_TH',
+            type: 'article',
+            publishedTime: post.date,
+            authors: ['Satayu Pongpan'],
+            tags: post.tags,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: description,
+            images: post.cover ? [post.cover] : ['https://punn.site/icon-512.png'],
+        },
     }
 }
 

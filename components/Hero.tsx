@@ -2,8 +2,60 @@
 
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const Hero = () => {
+    const [animationKey, setAnimationKey] = useState(0);
+
+    // Random animations
+    const animations = [
+        // Wave
+        {
+            y: [0, -5, 0, -3, 0],
+            transition: { duration: 0.6, ease: "easeInOut" }
+        },
+        // Bounce
+        {
+            scale: [1, 1.1, 0.95, 1.05, 1],
+            transition: { duration: 0.5, ease: "easeInOut" }
+        },
+        // Shake
+        {
+            x: [0, -3, 3, -3, 3, 0],
+            transition: { duration: 0.4, ease: "easeInOut" }
+        },
+        // Glow pulse
+        {
+            filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"],
+            transition: { duration: 0.8, ease: "easeInOut" }
+        },
+        // Rotate wiggle
+        {
+            rotate: [0, -5, 5, -3, 3, 0],
+            transition: { duration: 0.5, ease: "easeInOut" }
+        },
+        // Scale pulse
+        {
+            scale: [1, 1.15, 1],
+            transition: { duration: 0.4, ease: "easeInOut" }
+        }
+    ];
+
+    useEffect(() => {
+        // Random animation every 5-10 seconds
+        const triggerRandomAnimation = () => {
+            const randomDelay = Math.random() * 5000 + 5000; // 5-10 seconds
+            setTimeout(() => {
+                setAnimationKey(prev => prev + 1);
+                triggerRandomAnimation();
+            }, randomDelay);
+        };
+
+        triggerRandomAnimation();
+    }, []);
+
+    const currentAnimation = animations[animationKey % animations.length];
+
     return (
         <section className="relative min-h-[55vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 py-12">
             {/* Soft Floating Orbs */}
@@ -24,9 +76,16 @@ export const Hero = () => {
                 >
                     <Sparkles size={16} className="text-rose-400" />
                     <span className="text-gray-600">Welcome to</span>
-                    <span className="font-bold bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
+                    <motion.a
+                        key={animationKey}
+                        href="/"
+                        initial={false}
+                        animate={currentAnimation}
+                        whileTap={{ scale: 0.95 }}
+                        className="font-bold bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent cursor-pointer inline-block"
+                    >
                         PUNN HUB
-                    </span>
+                    </motion.a>
                 </motion.div>
 
                 {/* Main Heading */}
