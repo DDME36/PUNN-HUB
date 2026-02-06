@@ -103,7 +103,23 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
     const content = await getPostContent(post.id);
     const allPosts = await getPublishedPosts().catch(() => []);
-    const otherPosts = allPosts.filter((p: any) => p.id !== post.id);
+    
+    // หาบทความที่เกี่ยวข้องตาม tags
+    const relatedPosts = allPosts
+        .filter((p: any) => p.id !== post.id)
+        .map((p: any) => {
+            // นับจำนวน tags ที่ตรงกัน
+            const matchingTags = p.tags.filter((tag: string) => post.tags.includes(tag)).length;
+            return { ...p, matchingTags };
+        })
+        .sort((a: any, b: any) => {
+            // เรียงตามจำนวน tags ที่ตรงกัน แล้วตามวันที่
+            if (b.matchingTags !== a.matchingTags) {
+                return b.matchingTags - a.matchingTags;
+            }
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        })
+        .slice(0, 3);
 
     // Calculate reading time (more accurate)
     const wordsPerMinute = 200;
@@ -216,16 +232,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </article>
 
             {/* Enhanced Related Articles */}
-            {otherPosts.length > 0 && (
+            {relatedPosts.length > 0 && (
                 <section className="bg-gradient-to-br from-gray-50 via-white to-gray-50 py-16 border-t border-gray-100">
                     <div className="max-w-5xl mx-auto px-4">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold font-display text-gray-800 mb-3">บทความอื่นๆ ที่น่าสนใจ</h2>
-                            <p className="text-gray-600">ค้นพบความรู้เพิ่มเติมจากบทความอื่นๆ</p>
+                            <h2 className="text-3xl font-bold font-display text-gray-800 mb-3">บทความที่เกี่ยวข้อง</h2>
+                            <p className="text-gray-600">บทความอื่นๆ ที่คุณอาจสนใจ</p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {otherPosts.slice(0, 3).map((p: any, index: number) => (
+                            {relatedPosts.map((p: any, index: number) => (
                                 <Card key={p.id} href={`/blog/${p.slug}`} className="h-full !border-gray-100 hover:border-rose-200 hover:shadow-xl transition-all duration-500 bg-white/90 backdrop-blur-md group transform hover:-translate-y-2">
                                     <div className="h-40 -mt-6 -mx-6 mb-4 overflow-hidden rounded-t-2xl relative bg-gradient-to-br from-rose-100 via-purple-100 to-blue-100">
                                         {p.cover ? (

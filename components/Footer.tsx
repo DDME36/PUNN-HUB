@@ -9,11 +9,13 @@ import {
     Sparkles,
     Home,
     MessageCircle,
+    Rss,
 } from "lucide-react";
 
 const quickLinks = [
     { name: "หน้าแรก", href: "/" },
     { name: "บทความ", href: "/blog" },
+    { name: "RSS Feed", href: "/feed.xml" },
     { name: "GitHub", href: "https://github.com/DDME36" },
     { name: "เว็บส่วนตัว", href: "https://satayupongpan.site/" },
 ];
@@ -63,20 +65,32 @@ export const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
+                                aria-label="GitHub"
                             >
                                 <Github size={16} className="text-gray-700" />
+                            </a>
+                            <a
+                                href="/feed.xml"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-orange-50 transition-colors shadow-sm border border-gray-100 hover:border-orange-200"
+                                aria-label="RSS Feed"
+                            >
+                                <Rss size={16} className="text-orange-500" />
                             </a>
                             <a
                                 href="https://line.me/ti/p/~example"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
+                                aria-label="LINE"
                             >
                                 <MessageCircle size={16} className="text-gray-700" />
                             </a>
                             <a
                                 href="mailto:your-email@example.com"
                                 className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
+                                aria-label="Email"
                             >
                                 <Mail size={16} className="text-gray-700" />
                             </a>
