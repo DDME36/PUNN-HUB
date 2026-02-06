@@ -132,7 +132,7 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
                                     ) : results.length === 0 ? (
                                         <div className="text-center py-12 text-gray-400">
                                             <Search size={48} className="mx-auto mb-3 opacity-30" />
-                                            <p className="text-sm">ไม่พบบทความที่ตรงกับ "{query}"</p>
+                                            <p className="text-sm">ไม่พบบทความที่ตรงกับคำค้นหา</p>
                                         </div>
                                     ) : (
                                         <div className="space-y-2">
