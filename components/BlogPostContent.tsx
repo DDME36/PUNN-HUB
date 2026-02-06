@@ -101,11 +101,11 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                             img: ({ node, src, alt, ...props }) => {
                                 if (!src || typeof src !== 'string') return null;
                                 return (
-                                    <figure className="my-8 relative w-full">
+                                    <figure className="my-8 relative w-full flex justify-center">
                                         <img 
                                             src={src}
                                             alt={alt || "รูปภาพประกอบ"}
-                                            className="rounded-2xl shadow-2xl w-full h-auto object-contain hover:shadow-3xl transition-shadow duration-500 mx-auto"
+                                            className="rounded-2xl shadow-2xl w-full max-w-3xl h-auto object-contain hover:shadow-3xl transition-shadow duration-500"
                                             loading="lazy"
                                         />
                                     </figure>
