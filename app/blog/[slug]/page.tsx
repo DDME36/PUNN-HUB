@@ -46,6 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
                     width: 1200,
                     height: 630,
                     alt: post.title,
+                    type: 'image/png',
                 }
             ] : [
                 {
@@ -53,6 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
                     width: 512,
                     height: 512,
                     alt: 'PUNN HUB',
+                    type: 'image/png',
                 }
             ],
             locale: 'th_TH',
@@ -66,7 +68,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             title: post.title,
             description: description,
             images: post.cover ? [post.cover] : ['https://punn.site/icon-512.png'],
+            creator: '@punnhub',
+            site: '@punnhub',
         },
+        other: {
+            'theme-color': '#fb7185',
+        }
     }
 }
 
@@ -201,7 +208,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 <BlogPostContent content={content} title={post.title} />
 
                 {/* Enhanced Share Section */}
-                <ShareButtons title={post.title} />
+                <ShareButtons 
+                    title={post.title} 
+                    url={`https://punn.site/blog/${slug}`}
+                />
             </article>
 
             {/* Enhanced Related Articles */}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Share2, Check, Facebook, Twitter, Link as LinkIcon } from "lucide-react";
+import { Share2, Check, Facebook, Link as LinkIcon } from "lucide-react";
 import { SiLine, SiDiscord } from "react-icons/si";
 
 interface ShareButtonsProps {
@@ -13,8 +13,9 @@ interface ShareButtonsProps {
 export function ShareButtons({ title, url }: ShareButtonsProps) {
     const [copied, setCopied] = useState(false);
     const [discordCopied, setDiscordCopied] = useState(false);
+    
     const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
-    const discordUrl = shareUrl + '?v=1'; // เพิ่ม ?v=1 สำหรับ Discord
+    const discordUrl = shareUrl + '?v=1'; // Discord ต้องการ query param เพื่อ refresh embed
 
     const handleCopyLink = async () => {
         try {
@@ -42,7 +43,6 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
 
         const urls: Record<string, string> = {
             facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-            twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
             line: `https://social-plugins.line.me/lineit/share?url=${encodedUrl}`,
         };
 
@@ -65,30 +65,19 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleShare('facebook')}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-3 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
                 >
-                    <Facebook size={16} />
-                    <span className="hidden sm:inline">Facebook</span>
-                    <span className="sm:hidden">FB</span>
+                    <Facebook size={18} />
+                    Facebook
                 </motion.button>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleShare('line')}
-                    className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-3 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
                 >
-                    <SiLine size={16} />
+                    <SiLine size={18} />
                     LINE
-                </motion.button>
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleShare('twitter')}
-                    className="bg-sky-500 hover:bg-sky-600 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
-                >
-                    <Twitter size={16} />
-                    <span className="hidden sm:inline">Twitter</span>
-                    <span className="sm:hidden">X</span>
                 </motion.button>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -98,19 +87,17 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                         discordCopied 
                             ? 'bg-green-600 hover:bg-green-700' 
                             : 'bg-[#5865F2] hover:bg-[#4752C4]'
-                    } text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm`}
+                    } text-white px-4 sm:px-6 py-3 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm`}
                 >
                     {discordCopied ? (
                         <>
-                            <Check size={16} />
-                            <span className="hidden sm:inline">คัดลอกแล้ว!</span>
-                            <span className="sm:hidden">✓</span>
+                            <Check size={18} />
+                            คัดลอกแล้ว!
                         </>
                     ) : (
                         <>
-                            <SiDiscord size={16} />
-                            <span className="hidden sm:inline">Discord</span>
-                            <span className="sm:hidden">DC</span>
+                            <SiDiscord size={18} />
+                            Discord
                         </>
                     )}
                 </motion.button>
@@ -122,16 +109,16 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                         copied 
                             ? 'bg-green-600 hover:bg-green-700' 
                             : 'bg-gray-700 hover:bg-gray-800'
-                    } text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm col-span-2 sm:col-span-1`}
+                    } text-white px-4 sm:px-6 py-3 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm col-span-2 sm:col-span-1`}
                 >
                     {copied ? (
                         <>
-                            <Check size={16} />
+                            <Check size={18} />
                             คัดลอกแล้ว!
                         </>
                     ) : (
                         <>
-                            <LinkIcon size={16} />
+                            <LinkIcon size={18} />
                             คัดลอกลิงก์
                         </>
                     )}
