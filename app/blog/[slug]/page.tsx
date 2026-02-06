@@ -121,16 +121,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <article className="max-w-5xl mx-auto px-4 py-12">
                 {/* Hero Cover Image */}
                 {post.cover && (
-                    <div className="relative w-full h-72 md:h-96 lg:h-[500px] rounded-3xl overflow-hidden mb-12 shadow-2xl group">
+                    <div className="relative w-full h-72 md:h-96 lg:h-[500px] rounded-3xl overflow-hidden mb-12 shadow-2xl group bg-gradient-to-br from-gray-100 to-gray-200">
                         <Image 
                             src={post.cover} 
                             alt={post.title}
                             fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="object-contain transition-transform duration-700 group-hover:scale-105"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                             priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                         <div className="absolute bottom-6 left-6 right-6">
                             <div className="flex flex-wrap gap-2 mb-4">
                                 {post.tags.map((tag: string) => (
@@ -211,17 +211,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {otherPosts.slice(0, 3).map((p: any, index: number) => (
                                 <Card key={p.id} href={`/blog/${p.slug}`} className="h-full !border-gray-100 hover:border-rose-200 hover:shadow-xl transition-all duration-500 bg-white/90 backdrop-blur-md group transform hover:-translate-y-2">
-                                    <div className="h-40 -mt-6 -mx-6 mb-4 overflow-hidden rounded-t-2xl relative">
+                                    <div className="h-40 -mt-6 -mx-6 mb-4 overflow-hidden rounded-t-2xl relative bg-gradient-to-br from-rose-100 via-purple-100 to-blue-100">
                                         {p.cover ? (
                                             <Image 
                                                 src={p.cover} 
                                                 alt={p.title}
                                                 fill
-                                                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                                className="object-contain group-hover:scale-110 transition-transform duration-700"
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             />
                                         ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-rose-100 via-purple-100 to-blue-100 flex items-center justify-center text-rose-400">
+                                            <div className="w-full h-full flex items-center justify-center text-rose-400">
                                                 <BookOpen size={32} />
                                             </div>
                                         )}

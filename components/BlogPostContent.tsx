@@ -9,7 +9,6 @@ import {
     Plus
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import Image from "next/image";
 
 interface BlogPostContentProps {
     content: string;
@@ -102,13 +101,12 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                             img: ({ node, src, alt, ...props }) => {
                                 if (!src || typeof src !== 'string') return null;
                                 return (
-                                    <figure className="my-8 relative w-full aspect-video">
-                                        <Image 
+                                    <figure className="my-8 relative w-full">
+                                        <img 
                                             src={src}
                                             alt={alt || "รูปภาพประกอบ"}
-                                            fill
-                                            className="rounded-2xl shadow-2xl object-cover hover:shadow-3xl transition-shadow duration-500"
-                                            sizes="(max-width: 768px) 100vw, 800px"
+                                            className="rounded-2xl shadow-2xl w-full h-auto object-contain hover:shadow-3xl transition-shadow duration-500 mx-auto"
+                                            loading="lazy"
                                         />
                                     </figure>
                                 );
