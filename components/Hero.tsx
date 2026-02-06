@@ -81,13 +81,7 @@ export const Hero = () => {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="text-4xl sm:text-5xl lg:text-6xl font-black font-display mb-5 text-gray-800 leading-[1.1] tracking-tight"
                 >
-                    Knowledge{" "}
-                    <span className="bg-gradient-to-r from-rose-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                        Hub
-                    </span>
-                    <span className="block sm:inline text-gray-800">
-                        {" "}สำหรับนักพัฒนา
-                    </span>
+                    Knowledge <span className="bg-gradient-to-r from-rose-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">Hub</span> <span className="block sm:inline text-gray-800">สำหรับนักพัฒนา</span>
                 </motion.h1>
 
                 {/* Subtitle */}
