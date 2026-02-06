@@ -292,7 +292,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                                                 src={post.cover}
                                                                 alt={post.title}
                                                                 fill
-                                                                className="object-cover sm:object-contain group-hover:scale-105 transition-transform duration-700"
+                                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
                                                                 sizes="(max-width: 768px) 100vw, 896px"
                                                             />
                                                             {/* Gradient Fade Overlay */}
