@@ -2,6 +2,7 @@ import { getPublishedPosts } from "@/lib/notion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BlogList } from "@/components/BlogList";
+import { BackToTop } from "@/components/BackToTop";
 import { Metadata } from "next";
 
 export const revalidate = 3600; // ขณะ production ใช้ 1 ชั่วโมง
@@ -32,6 +33,7 @@ export default async function BlogPage() {
             <Navbar posts={posts} />
             <BlogList posts={posts} error={error} />
             <Footer />
+            <BackToTop />
         </div>
     );
 }

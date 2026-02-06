@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { BlogPostContent } from "@/components/BlogPostContent";
 import { ShareButtons } from "@/components/ShareButtons";
 import { TableOfContents } from "@/components/TableOfContents";
+import { BackToTop } from "@/components/BackToTop";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, BookOpen, Calendar, Tag, Clock, User, FileX } from "lucide-react";
@@ -280,6 +281,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </div>
 
             <Footer />
+            <BackToTop />
         </div>
     );
 }
