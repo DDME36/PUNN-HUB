@@ -107,13 +107,13 @@ export const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="flex flex-wrap gap-4 justify-center"
+                    className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
                 >
                     <a
                         href="/blog"
-                        className="group px-8 py-4 bg-gradient-to-br from-rose-400 to-purple-400 text-white rounded-2xl font-semibold shadow-[0_8px_30px_rgb(251,113,133,0.3)] hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)] transition-all hover:-translate-y-1"
+                        className="group px-8 py-4 bg-gradient-to-br from-rose-400 to-purple-400 text-white rounded-2xl font-semibold shadow-[0_8px_30px_rgb(251,113,133,0.3)] hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)] transition-all hover:-translate-y-1 text-center"
                     >
-                        <span className="flex items-center gap-2">
+                        <span className="flex items-center justify-center gap-2">
                             อ่านบทความ
                             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

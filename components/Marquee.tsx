@@ -21,7 +21,7 @@ export const Marquee = () => {
             {/* Top marquee */}
             <div className="relative flex whitespace-nowrap mb-3">
                 <motion.div
-                    className="flex whitespace-nowrap text-2xl sm:text-4xl md:text-5xl font-black font-display tracking-wide"
+                    className="flex whitespace-nowrap text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black font-display tracking-wide"
                     animate={{ x: [0, -1000] }}
                     transition={{
                         x: {
@@ -33,7 +33,7 @@ export const Marquee = () => {
                     }}
                 >
                     {[...Array(8)].map((_, i) => (
-                        <span key={i} className="mx-8 sm:mx-12 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent">
+                        <span key={i} className="mx-6 sm:mx-8 md:mx-12 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent">
                             โปรเจกต์ • ไอเดีย • ความรู้ • แชร์ประสบการณ์
                         </span>
                     ))}
