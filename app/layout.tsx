@@ -71,7 +71,7 @@ export default function RootLayout({
         style={{ scrollBehavior: 'smooth' }}
       >
         <ScrollProgressBar />
-        <Analytics />
+        {/* <Analytics /> */}
         <div className="bg-noise fixed inset-0 pointer-events-none -z-10 opacity-[0.04]" />
         <ErrorBoundary>
           {children}
