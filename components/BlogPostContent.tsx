@@ -122,7 +122,7 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                 style={{ fontSize: `${fontSize}px` }}
             >
                 {/* Content with Enhanced Styling */}
-                <div className="p-4 sm:p-8 md:p-12 overflow-x-hidden break-words">{" "}
+                <div className="p-4 sm:p-8 md:p-12 overflow-x-hidden break-words">
                     <ReactMarkdown
                         components={{
                             img: ({ node, src, alt, ...props }) => {
@@ -134,6 +134,10 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                                             alt={alt || "รูปภาพประกอบ"}
                                             className="rounded-2xl shadow-2xl w-full max-w-3xl h-auto object-contain hover:shadow-3xl transition-shadow duration-500"
                                             loading="lazy"
+                                            onError={(e) => {
+                                                const target = e.target as HTMLImageElement;
+                                                target.style.display = 'none';
+                                            }}
                                         />
                                     </figure>
                                 );
