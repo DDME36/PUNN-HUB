@@ -178,8 +178,10 @@ export const Navbar = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        {/* Search Button */}
-                        <SearchModal posts={posts} />
+                        {/* Search Button - Show only on blog pages */}
+                        {(pathname === "/blog" || pathname?.startsWith("/blog/")) && (
+                            <SearchModal posts={posts} />
+                        )}
                         
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -245,6 +247,7 @@ export const Navbar = () => {
                             {menuLinks.map((link, index) => {
                                 const isActive = pathname === link.href;
                                 const LinkComponent = link.internal ? Link : "a";
+                                const IconComponent = link.icon;
                                 const linkProps = link.internal
                                     ? { href: link.href }
                                     : { href: link.href, target: "_blank", rel: "noopener noreferrer" };
@@ -272,7 +275,7 @@ export const Navbar = () => {
                                                         : "bg-white text-gray-700 group-hover:bg-gray-100 shadow-sm border border-gray-100"
                                                 }`}
                                             >
-                                                <link.icon size={18} />
+                                                <IconComponent size={18} />
                                             </div>
                                             <span
                                                 className={`font-semibold text-sm flex-1 ${
