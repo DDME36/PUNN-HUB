@@ -16,13 +16,24 @@ interface BlogPostContentProps {
 }
 
 export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
-    const [fontSize, setFontSize] = useState(20);
+    const [fontSize, setFontSize] = useState(16); // ลดจาก 20 เป็น 16 สำหรับมือถือ
     const [copied, setCopied] = useState(false);
     const [isClient, setIsClient] = useState(false);
 
     // Initialize client-side only values
     useEffect(() => {
         setIsClient(true);
+        // ตั้งค่า font size ตามขนาดหน้าจอ
+        const updateFontSize = () => {
+            if (window.innerWidth >= 768) {
+                setFontSize(20); // คอม
+            } else {
+                setFontSize(16); // มือถือ
+            }
+        };
+        updateFontSize();
+        window.addEventListener('resize', updateFontSize);
+        return () => window.removeEventListener('resize', updateFontSize);
     }, [title]);
 
     const copyToClipboard = async () => {
@@ -91,11 +102,11 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="prose prose-lg mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 max-w-none overflow-hidden"
+                className="prose prose-lg mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 max-w-none overflow-hidden overflow-x-hidden"
                 style={{ fontSize: `${fontSize}px` }}
             >
                 {/* Content with Enhanced Styling */}
-                <div className="p-8 md:p-12">
+                <div className="p-4 sm:p-8 md:p-12 overflow-x-hidden break-words">{" "}
                     <ReactMarkdown
                         components={{
                             img: ({ node, src, alt, ...props }) => {
@@ -112,19 +123,19 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                                 );
                             },
                             h1: ({ node, children, ...props }) => (
-                                <h1 className="text-3xl font-bold font-display mt-16 mb-8 border-l-4 border-emerald-500 pl-6 bg-gradient-to-r from-emerald-50 to-transparent py-4 rounded-r-2xl relative">
+                                <h1 className="text-2xl sm:text-3xl font-bold font-display mt-16 mb-8 border-l-4 border-emerald-500 pl-4 sm:pl-6 bg-gradient-to-r from-emerald-50 to-transparent py-4 rounded-r-2xl relative break-words">
                                     <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-emerald-500 rounded-full"></div>
                                     {children}
                                 </h1>
                             ),
                             h2: ({ node, children, ...props }) => (
-                                <h2 className="text-2xl font-bold font-display mt-12 mb-6 text-gray-800 relative pl-6">
+                                <h2 className="text-xl sm:text-2xl font-bold font-display mt-12 mb-6 text-gray-800 relative pl-4 sm:pl-6 break-words">
                                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-blue-500 rounded-full"></div>
                                     {children}
                                 </h2>
                             ),
                             h3: ({ node, children, ...props }) => (
-                                <h3 className="text-xl font-bold font-display mt-10 mb-4 text-gray-800 relative pl-4">
+                                <h3 className="text-lg sm:text-xl font-bold font-display mt-10 mb-4 text-gray-800 relative pl-4 break-words">
                                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-purple-500 rounded-full"></div>
                                     {children}
                                 </h3>
@@ -141,7 +152,7 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                                 }
                                 
                                 return (
-                                    <p className="leading-relaxed mb-6 text-gray-700 text-center">
+                                    <p className="leading-relaxed mb-6 text-gray-700 text-center break-words overflow-wrap-anywhere">
                                         {children}
                                     </p>
                                 );
