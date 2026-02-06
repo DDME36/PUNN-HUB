@@ -127,6 +127,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             alt={post.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            style={{ objectPosition: 'center 40%' }}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                             priority
                         />
@@ -218,6 +219,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                                                 alt={p.title}
                                                 fill
                                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                                style={{ objectPosition: 'center 35%' }}
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             />
                                         ) : (
