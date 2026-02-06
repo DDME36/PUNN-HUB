@@ -36,22 +36,21 @@ export const Footer = () => {
         <footer className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-700 border-t border-gray-100">
             <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
                 {/* Main Footer Content */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-5 sm:mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     {/* Brand Section */}
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4 }}
-                        className="sm:col-span-2 lg:col-span-1"
                     >
-                        <h3 className="font-display font-black text-xl sm:text-2xl mb-2 sm:mb-3">
+                        <h3 className="font-display font-black text-2xl mb-3">
                             <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
                                 PUNN
                             </span>
                             <span className="text-gray-800"> HUB</span>
                         </h3>
-                        <p className="text-gray-600 text-sm mb-3 sm:mb-4 leading-relaxed">
+                        <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                             Knowledge Hub สำหรับนักพัฒนา
                             <br />
                             แชร์ความรู้ ไอเดีย และเทคนิค
@@ -63,7 +62,7 @@ export const Footer = () => {
                                 href="https://github.com/DDME36"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
+                                className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
                             >
                                 <Github size={16} className="text-gray-700" />
                             </a>
@@ -71,13 +70,13 @@ export const Footer = () => {
                                 href="https://line.me/ti/p/~example"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
+                                className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
                             >
                                 <MessageCircle size={16} className="text-gray-700" />
                             </a>
                             <a
                                 href="mailto:your-email@example.com"
-                                className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
+                                className="w-10 h-10 bg-white rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100"
                             >
                                 <Mail size={16} className="text-gray-700" />
                             </a>
@@ -91,11 +90,11 @@ export const Footer = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.1 }}
                     >
-                        <h4 className="font-bold text-sm mb-2 sm:mb-3 text-gray-800 flex items-center gap-2">
+                        <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2">
                             <Sparkles size={14} className="text-rose-400" />
                             ลิงก์ด่วน
                         </h4>
-                        <ul className="space-y-1.5 sm:space-y-2">
+                        <ul className="space-y-2">
                             {quickLinks.map((link) => (
                                 <li key={link.name}>
                                     <Link
@@ -117,11 +116,11 @@ export const Footer = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.2 }}
                     >
-                        <h4 className="font-bold text-sm mb-2 sm:mb-3 text-gray-800 flex items-center gap-2">
+                        <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2">
                             <Sparkles size={14} className="text-purple-400" />
                             โปรเจกต์
                         </h4>
-                        <ul className="space-y-1.5 sm:space-y-2">
+                        <ul className="space-y-2">
                             {projects.map((project) => (
                                 <li key={project.name}>
                                     <a
