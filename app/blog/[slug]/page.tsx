@@ -104,7 +104,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-            <Navbar />
+            <Navbar posts={allPosts} />
 
             {/* Enhanced Breadcrumb */}
             <div className="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30">

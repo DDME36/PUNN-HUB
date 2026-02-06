@@ -23,7 +23,6 @@ import {
     ChevronUp,
 } from "lucide-react";
 import { SearchModal } from "./SearchModal";
-import { getPublishedPosts } from "@/lib/notion";
 
 const menuLinks = [
     {
@@ -77,17 +76,15 @@ const menuLinks = [
     { name: "เว็บส่วนตัว", href: "https://satayupongpan.site/", icon: User },
 ];
 
-export const Navbar = () => {
+interface NavbarProps {
+    posts?: any[];
+}
+
+export const Navbar = ({ posts = [] }: NavbarProps) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
-    const [posts, setPosts] = useState<any[]>([]);
     const pathname = usePathname();
-
-    // Fetch posts for search
-    useEffect(() => {
-        getPublishedPosts().then(setPosts).catch(() => setPosts([]));
-    }, []);
 
     // Prevent body scroll when menu is open
     useEffect(() => {
@@ -96,7 +93,7 @@ export const Navbar = () => {
         } else {
             document.body.style.overflow = 'unset';
         }
-        
+
         return () => {
             document.body.style.overflow = 'unset';
         };
@@ -122,11 +119,10 @@ export const Navbar = () => {
             <motion.nav
                 initial={{ y: 0 }}
                 animate={{ y: 0 }}
-                className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-                    scrolled
+                className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
                         ? "bg-white/90 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] py-3"
                         : "bg-transparent py-4"
-                }`}
+                    }`}
             >
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <Link
@@ -143,11 +139,10 @@ export const Navbar = () => {
                     <div className="hidden md:flex items-center gap-8">
                         <Link
                             href="/"
-                            className={`text-sm font-medium transition-all relative group ${
-                                pathname === "/"
+                            className={`text-sm font-medium transition-all relative group ${pathname === "/"
                                     ? "text-rose-500"
                                     : "text-gray-600 hover:text-rose-500"
-                            }`}
+                                }`}
                         >
                             หน้าแรก
                             {pathname === "/" && (
@@ -160,11 +155,10 @@ export const Navbar = () => {
                         </Link>
                         <Link
                             href="/blog"
-                            className={`text-sm font-medium transition-all relative group ${
-                                pathname === "/blog" || pathname?.startsWith("/blog/")
+                            className={`text-sm font-medium transition-all relative group ${pathname === "/blog" || pathname?.startsWith("/blog/")
                                     ? "text-rose-500"
                                     : "text-gray-600 hover:text-rose-500"
-                            }`}
+                                }`}
                         >
                             บทความ
                             {(pathname === "/blog" || pathname?.startsWith("/blog/")) && (
@@ -182,7 +176,7 @@ export const Navbar = () => {
                         {(pathname === "/blog" || pathname?.startsWith("/blog/")) && (
                             <SearchModal posts={posts} />
                         )}
-                        
+
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -261,26 +255,23 @@ export const Navbar = () => {
                                     >
                                         <LinkComponent
                                             {...linkProps}
-                                            className={`flex items-center gap-3 p-4 rounded-xl transition-all group ${
-                                                isActive
+                                            className={`flex items-center gap-3 p-4 rounded-xl transition-all group ${isActive
                                                     ? "bg-gradient-to-r from-rose-50 to-purple-50 shadow-sm border border-rose-100"
                                                     : "hover:bg-gray-50"
-                                            }`}
+                                                }`}
                                             onClick={() => setMenuOpen(false)}
                                         >
                                             <div
-                                                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                                                    isActive
+                                                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isActive
                                                         ? "bg-gradient-to-br from-rose-400 to-purple-400 text-white shadow-md"
                                                         : "bg-white text-gray-700 group-hover:bg-gray-100 shadow-sm border border-gray-100"
-                                                }`}
+                                                    }`}
                                             >
                                                 <IconComponent size={18} />
                                             </div>
                                             <span
-                                                className={`font-semibold text-sm flex-1 ${
-                                                    isActive ? "text-rose-500" : "text-gray-700"
-                                                }`}
+                                                className={`font-semibold text-sm flex-1 ${isActive ? "text-rose-500" : "text-gray-700"
+                                                    }`}
                                             >
                                                 {link.name}
                                             </span>

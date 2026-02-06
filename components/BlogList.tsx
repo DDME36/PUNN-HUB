@@ -223,17 +223,19 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                                 whileHover={{ scale: 1.05, y: -2 }}
                                                 whileTap={{ scale: 0.95 }}
                                                 onClick={() => setSelectedTag(tag)}
-                                                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${selectedTag === tag
+                                                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
+                                                    selectedTag === tag
                                                         ? 'bg-gradient-to-r from-rose-400 to-purple-400 text-white shadow-[0_4px_20px_rgb(251,113,133,0.3)]'
                                                         : 'bg-white text-gray-600 hover:bg-gradient-to-r hover:from-rose-50 hover:to-purple-50 shadow-[0_2px_10px_rgb(0,0,0,0.04)] border border-gray-100'
-                                                    }`}
+                                                }`}
                                             >
                                                 {tag}
                                                 {tag !== 'All' && (
-                                                    <span className={`ml-2 text-xs ${selectedTag === tag
+                                                    <span className={`ml-2 text-xs ${
+                                                        selectedTag === tag
                                                             ? 'text-white/80'
                                                             : 'text-gray-400'
-                                                        }`}>
+                                                    }`}>
                                                         {posts.filter(post => post.tags.includes(tag)).length}
                                                     </span>
                                                 )}

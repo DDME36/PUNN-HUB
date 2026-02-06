@@ -29,7 +29,7 @@ export default async function BlogPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
+            <Navbar posts={posts} />
             <BlogList posts={posts} error={error} />
             <Footer />
         </div>
