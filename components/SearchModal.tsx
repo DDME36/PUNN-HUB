@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, Calendar, Tag } from "lucide-react";
 import Link from "next/link";
@@ -78,10 +78,7 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
                 className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-gray-200 text-gray-600 rounded-full text-sm hover:border-purple-200 hover:text-purple-600 transition-all"
             >
                 <Search size={16} />
-                <span className="hidden sm:inline">ค้นหา</span>
-                <kbd className="hidden md:inline-block px-2 py-0.5 text-xs bg-gray-100 border border-gray-200 rounded">
-                    ⌘K
-                </kbd>
+                <span>ค้นหา</span>
             </button>
 
             {/* Modal */}
