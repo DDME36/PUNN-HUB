@@ -52,29 +52,30 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
     };
 
     return (
-        <div className="mt-16 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 rounded-3xl p-8 text-center border border-rose-100/50">
-            <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full flex items-center justify-center shadow-lg">
-                    <Share2 size={20} className="text-white" />
+        <div className="mt-16 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 rounded-3xl p-6 sm:p-8 text-center border border-rose-100/50">
+            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full flex items-center justify-center shadow-lg">
+                    <Share2 size={18} className="text-white sm:w-5 sm:h-5" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800">แชร์บทความนี้</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-800">แชร์บทความนี้</h3>
             </div>
-            <p className="text-gray-600 mb-8 text-base">ช่วยแชร์ความรู้ให้เพื่อนๆ ได้อ่านกัน</p>
-            <div className="flex justify-center gap-3 flex-wrap">
+            <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">ช่วยแชร์ความรู้ให้เพื่อนๆ ได้อ่านกัน</p>
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 sm:gap-3">
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleShare('facebook')}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center gap-2 text-sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
                 >
                     <Facebook size={16} />
-                    Facebook
+                    <span className="hidden sm:inline">Facebook</span>
+                    <span className="sm:hidden">FB</span>
                 </motion.button>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleShare('line')}
-                    className="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center gap-2 text-sm"
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
                 >
                     <SiLine size={16} />
                     LINE
@@ -83,10 +84,11 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleShare('twitter')}
-                    className="bg-sky-500 hover:bg-sky-600 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center gap-2 text-sm"
+                    className="bg-sky-500 hover:bg-sky-600 text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm"
                 >
                     <Twitter size={16} />
-                    Twitter
+                    <span className="hidden sm:inline">Twitter</span>
+                    <span className="sm:hidden">X</span>
                 </motion.button>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -96,17 +98,19 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                         discordCopied 
                             ? 'bg-green-600 hover:bg-green-700' 
                             : 'bg-[#5865F2] hover:bg-[#4752C4]'
-                    } text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center gap-2 text-sm`}
+                    } text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm`}
                 >
                     {discordCopied ? (
                         <>
                             <Check size={16} />
-                            คัดลอกแล้ว!
+                            <span className="hidden sm:inline">คัดลอกแล้ว!</span>
+                            <span className="sm:hidden">✓</span>
                         </>
                     ) : (
                         <>
                             <SiDiscord size={16} />
-                            Discord
+                            <span className="hidden sm:inline">Discord</span>
+                            <span className="sm:hidden">DC</span>
                         </>
                     )}
                 </motion.button>
@@ -118,7 +122,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                         copied 
                             ? 'bg-green-600 hover:bg-green-700' 
                             : 'bg-gray-700 hover:bg-gray-800'
-                    } text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center gap-2 text-sm`}
+                    } text-white px-4 sm:px-5 py-2.5 rounded-xl font-medium transition-all shadow-md flex items-center justify-center gap-2 text-sm col-span-2 sm:col-span-1`}
                 >
                     {copied ? (
                         <>
@@ -128,7 +132,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
                     ) : (
                         <>
                             <LinkIcon size={16} />
-                            คัดลอก
+                            คัดลอกลิงก์
                         </>
                     )}
                 </motion.button>
