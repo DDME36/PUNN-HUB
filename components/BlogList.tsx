@@ -292,6 +292,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                                                     src={post.cover}
                                                                     alt={post.title}
                                                                     fill
+                                                                    priority
                                                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                                                                     style={{ objectPosition: 'center 35%' }}
                                                                     sizes="(max-width: 768px) 100vw, 896px"
