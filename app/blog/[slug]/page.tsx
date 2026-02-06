@@ -164,30 +164,30 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     </h1>
 
                     {/* Enhanced Meta Info */}
-                    <div className="flex items-center justify-center flex-wrap gap-6 text-gray-600 text-sm bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-gray-600 text-sm bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60">
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 bg-gradient-to-br from-rose-100 to-rose-200 rounded-full flex items-center justify-center">
                                 <User size={14} className="text-rose-600" />
                             </div>
                             <span className="font-medium">PUNN</span>
                         </div>
-                        <div className="w-px h-6 bg-gray-200"></div>
+                        <div className="hidden sm:block w-px h-6 bg-gray-200"></div>
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
                                 <Calendar size={14} className="text-blue-600" />
                             </div>
-                            <span>{new Date(post.date).toLocaleDateString("th-TH", { 
+                            <span className="text-center sm:text-left">{new Date(post.date).toLocaleDateString("th-TH", { 
                                 year: 'numeric', 
                                 month: 'long', 
                                 day: 'numeric' 
                             })}</span>
                         </div>
-                        <div className="w-px h-6 bg-gray-200"></div>
+                        <div className="hidden sm:block w-px h-6 bg-gray-200"></div>
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center">
                                 <Clock size={14} className="text-purple-600" />
                             </div>
-                            <span>{readingTime} นาที</span>
+                            <span>อ่าน {readingTime} นาที</span>
                         </div>
                     </div>
                 </header>
