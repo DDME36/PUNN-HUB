@@ -22,6 +22,8 @@ import {
     Music,
     ChevronUp,
 } from "lucide-react";
+import { SearchModal } from "./SearchModal";
+import { getPublishedPosts } from "@/lib/notion";
 
 const menuLinks = [
     {
@@ -79,7 +81,13 @@ export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
+    const [posts, setPosts] = useState<any[]>([]);
     const pathname = usePathname();
+
+    // Fetch posts for search
+    useEffect(() => {
+        getPublishedPosts().then(setPosts).catch(() => setPosts([]));
+    }, []);
 
     // Prevent body scroll when menu is open
     useEffect(() => {
@@ -170,6 +178,9 @@ export const Navbar = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
+                        {/* Search Button */}
+                        <SearchModal posts={posts} />
+                        
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}

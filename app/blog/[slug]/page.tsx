@@ -4,6 +4,7 @@ import { Card } from "@/components/Card";
 import { Footer } from "@/components/Footer";
 import { BlogPostContent } from "@/components/BlogPostContent";
 import { ShareButtons } from "@/components/ShareButtons";
+import { TableOfContents } from "@/components/TableOfContents";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, BookOpen, Calendar, Tag, Clock, User, FileX } from "lucide-react";
@@ -119,6 +120,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </div>
 
             <article className="max-w-5xl mx-auto px-4 py-12">
+                {/* Table of Contents */}
+                <TableOfContents content={content} />
+
                 {/* Hero Cover Image */}
                 {post.cover && (
                     <div className="relative w-full h-72 md:h-96 lg:h-[500px] rounded-3xl overflow-hidden mb-12 shadow-2xl group bg-gradient-to-br from-gray-100 to-gray-200">
