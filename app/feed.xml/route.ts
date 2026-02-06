@@ -1,12 +1,26 @@
 import { getPublishedPosts, getPostContent } from "@/lib/notion";
 
+// Helper function to escape XML special characters
+function escapeXml(unsafe: string): string {
+    return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+}
+
 export async function GET() {
     const posts = await getPublishedPosts().catch(() => []);
     
     const rssItems = await Promise.all(
         posts.slice(0, 20).map(async (post: any) => {
             const content = await getPostContent(post.id).catch(() => "");
-            const description = content.slice(0, 300).replace(/[#*`\n]/g, ' ').trim();
+            const description = content
+                .slice(0, 300)
+                .replace(/[#*`\n]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
             
             return `
     <item>
@@ -15,8 +29,8 @@ export async function GET() {
       <guid>https://punn.site/blog/${post.slug}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <description><![CDATA[${description}]]></description>
-      ${post.tags.map((tag: string) => `<category>${tag}</category>`).join('\n      ')}
-      ${post.cover ? `<enclosure url="${post.cover}" type="image/jpeg" />` : ''}
+      ${post.tags.map((tag: string) => `<category><![CDATA[${tag}]]></category>`).join('\n      ')}
+      ${post.cover ? `<enclosure url="${escapeXml(post.cover)}" type="image/jpeg" />` : ''}
     </item>`;
         })
     );
