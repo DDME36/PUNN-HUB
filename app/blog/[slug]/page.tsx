@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const post = await getPostBySlug(slug).catch(() => null);
-    
+
     if (!post) {
         return {
             title: "Article Not Found",
@@ -105,7 +105,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
             <Navbar />
-            
+
             {/* Enhanced Breadcrumb */}
             <div className="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30">
                 <div className="max-w-5xl mx-auto px-4 py-3">
@@ -126,8 +126,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 {/* Hero Cover Image */}
                 {post.cover && (
                     <div className="relative w-full h-72 md:h-96 lg:h-[500px] rounded-3xl overflow-hidden mb-12 shadow-2xl group bg-gradient-to-br from-gray-100 to-gray-200">
-                        <Image 
-                            src={post.cover} 
+                        <Image
+                            src={post.cover}
                             alt={post.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -181,10 +181,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
                                 <Calendar size={14} className="text-blue-600" />
                             </div>
-                            <span className="text-center sm:text-left">{new Date(post.date).toLocaleDateString("th-TH", { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric' 
+                            <span className="text-center sm:text-left" suppressHydrationWarning>{new Date(post.date).toLocaleDateString("th-TH", {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
                             })}</span>
                         </div>
                         <div className="hidden sm:block w-px h-6 bg-gray-200"></div>
@@ -218,8 +218,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                                 <Card key={p.id} href={`/blog/${p.slug}`} className="h-full !border-gray-100 hover:border-rose-200 hover:shadow-xl transition-all duration-500 bg-white/90 backdrop-blur-md group transform hover:-translate-y-2">
                                     <div className="h-40 -mt-6 -mx-6 mb-4 overflow-hidden rounded-t-2xl relative bg-gradient-to-br from-rose-100 via-purple-100 to-blue-100">
                                         {p.cover ? (
-                                            <Image 
-                                                src={p.cover} 
+                                            <Image
+                                                src={p.cover}
                                                 alt={p.title}
                                                 fill
                                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -242,7 +242,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                                     <h3 className="font-bold font-display text-lg mb-2 line-clamp-2 group-hover:text-rose-500 transition-colors">{p.title}</h3>
                                     <div className="flex items-center gap-2 text-xs text-gray-500 mt-auto">
                                         <Calendar size={12} />
-                                        <span>{new Date(p.date).toLocaleDateString("th-TH", {
+                                        <span suppressHydrationWarning>{new Date(p.date).toLocaleDateString("th-TH", {
                                             month: 'short',
                                             day: 'numeric'
                                         })}</span>

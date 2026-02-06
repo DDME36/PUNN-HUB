@@ -37,26 +37,26 @@ const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
         opacity: 1,
-        transition: { 
-            staggerChildren: 0.12, 
-            delayChildren: 0.1 
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.1
         }
     }
 };
 
 const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    show: { 
-        opacity: 1, 
-        y: 0, 
-        transition: { duration: 0.5 } 
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5 }
     }
 };
 
 const cardVariants: Variants = {
     hidden: { opacity: 0, y: 15 },
-    show: { 
-        opacity: 1, 
+    show: {
+        opacity: 1,
         y: 0,
         transition: { duration: 0.4 }
     }
@@ -69,8 +69,8 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
     const allTags = ['All', ...Array.from(new Set(posts.flatMap(post => post.tags)))];
 
     // Filter posts based on selected tag
-    const filteredPosts = selectedTag === 'All' 
-        ? posts 
+    const filteredPosts = selectedTag === 'All'
+        ? posts
         : posts.filter(post => post.tags.includes(selectedTag));
 
     return (
@@ -84,9 +84,9 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                          radial-gradient(circle at 75% 75%, rgba(196,181,253,0.15) 0%, transparent 50%)`
                     }}></div>
                 </div>
-                
+
                 {/* Centered Card Container */}
-                <motion.div 
+                <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
@@ -105,15 +105,15 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                     <span className="text-gray-600">Knowledge</span>
                                     <span className="text-rose-400">Hub</span>
                                 </motion.div>
-                                
-                                <motion.h1 
+
+                                <motion.h1
                                     variants={itemVariants}
                                     className="text-4xl sm:text-5xl font-black font-display text-gray-800 mb-3 tracking-tight"
                                 >
                                     บทความ
                                 </motion.h1>
-                                
-                                <motion.p 
+
+                                <motion.p
                                     variants={itemVariants}
                                     className="text-gray-500 text-base font-light"
                                 >
@@ -131,7 +131,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                     <div className="text-3xl font-black text-rose-500 mb-1">{posts.length}</div>
                                     <div className="text-xs text-gray-600 font-medium">บทความ</div>
                                 </div>
-                                
+
                                 {/* Stat Card 2 */}
                                 <div className="text-center bg-gradient-to-br from-purple-50 to-purple-100/50 px-6 py-4 rounded-2xl shadow-[0_4px_20px_rgb(192,132,252,0.1)] border border-purple-100/50">
                                     <div className="text-3xl font-black text-purple-500 mb-1">{allTags.length - 1}</div>
@@ -145,7 +145,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
 
             <div className="max-w-5xl mx-auto px-6 py-12">
                 {error ? (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-2xl mx-auto"
@@ -160,7 +160,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                         </div>
                     </motion.div>
                 ) : posts.length === 0 ? (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center py-20"
@@ -177,7 +177,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 ) : (
                     <>
                         {/* Filter Section - Floating Card */}
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
@@ -194,7 +194,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                             )}
                                         </h2>
                                     </div>
-                                    
+
                                     {/* Clear Filter Button */}
                                     {selectedTag !== 'All' && (
                                         <motion.button
@@ -223,19 +223,17 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                                 whileHover={{ scale: 1.05, y: -2 }}
                                                 whileTap={{ scale: 0.95 }}
                                                 onClick={() => setSelectedTag(tag)}
-                                                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
-                                                    selectedTag === tag
+                                                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap ${selectedTag === tag
                                                         ? 'bg-gradient-to-r from-rose-400 to-purple-400 text-white shadow-[0_4px_20px_rgb(251,113,133,0.3)]'
                                                         : 'bg-white text-gray-600 hover:bg-gradient-to-r hover:from-rose-50 hover:to-purple-50 shadow-[0_2px_10px_rgb(0,0,0,0.04)] border border-gray-100'
-                                                }`}
+                                                    }`}
                                             >
                                                 {tag}
                                                 {tag !== 'All' && (
-                                                    <span className={`ml-2 text-xs ${
-                                                        selectedTag === tag 
-                                                            ? 'text-white/80' 
+                                                    <span className={`ml-2 text-xs ${selectedTag === tag
+                                                            ? 'text-white/80'
                                                             : 'text-gray-400'
-                                                    }`}>
+                                                        }`}>
                                                         {posts.filter(post => post.tags.includes(tag)).length}
                                                     </span>
                                                 )}
@@ -248,13 +246,13 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
 
                         {/* Articles List - Single Column Vertical */}
                         <LayoutGroup>
-                            <motion.div 
+                            <motion.div
                                 layout
                                 variants={{
                                     hidden: { opacity: 0 },
-                                    show: { 
-                                        opacity: 1, 
-                                        transition: { staggerChildren: 0.08 } 
+                                    show: {
+                                        opacity: 1,
+                                        transition: { staggerChildren: 0.08 }
                                     }
                                 }}
                                 initial="hidden"
@@ -268,93 +266,93 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                             layout
                                             variants={cardVariants}
                                             exit={{ opacity: 0, scale: 0.95 }}
-                                            transition={{ 
+                                            transition={{
                                                 layout: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
                                             }}
                                         >
                                             <Link href={`/blog/${post.slug}`}>
                                                 <motion.div
-                                                    whileHover={{ 
+                                                    whileHover={{
                                                         y: -4,
-                                                        transition: { 
-                                                            type: "spring", 
-                                                            stiffness: 400, 
-                                                            damping: 25 
+                                                        transition: {
+                                                            type: "spring",
+                                                            stiffness: 400,
+                                                            damping: 25
                                                         }
                                                     }}
                                                     className="bg-white/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] border border-white/60 transition-all duration-300 cursor-pointer group"
                                                 >
-                                                {/* Cover Image with Gradient Fade */}
-                                                <div className="relative w-full h-64 overflow-hidden bg-gradient-to-br from-rose-100/80 via-purple-100/80 to-blue-100/80">
-                                                    {post.cover ? (
-                                                        <>
-                                                            <Image
-                                                                src={post.cover}
-                                                                alt={post.title}
-                                                                fill
-                                                                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                                                style={{ objectPosition: 'center 35%' }}
-                                                                sizes="(max-width: 768px) 100vw, 896px"
-                                                            />
-                                                            {/* Gradient Fade Overlay */}
-                                                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90"></div>
-                                                        </>
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center">
-                                                            <BookOpen size={64} className="text-rose-300" />
-                                                        </div>
-                                                    )}
-                                                    
-                                                    {/* Arrow Icon - Top Right */}
-                                                    <div className="absolute top-4 right-4">
-                                                        <motion.div
-                                                            className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 group-hover:bg-gradient-to-br group-hover:from-rose-400 group-hover:to-purple-400 group-hover:text-white transition-all shadow-lg"
-                                                            whileHover={{ scale: 1.1, rotate: 45 }}
-                                                        >
-                                                            <ArrowUpRight size={18} />
-                                                        </motion.div>
-                                                    </div>
-                                                </div>
-
-                                                {/* Content */}
-                                                <div className="p-6">
-                                                    {/* Date */}
-                                                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-3 font-medium">
-                                                        <Calendar size={12} />
-                                                        <span>
-                                                            {new Date(post.date).toLocaleDateString("th-TH", {
-                                                                year: 'numeric',
-                                                                month: 'short',
-                                                                day: 'numeric'
-                                                            })}
-                                                        </span>
-                                                    </div>
-
-                                                    {/* Title */}
-                                                    <h2 className="text-xl font-bold font-display mb-3 line-clamp-2 group-hover:text-rose-400 transition-colors text-gray-800 leading-snug">
-                                                        {post.title}
-                                                    </h2>
-
-                                                    {/* Tags */}
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {post.tags.slice(0, 5).map((tag: string) => (
-                                                            <span 
-                                                                key={tag} 
-                                                                className="bg-gray-50 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-100 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 transition-colors"
-                                                            >
-                                                                {tag}
-                                                            </span>
-                                                        ))}
-                                                        {post.tags.length > 5 && (
-                                                            <span className="bg-gray-50 text-gray-400 px-3 py-1.5 rounded-lg text-xs border border-gray-100">
-                                                                +{post.tags.length - 5}
-                                                            </span>
+                                                    {/* Cover Image with Gradient Fade */}
+                                                    <div className="relative w-full h-64 overflow-hidden bg-gradient-to-br from-rose-100/80 via-purple-100/80 to-blue-100/80">
+                                                        {post.cover ? (
+                                                            <>
+                                                                <Image
+                                                                    src={post.cover}
+                                                                    alt={post.title}
+                                                                    fill
+                                                                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                                                    style={{ objectPosition: 'center 35%' }}
+                                                                    sizes="(max-width: 768px) 100vw, 896px"
+                                                                />
+                                                                {/* Gradient Fade Overlay */}
+                                                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90"></div>
+                                                            </>
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center">
+                                                                <BookOpen size={64} className="text-rose-300" />
+                                                            </div>
                                                         )}
+
+                                                        {/* Arrow Icon - Top Right */}
+                                                        <div className="absolute top-4 right-4">
+                                                            <motion.div
+                                                                className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 group-hover:bg-gradient-to-br group-hover:from-rose-400 group-hover:to-purple-400 group-hover:text-white transition-all shadow-lg"
+                                                                whileHover={{ scale: 1.1, rotate: 45 }}
+                                                            >
+                                                                <ArrowUpRight size={18} />
+                                                            </motion.div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </motion.div>
-                                        </Link>
-                                    </motion.div>
+
+                                                    {/* Content */}
+                                                    <div className="p-6">
+                                                        {/* Date */}
+                                                        <div className="flex items-center gap-2 text-xs text-gray-400 mb-3 font-medium">
+                                                            <Calendar size={12} />
+                                                            <span suppressHydrationWarning>
+                                                                {new Date(post.date).toLocaleDateString("th-TH", {
+                                                                    year: 'numeric',
+                                                                    month: 'short',
+                                                                    day: 'numeric'
+                                                                })}
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Title */}
+                                                        <h2 className="text-xl font-bold font-display mb-3 line-clamp-2 group-hover:text-rose-400 transition-colors text-gray-800 leading-snug">
+                                                            {post.title}
+                                                        </h2>
+
+                                                        {/* Tags */}
+                                                        <div className="flex flex-wrap gap-2">
+                                                            {post.tags.slice(0, 5).map((tag: string) => (
+                                                                <span
+                                                                    key={tag}
+                                                                    className="bg-gray-50 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-100 hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                                                                >
+                                                                    {tag}
+                                                                </span>
+                                                            ))}
+                                                            {post.tags.length > 5 && (
+                                                                <span className="bg-gray-50 text-gray-400 px-3 py-1.5 rounded-lg text-xs border border-gray-100">
+                                                                    +{post.tags.length - 5}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            </Link>
+                                        </motion.div>
                                     ))}
                                 </AnimatePresence>
                             </motion.div>
