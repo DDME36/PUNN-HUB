@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, Calendar, Tag } from "lucide-react";
 import Link from "next/link";
@@ -24,12 +24,12 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<Post[]>([]);
 
-    // Fuse.js configuration
-    const fuse = new Fuse(posts, {
+    // Fuse.js configuration - memoized to prevent recreation
+    const fuse = useMemo(() => new Fuse(posts, {
         keys: ["title", "tags"],
         threshold: 0.3,
         includeScore: true,
-    });
+    }), [posts]);
 
     // Keyboard shortcut (Ctrl/Cmd + K)
     useEffect(() => {
