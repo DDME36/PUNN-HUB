@@ -233,8 +233,8 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                                     </code>
                                 );
                             },
-                            pre: ({ node, children, ...props }) => (
-                                <div {...props}>{children}</div>
+                            pre: ({ node, children, ...props }: any) => (
+                                <div>{children}</div>
                             ),
                             a: ({ node, ...props }) => (
                                 <a 
