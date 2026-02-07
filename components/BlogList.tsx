@@ -296,9 +296,17 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                                                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                                                                     style={{ objectPosition: 'center 35%' }}
                                                                     sizes="(max-width: 768px) 100vw, 896px"
+                                                                    onError={(e) => {
+                                                                        const target = e.target as HTMLImageElement;
+                                                                        target.style.display = 'none';
+                                                                    }}
                                                                 />
                                                                 {/* Gradient Fade Overlay */}
                                                                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90"></div>
+                                                                {/* Fallback Icon */}
+                                                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                                    <BookOpen size={64} className="text-rose-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                                </div>
                                                             </>
                                                         ) : (
                                                             <div className="w-full h-full flex items-center justify-center">

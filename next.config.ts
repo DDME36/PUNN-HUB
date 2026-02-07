@@ -27,7 +27,6 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'melonloader.co',
       },
-      // เพิ่ม hostname อื่นๆ ที่ต้องการใช้รูปภาพ
       {
         protocol: 'https',
         hostname: '*.imgur.com',
@@ -37,6 +36,13 @@ const nextConfig: NextConfig = {
         hostname: 'i.imgur.com',
       },
     ],
+    // เพิ่ม unoptimized สำหรับ external images ที่มีปัญหา
+    unoptimized: false,
+    // เพิ่ม timeout และ retry
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 

@@ -158,6 +158,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             style={{ objectPosition: 'center 40%' }}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                             priority
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                            }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
                         <div className="absolute bottom-6 left-6 right-6">
