@@ -45,6 +45,7 @@ export const Footer = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4 }}
+                        className="text-center md:text-left"
                     >
                         <h3 className="font-display font-black text-2xl mb-3">
                             <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
@@ -59,7 +60,7 @@ export const Footer = () => {
                         </p>
 
                         {/* Social Links */}
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 justify-center md:justify-start">
                             <a
                                 href="https://github.com/DDME36"
                                 target="_blank"
@@ -103,12 +104,13 @@ export const Footer = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.1 }}
+                        className="text-center md:text-left"
                     >
-                        <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2">
+                        <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2 justify-center md:justify-start">
                             <Sparkles size={14} className="text-rose-400" />
                             ลิงก์ด่วน
                         </h4>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 flex flex-col items-center md:items-start">
                             {quickLinks.map((link) => (
                                 <li key={link.name}>
                                     <Link
@@ -129,12 +131,13 @@ export const Footer = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.2 }}
+                        className="text-center md:text-left"
                     >
-                        <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2">
+                        <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2 justify-center md:justify-start">
                             <Sparkles size={14} className="text-purple-400" />
                             โปรเจกต์
                         </h4>
-                        <ul className="space-y-2">
+                        <ul className="space-y-2 flex flex-col items-center md:items-start">
                             {projects.map((project) => (
                                 <li key={project.name}>
                                     <a
