@@ -134,10 +134,6 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
                                             alt={alt || "รูปภาพประกอบ"}
                                             className="rounded-2xl shadow-2xl w-full max-w-3xl h-auto object-contain hover:shadow-3xl transition-shadow duration-500"
                                             loading="lazy"
-                                            onError={(e) => {
-                                                const target = e.target as HTMLImageElement;
-                                                target.style.display = 'none';
-                                            }}
                                         />
                                     </figure>
                                 );
