@@ -86,10 +86,10 @@ export const Hero = () => {
                     <span className="block mb-2">
                         <TypewriterText 
                             texts={["Knowledge Hub", "แหล่งความรู้", "Tech Blog", "Developer Hub"]}
-                            typingSpeed={200}
-                            deletingSpeed={120}
-                            delayBetween={4500}
-                            className="inline-block min-w-[280px] sm:min-w-[400px] text-left"
+                            typingSpeed={150}
+                            deletingSpeed={100}
+                            delayBetween={3000}
+                            className="inline-block"
                         />
                     </span>
                     <GradientText className="block">

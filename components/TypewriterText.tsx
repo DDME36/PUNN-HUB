@@ -32,8 +32,8 @@ export const TypewriterText = ({
         if (currentText.length < text.length) {
           setCurrentText(text.slice(0, currentText.length + 1));
         } else {
-          // Finished typing, wait then start deleting
-          setTimeout(() => setIsDeleting(true), delayBetween);
+          // Finished typing completely, wait then start deleting
+          return; // Don't set timeout, wait for delayBetween
         }
       } else {
         // Deleting
@@ -46,6 +46,14 @@ export const TypewriterText = ({
         }
       }
     }, isDeleting ? deletingSpeed : typingSpeed);
+
+    // When finished typing, wait delayBetween before deleting
+    if (!isDeleting && currentText.length === text.length) {
+      const delayTimeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, delayBetween);
+      return () => clearTimeout(delayTimeout);
+    }
 
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentTextIndex, texts, typingSpeed, deletingSpeed, delayBetween]);
