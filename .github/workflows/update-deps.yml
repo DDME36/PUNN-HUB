@@ -1,0 +1,58 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    # รันทุกวันจันทร์ เวลา 9:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # สามารถรันด้วยตัวเองได้
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Check for updates
+        run: |
+          bun outdated
+          echo "📦 Checking for dependency updates..."
+
+      - name: Update dependencies
+        run: |
+          bun update
+          echo "✅ Dependencies updated!"
+
+      - name: Run tests
+        run: |
+          bun install
+          bun test
+          bun run typecheck
+          bun run lint
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update dependencies'
+          title: '🔄 Weekly Dependency Updates'
+          body: |
+            ## 📦 Dependency Updates
+            
+            This PR updates dependencies to their latest versions.
+            
+            ### Changes
+            - Updated all dependencies to latest compatible versions
+            - All tests passing ✅
+            - Type checking passed ✅
+            - Linting passed ✅
+            
+            Please review and merge if everything looks good!
+          branch: deps/weekly-update
+          labels: dependencies, automated

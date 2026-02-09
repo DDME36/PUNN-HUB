@@ -1,0 +1,20 @@
+[install]
+# ติดตั้ง dependencies แบบ frozen lockfile (เหมือน npm ci)
+frozen = false
+# ใช้ cache เพื่อความเร็ว
+cache = true
+# ติดตั้ง optional dependencies
+optional = true
+
+[install.scopes]
+# ถ้ามี private registry ให้เพิ่มที่นี่
+
+[run]
+# ใช้ system shell
+shell = "system"
+# แสดง output แบบ pretty
+pretty = true
+
+[test]
+# ถ้าใช้ bun test ในอนาคต
+coverage = true
