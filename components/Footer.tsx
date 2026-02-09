@@ -38,14 +38,14 @@ export const Footer = () => {
         <footer className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-700 border-t border-gray-100">
             <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
                 {/* Main Footer Content */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 md:justify-items-start">
                     {/* Brand Section */}
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4 }}
-                        className="text-center md:text-left"
+                        className="text-center md:text-left flex flex-col items-center md:items-start"
                     >
                         <h3 className="font-display font-black text-2xl mb-3">
                             <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
@@ -104,7 +104,7 @@ export const Footer = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.1 }}
-                        className="text-center md:text-left"
+                        className="text-center md:text-left flex flex-col items-center md:items-start"
                     >
                         <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2 justify-center md:justify-start">
                             <Sparkles size={14} className="text-rose-400" />
@@ -131,7 +131,7 @@ export const Footer = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.2 }}
-                        className="text-center md:text-left"
+                        className="text-center md:text-left flex flex-col items-center md:items-start"
                     >
                         <h4 className="font-bold text-sm mb-3 text-gray-800 flex items-center gap-2 justify-center md:justify-start">
                             <Sparkles size={14} className="text-purple-400" />
