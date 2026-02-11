@@ -179,7 +179,7 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
                 {/* Footer */}
                 <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-6 py-3 text-xs text-gray-500">
                   <span>พบ {results.length} บทความ</span>
-                  <div className="flex items-center gap-3">
+                  <div className="hidden items-center gap-3 sm:flex">
                     <span className="flex items-center gap-1">
                       <kbd className="rounded border border-gray-200 bg-white px-2 py-0.5">ESC</kbd>
                       ปิด
