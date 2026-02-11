@@ -219,8 +219,8 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 </div>
 
                 {/* Scrollable Filter Pills */}
-                <div className="scrollbar-hide -mx-2 overflow-x-auto px-2 pb-4">
-                  <div className="flex min-w-max gap-2 py-1">
+                <div className="scrollbar-hide -mx-2 overflow-x-auto px-2 pb-4 pt-2">
+                  <div className="flex min-w-max gap-2 py-2">
                     {allTags.map((tag, index) => (
                       <motion.button
                         key={tag}
