@@ -136,8 +136,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   // Calculate reading time (more accurate)
   const wordsPerMinute = 200;
-  const wordCount = content.split(/\s+/).length;
-  const readingTime = Math.ceil(wordCount / wordsPerMinute);
+  const wordCount = content ? content.split(/\s+/).length : 0;
+  const readingTime = Math.max(Math.ceil(wordCount / wordsPerMinute), 1); // Minimum 1 minute
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
