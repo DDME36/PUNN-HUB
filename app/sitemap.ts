@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getPublishedPosts } from '@/lib/notion'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://punnhub.vercel.app'
+  const baseUrl = 'https://punn.site'
   
   // Get all blog posts
   const posts = await getPublishedPosts().catch(() => [])
