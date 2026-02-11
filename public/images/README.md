@@ -27,11 +27,11 @@
 ```tsx
 // Card with background image
 <Card
-    href="https://example.com"
-    bgImage="/images/my-background.jpg"
-    className="!text-white !border-none"
+  href="https://example.com"
+  bgImage="/images/my-background.jpg"
+  className="!border-none !text-white"
 >
-    <h3>Card Title</h3>
-    <p>Card description</p>
+  <h3>Card Title</h3>
+  <p>Card description</p>
 </Card>
 ```

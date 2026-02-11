@@ -38,11 +38,13 @@
 ### ติดตั้ง Bun
 
 **Windows:**
+
 ```powershell
 powershell -c "irm bun.sh/install.ps1|iex"
 ```
 
 **macOS/Linux:**
+
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
@@ -121,15 +123,18 @@ NOTION_DATABASE_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ## 🎨 Design System
 
 ### Colors
+
 - **Primary:** Rose (400) to Purple (400)
 - **Secondary:** Blue, Gray
 - **Accent:** Gradient combinations
 
 ### Typography
+
 - **Display:** Clash Display
 - **Body:** Inter, Kanit
 
 ### Components
+
 - Glassmorphism cards
 - Soft shadows
 - Rounded corners (2xl, 3xl)
@@ -161,6 +166,7 @@ NOTION_DATABASE_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 3. Deploy! 🚀
 
 Vercel จะใช้:
+
 - Install: `bun install` (เร็วกว่า npm)
 - Build: `bun run build`
 - Region: Singapore (sin1) - ใกล้ไทยที่สุด
@@ -206,6 +212,7 @@ MIT License - ใช้งานได้อย่างอิสระ
 ## 👨‍💻 Author
 
 **Satayu Pongpan**
+
 - Website: [satayupongpan.site](https://satayupongpan.site/)
 - GitHub: [@DDME36](https://github.com/DDME36)
 

@@ -18,16 +18,16 @@ async function generateIcons() {
 
   for (const { name, size } of sizes) {
     const outputPath = path.join(outputDir, name);
-    
+
     try {
       await sharp(inputFile)
         .resize(size, size, {
           fit: 'contain',
-          background: { r: 0, g: 0, b: 0, alpha: 0 } // transparent background
+          background: { r: 0, g: 0, b: 0, alpha: 0 }, // transparent background
         })
         .png()
         .toFile(outputPath);
-      
+
       console.log(`✅ Generated: ${name} (${size}x${size})`);
     } catch (error) {
       console.error(`❌ Error generating ${name}:`, error.message);

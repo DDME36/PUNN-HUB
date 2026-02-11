@@ -1,18 +1,14 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // Performance optimizations
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  
+
   // Experimental features
   experimental: {
-    optimizePackageImports: [
-      'lucide-react',
-      'react-icons',
-      'framer-motion',
-    ],
+    optimizePackageImports: ['lucide-react', 'react-icons', 'framer-motion'],
   },
 
   // Turbopack config (empty to silence warning)

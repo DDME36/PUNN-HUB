@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export const LoadingSpinner = () => {
-    return (
-        <div className="flex items-center justify-center p-8">
-            <motion.div
-                className="w-8 h-8 border-2 border-emerald-200 border-t-emerald-600 rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: "linear"
-                }}
-            />
-        </div>
-    );
+  return (
+    <div className="flex items-center justify-center p-8">
+      <motion.div
+        className="h-8 w-8 rounded-full border-2 border-emerald-200 border-t-emerald-600"
+        animate={{ rotate: 360 }}
+        transition={{
+          duration: 1,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+      />
+    </div>
+  );
 };
 
 export const SkeletonCard = () => {
-    return (
-        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-gray-100/50 animate-pulse">
-            <div className="flex items-center gap-2 mb-4">
-                <div className="w-6 h-6 bg-gray-200 rounded"></div>
-                <div className="w-16 h-4 bg-gray-200 rounded"></div>
-            </div>
-            <div className="space-y-2">
-                <div className="w-3/4 h-6 bg-gray-200 rounded"></div>
-                <div className="w-1/2 h-4 bg-gray-200 rounded"></div>
-            </div>
-        </div>
-    );
+  return (
+    <div className="animate-pulse rounded-2xl border border-gray-100/50 bg-white p-4 shadow-lg sm:rounded-3xl sm:p-6">
+      <div className="mb-4 flex items-center gap-2">
+        <div className="h-6 w-6 rounded bg-gray-200"></div>
+        <div className="h-4 w-16 rounded bg-gray-200"></div>
+      </div>
+      <div className="space-y-2">
+        <div className="h-6 w-3/4 rounded bg-gray-200"></div>
+        <div className="h-4 w-1/2 rounded bg-gray-200"></div>
+      </div>
+    </div>
+  );
 };

@@ -6,14 +6,7 @@
 
 console.log('🧹 Cleaning project...\n');
 
-const filesToClean = [
-  '.next',
-  'node_modules',
-  'bun.lockb',
-  '.turbo',
-  'out',
-  '.vercel',
-];
+const filesToClean = ['.next', 'node_modules', 'bun.lockb', '.turbo', 'out', '.vercel'];
 
 async function clean() {
   for (const file of filesToClean) {

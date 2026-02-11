@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface TypewriterTextProps {
   texts: string[];
@@ -16,36 +16,39 @@ export const TypewriterText = ({
   typingSpeed = 100,
   deletingSpeed = 50,
   delayBetween = 2000,
-  className = "",
+  className = '',
 }: TypewriterTextProps) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
+  const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     const text = texts[currentTextIndex];
 
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        // Typing
-        if (currentText.length < text.length) {
-          setCurrentText(text.slice(0, currentText.length + 1));
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          // Typing
+          if (currentText.length < text.length) {
+            setCurrentText(text.slice(0, currentText.length + 1));
+          } else {
+            // Finished typing completely, wait then start deleting
+            return; // Don't set timeout, wait for delayBetween
+          }
         } else {
-          // Finished typing completely, wait then start deleting
-          return; // Don't set timeout, wait for delayBetween
+          // Deleting
+          if (currentText.length > 0) {
+            setCurrentText(text.slice(0, currentText.length - 1));
+          } else {
+            // Finished deleting, move to next text
+            setIsDeleting(false);
+            setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+          }
         }
-      } else {
-        // Deleting
-        if (currentText.length > 0) {
-          setCurrentText(text.slice(0, currentText.length - 1));
-        } else {
-          // Finished deleting, move to next text
-          setIsDeleting(false);
-          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
-        }
-      }
-    }, isDeleting ? deletingSpeed : typingSpeed);
+      },
+      isDeleting ? deletingSpeed : typingSpeed
+    );
 
     // When finished typing, wait delayBetween before deleting
     if (!isDeleting && currentText.length === text.length) {
@@ -72,7 +75,7 @@ export const TypewriterText = ({
       {currentText}
       <motion.span
         animate={{ opacity: showCursor ? 1 : 0 }}
-        className="inline-block w-0.5 h-[1em] bg-current ml-1 align-middle"
+        className="ml-1 inline-block h-[1em] w-0.5 bg-current align-middle"
       />
     </span>
   );

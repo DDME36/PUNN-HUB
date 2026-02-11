@@ -9,7 +9,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,15 +44,15 @@ jobs:
           title: '🔄 Weekly Dependency Updates'
           body: |
             ## 📦 Dependency Updates
-            
+
             This PR updates dependencies to their latest versions.
-            
+
             ### Changes
             - Updated all dependencies to latest compatible versions
             - All tests passing ✅
             - Type checking passed ✅
             - Linting passed ✅
-            
+
             Please review and merge if everything looks good!
           branch: deps/weekly-update
           labels: dependencies, automated

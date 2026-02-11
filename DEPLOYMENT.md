@@ -3,6 +3,7 @@
 ## 📋 Pre-Deployment Checklist
 
 ### ✅ ที่ทำเสร็จแล้ว
+
 - [x] เปลี่ยน revalidate เป็น 3600 วินาที (1 ชั่วโมง)
 - [x] เพิ่ม manifest.ts สำหรับ PWA
 - [x] สร้าง favicon และ icons
@@ -12,6 +13,7 @@
 - [x] เพิ่ม Analytics placeholder
 
 ### 📝 ที่ต้องทำก่อน Deploy
+
 - [ ] สร้าง icon-192.png และ icon-512.png ใส่ใน /public
 - [ ] ตรวจสอบ .env.local มี NOTION_API_KEY และ NOTION_DATABASE_ID
 - [ ] ทดสอบ build ด้วย `npm run build`
@@ -90,6 +92,7 @@ vercel domains add punn.site
 ### DNS Settings ที่ต้องเพิ่ม:
 
 **A Record:**
+
 ```
 Type: A
 Name: @
@@ -97,6 +100,7 @@ Value: 76.76.21.21 (Vercel IP)
 ```
 
 **CNAME Record:**
+
 ```
 Type: CNAME
 Name: www
@@ -104,6 +108,7 @@ Value: cname.vercel-dns.com
 ```
 
 **หรือใช้ Nameservers ของ Vercel:**
+
 ```
 ns1.vercel-dns.com
 ns2.vercel-dns.com
@@ -114,6 +119,7 @@ ns2.vercel-dns.com
 ## 📊 Post-Deployment
 
 ### 1. ตรวจสอบเว็บไซต์
+
 - [ ] เปิด https://punn.site ดูว่าทำงานปกติ
 - [ ] ทดสอบหน้าบทความ
 - [ ] ทดสอบ responsive design
@@ -122,11 +128,13 @@ ns2.vercel-dns.com
 ### 2. เพิ่ม Analytics (Optional)
 
 **Vercel Analytics:**
+
 ```bash
 npm install @vercel/analytics
 ```
 
 แก้ไข `app/layout.tsx`:
+
 ```tsx
 import { Analytics } from '@vercel/analytics/react';
 
@@ -143,6 +151,7 @@ export default function RootLayout({ children }) {
 ```
 
 **Google Analytics:**
+
 1. สร้าง GA4 property
 2. เพิ่ม Measurement ID ใน `components/Analytics.tsx`
 
@@ -158,6 +167,7 @@ Submit sitemap: `https://punn.site/sitemap.xml`
 ## 🐛 Troubleshooting
 
 ### Build Error
+
 ```bash
 # ลอง build ใน local ก่อน
 npm run build
@@ -165,10 +175,12 @@ npm start
 ```
 
 ### Environment Variables ไม่ทำงาน
+
 - ตรวจสอบว่าเพิ่มใน Vercel Dashboard แล้ว
 - Redeploy หลังเพิ่ม env vars
 
 ### Domain ไม่ทำงาน
+
 - รอ DNS propagation (24-48 ชั่วโมง)
 - ตรวจสอบ DNS ด้วย: https://dnschecker.org/
 

@@ -30,7 +30,6 @@ async function preCommit() {
 
     console.log('✨ All checks passed! Ready to commit.\n');
     process.exit(0);
-
   } catch (error) {
     console.error('\n❌ Pre-commit checks failed!');
     console.error('Please fix the errors above before committing.\n');

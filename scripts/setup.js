@@ -52,7 +52,6 @@ async function setup() {
     console.log('1. Edit .env.local with your Notion credentials');
     console.log('2. Run: bun dev');
     console.log('3. Open: http://localhost:3000\n');
-
   } catch (error) {
     console.error('❌ Setup failed:', error.message);
     process.exit(1);

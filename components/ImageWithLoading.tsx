@@ -1,30 +1,26 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image, { ImageProps } from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from 'react';
+import Image, { ImageProps } from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ImageWithLoadingProps extends Omit<ImageProps, 'onLoad'> {
   fallbackIcon?: React.ReactNode;
 }
 
-export const ImageWithLoading = ({ 
-  fallbackIcon, 
-  alt,
-  ...props 
-}: ImageWithLoadingProps) => {
+export const ImageWithLoading = ({ fallbackIcon, alt, ...props }: ImageWithLoadingProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative h-full w-full">
       <AnimatePresence>
         {isLoading && !hasError && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200"
           >
             {/* Shimmer effect */}
             <motion.div
@@ -35,7 +31,7 @@ export const ImageWithLoading = ({
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
-                ease: "linear",
+                ease: 'linear',
               }}
             />
           </motion.div>

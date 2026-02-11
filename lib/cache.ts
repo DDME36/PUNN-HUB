@@ -26,7 +26,7 @@ class Cache {
 
   get<T>(key: string): T | null {
     const entry = this.store.get(key);
-    
+
     if (!entry) return null;
 
     const now = Date.now();
@@ -75,7 +75,10 @@ export const cache = new Cache();
 
 // Auto cleanup ทุก 5 นาที
 if (typeof setInterval !== 'undefined') {
-  setInterval(() => {
-    cache.cleanup();
-  }, 5 * 60 * 1000);
+  setInterval(
+    () => {
+      cache.cleanup();
+    },
+    5 * 60 * 1000
+  );
 }

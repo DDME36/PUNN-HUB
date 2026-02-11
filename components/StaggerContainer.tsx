@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { motion, useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { motion, useInView } from 'framer-motion';
+import { useRef, ReactNode } from 'react';
 
 interface StaggerContainerProps {
   children: ReactNode;
@@ -9,19 +9,19 @@ interface StaggerContainerProps {
   className?: string;
 }
 
-export const StaggerContainer = ({ 
-  children, 
+export const StaggerContainer = ({
+  children,
   staggerDelay = 0.1,
-  className = ""
+  className = '',
 }: StaggerContainerProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <motion.div
       ref={ref}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={isInView ? 'visible' : 'hidden'}
       variants={{
         visible: {
           transition: {
@@ -36,18 +36,24 @@ export const StaggerContainer = ({
   );
 };
 
-export const StaggerItem = ({ children, className = "" }: { children: ReactNode; className?: string }) => {
+export const StaggerItem = ({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   return (
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 20 },
-        visible: { 
-          opacity: 1, 
+        visible: {
+          opacity: 1,
           y: 0,
           transition: {
             duration: 0.5,
-            ease: [0.21, 0.47, 0.32, 0.98]
-          }
+            ease: [0.21, 0.47, 0.32, 0.98],
+          },
         },
       }}
       className={className}

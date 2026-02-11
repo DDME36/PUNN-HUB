@@ -1,28 +1,28 @@
-import { getPublishedPosts, getPostContent } from "@/lib/notion";
+import { getPublishedPosts, getPostContent } from '@/lib/notion';
 
 // Helper function to escape XML special characters
 function escapeXml(unsafe: string): string {
-    return unsafe
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;');
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
 }
 
 export async function GET() {
-    const posts = await getPublishedPosts().catch(() => []);
-    
-    const rssItems = await Promise.all(
-        posts.slice(0, 20).map(async (post: any) => {
-            const content = await getPostContent(post.id).catch(() => "");
-            const description = content
-                .slice(0, 300)
-                .replace(/[#*`\n]/g, ' ')
-                .replace(/\s+/g, ' ')
-                .trim();
-            
-            return `
+  const posts = await getPublishedPosts().catch(() => []);
+
+  const rssItems = await Promise.all(
+    posts.slice(0, 20).map(async (post: any) => {
+      const content = await getPostContent(post.id).catch(() => '');
+      const description = content
+        .slice(0, 300)
+        .replace(/[#*`\n]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      return `
     <item>
       <title><![CDATA[${post.title}]]></title>
       <link>https://punn.site/blog/${post.slug}</link>
@@ -32,10 +32,10 @@ export async function GET() {
       ${post.tags.map((tag: string) => `<category><![CDATA[${tag}]]></category>`).join('\n      ')}
       ${post.cover ? `<enclosure url="${escapeXml(post.cover)}" type="image/jpeg" />` : ''}
     </item>`;
-        })
-    );
+    })
+  );
 
-    const rss = `<?xml version="1.0" encoding="UTF-8" ?>
+  const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PUNN HUB - Blog</title>
@@ -48,10 +48,10 @@ export async function GET() {
   </channel>
 </rss>`;
 
-    return new Response(rss, {
-        headers: {
-            'Content-Type': 'application/xml; charset=utf-8',
-            'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-        },
-    });
+  return new Response(rss, {
+    headers: {
+      'Content-Type': 'application/xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+    },
+  });
 }
