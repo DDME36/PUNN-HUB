@@ -22,7 +22,7 @@ export const Marquee = () => {
       animate={{ opacity: 1, y: 0, rotate: 2 }}
       transition={{ duration: 0.6, delay: 0.3 }}
       className="relative -mt-12 w-full overflow-hidden border-y border-rose-100/50 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 py-6 shadow-lg sm:mb-8"
-      style={{ marginBottom: 'max(6rem, 15vh)' }}
+      style={{ marginBottom: 'max(8rem, 20vh)' }}
     >
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-30">
