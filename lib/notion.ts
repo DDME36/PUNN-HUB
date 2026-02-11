@@ -102,8 +102,13 @@ export const getPostBySlug = async (slug: string): Promise<Post | null> => {
   return post;
 };
 
-export const getPostContent = async (pageId: string) => {
-  const mdblocks = await n2m.pageToMarkdown(pageId);
-  const mdString = n2m.toMarkdownString(mdblocks);
-  return mdString.parent;
+export const getPostContent = async (pageId: string): Promise<string> => {
+  try {
+    const mdblocks = await n2m.pageToMarkdown(pageId);
+    const mdString = n2m.toMarkdownString(mdblocks);
+    return mdString.parent || '';
+  } catch (error) {
+    console.error('Error fetching post content:', error);
+    return '';
+  }
 };
