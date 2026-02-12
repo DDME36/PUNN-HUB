@@ -19,6 +19,12 @@ export const getPublishedPosts = async (): Promise<Post[]> => {
 
   const response = await notion.databases.query({
     database_id: databaseId,
+    filter: {
+      property: 'Published',
+      checkbox: {
+        equals: true,
+      },
+    },
     sorts: [
       {
         timestamp: 'created_time',
