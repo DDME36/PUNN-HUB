@@ -173,10 +173,16 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Search Button - Show only on blog pages */}
-            {(pathname === '/blog' || pathname?.startsWith('/blog/')) && (
+            {/* Search Button - Always reserve space but hide on non-blog pages */}
+            <div
+              className={
+                pathname === '/blog' || pathname?.startsWith('/blog/')
+                  ? 'block'
+                  : 'pointer-events-none invisible'
+              }
+            >
               <SearchModal posts={posts} />
-            )}
+            </div>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
