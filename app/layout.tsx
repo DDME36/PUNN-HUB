@@ -33,6 +33,13 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
@@ -57,6 +64,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
+  },
   verification: {
     // google: 'your-google-verification-code', // เพิ่มตอน deploy
   },
@@ -69,25 +81,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kanit:wght@300;400;600;800&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="PUNN HUB RSS Feed"
-          href="/feed.xml"
-        />
-      </head>
       <body
         className="min-h-screen overflow-x-hidden antialiased"
         style={{ scrollBehavior: 'smooth' }}

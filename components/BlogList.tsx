@@ -309,6 +309,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                                       'linear-gradient(to bottom, black 30%, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.2) 85%, transparent 100%)',
                                   }}
                                   sizes="(max-width: 768px) 100vw, 896px"
+                                  unoptimized={post.cover.includes('notion.so')}
                                   onError={(e) => {
                                     const target = e.target as HTMLImageElement;
                                     target.style.display = 'none';
