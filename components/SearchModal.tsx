@@ -153,7 +153,7 @@ export const SearchModal = ({ posts }: SearchModalProps) => {
                           <div className="flex items-center gap-4 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                               <Calendar size={12} />
-                              <span>
+                              <span suppressHydrationWarning>
                                 {new Date(post.date).toLocaleDateString('th-TH', {
                                   year: 'numeric',
                                   month: 'short',

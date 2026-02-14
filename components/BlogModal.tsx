@@ -220,7 +220,7 @@ export const BlogModal = ({ isOpen, onClose, post }: BlogModalProps) => {
                   <div className="flex flex-wrap items-center justify-center gap-6 text-gray-500">
                     <div className="flex items-center gap-2">
                       <Calendar size={16} />
-                      <span className="text-sm">
+                      <span className="text-sm" suppressHydrationWarning>
                         {new Date(post.date).toLocaleDateString('th-TH', {
                           year: 'numeric',
                           month: 'long',

@@ -174,6 +174,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               className="object-cover transition-transform duration-700 group-hover:scale-105"
               style={{ objectPosition: 'center 40%' }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              unoptimized={post.cover.includes('notion.so') || post.cover.includes('amazonaws.com')}
               priority
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
@@ -280,6 +281,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                         style={{ objectPosition: 'center 35%' }}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        unoptimized={
+                          p.cover.includes('notion.so') || p.cover.includes('amazonaws.com')
+                        }
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-rose-400">
