@@ -238,7 +238,7 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
               a: ({ node, ...props }) => (
                 <a
                   {...props}
-                  className="relative inline-block font-semibold text-emerald-600 transition-all duration-200 hover:text-emerald-700 hover:underline"
+                  className="relative inline-block break-all font-semibold text-emerald-600 transition-all duration-200 hover:text-emerald-700 hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 />
