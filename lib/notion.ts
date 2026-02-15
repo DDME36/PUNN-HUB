@@ -45,6 +45,9 @@ export const getPublishedPosts = async (): Promise<Post[]> => {
     }
 
     const date = notionPage.properties.Date?.date?.start || new Date().toISOString();
+    const isParent = notionPage.properties.IsParent?.checkbox || false;
+    const parentSlug = notionPage.properties.ParentSlug?.rich_text?.[0]?.plain_text || undefined;
+    const episodeNumber = notionPage.properties.EpisodeNumber?.number || undefined;
 
     return {
       id: notionPage.id,
@@ -53,6 +56,9 @@ export const getPublishedPosts = async (): Promise<Post[]> => {
       tags,
       date,
       cover: notionPage.cover?.external?.url || notionPage.cover?.file?.url || null,
+      isParent,
+      parentSlug,
+      episodeNumber,
     };
   });
 
@@ -93,6 +99,10 @@ export const getPostBySlug = async (slug: string): Promise<Post | null> => {
     tags = notionPage.properties.Tags.multi_select.map((tag) => tag.name);
   }
 
+  const isParent = notionPage.properties.IsParent?.checkbox || false;
+  const parentSlug = notionPage.properties.ParentSlug?.rich_text?.[0]?.plain_text || undefined;
+  const episodeNumber = notionPage.properties.EpisodeNumber?.number || undefined;
+
   const post: Post = {
     id: notionPage.id,
     title,
@@ -100,6 +110,9 @@ export const getPostBySlug = async (slug: string): Promise<Post | null> => {
     date,
     tags,
     cover: notionPage.cover?.external?.url || notionPage.cover?.file?.url || null,
+    isParent,
+    parentSlug,
+    episodeNumber,
   };
 
   // Cache for 1 hour
@@ -117,4 +130,70 @@ export const getPostContent = async (pageId: string): Promise<string> => {
     console.error('Error fetching post content:', error);
     return '';
   }
+};
+
+export const getEpisodesByParentSlug = async (parentSlug: string): Promise<Post[]> => {
+  const cacheKey = `episodes_${parentSlug}`;
+  const cached = cache.get<Post[]>(cacheKey);
+  if (cached) return cached;
+
+  const databaseId = process.env.NOTION_DATABASE_ID;
+  if (!databaseId) throw new Error('Missing NOTION_DATABASE_ID');
+
+  const response = await notion.databases.query({
+    database_id: databaseId,
+    filter: {
+      and: [
+        {
+          property: 'Published',
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          property: 'ParentSlug',
+          rich_text: {
+            equals: parentSlug,
+          },
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: 'EpisodeNumber',
+        direction: 'ascending',
+      },
+    ],
+  });
+
+  const episodes = response.results.map((page) => {
+    const notionPage = page as unknown as NotionPage;
+
+    const title = notionPage.properties.Name?.title?.[0]?.plain_text || 'Untitled';
+    const slug = notionPage.properties.Slug?.rich_text?.[0]?.plain_text || notionPage.id;
+
+    let tags: string[] = [];
+    if (notionPage.properties.Tags?.multi_select) {
+      tags = notionPage.properties.Tags.multi_select.map((tag) => tag.name);
+    }
+
+    const date = notionPage.properties.Date?.date?.start || new Date().toISOString();
+    const parentSlug = notionPage.properties.ParentSlug?.rich_text?.[0]?.plain_text || undefined;
+    const episodeNumber = notionPage.properties.EpisodeNumber?.number || undefined;
+
+    return {
+      id: notionPage.id,
+      title,
+      slug,
+      tags,
+      date,
+      cover: notionPage.cover?.external?.url || notionPage.cover?.file?.url || null,
+      isParent: false,
+      parentSlug,
+      episodeNumber,
+    };
+  });
+
+  cache.set(cacheKey, episodes, 3600);
+  return episodes;
 };

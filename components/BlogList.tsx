@@ -24,6 +24,9 @@ interface Post {
   date: string;
   cover: string | null;
   content?: string;
+  isParent?: boolean;
+  parentSlug?: string;
+  episodeNumber?: number;
 }
 
 interface BlogListProps {
@@ -74,12 +77,15 @@ const cardVariants: Variants = {
 export const BlogList = ({ posts, error }: BlogListProps) => {
   const [selectedTag, setSelectedTag] = useState<string>('All');
 
-  // Extract all unique tags
-  const allTags = ['All', ...Array.from(new Set(posts.flatMap((post) => post.tags)))];
+  // Filter out child episodes (only show parent posts and standalone posts)
+  const mainPosts = posts.filter((post) => !post.parentSlug);
+
+  // Extract all unique tags from main posts only
+  const allTags = ['All', ...Array.from(new Set(mainPosts.flatMap((post) => post.tags)))];
 
   // Filter posts based on selected tag
   const filteredPosts =
-    selectedTag === 'All' ? posts : posts.filter((post) => post.tags.includes(selectedTag));
+    selectedTag === 'All' ? mainPosts : mainPosts.filter((post) => post.tags.includes(selectedTag));
 
   return (
     <>
@@ -133,7 +139,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
               <motion.div variants={itemVariants} className="flex items-center gap-6">
                 {/* Stat Card 1 */}
                 <div className="rounded-2xl border border-rose-100/50 bg-gradient-to-br from-rose-50 to-rose-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(251,113,133,0.1)]">
-                  <div className="mb-1 text-3xl font-black text-rose-500">{posts.length}</div>
+                  <div className="mb-1 text-3xl font-black text-rose-500">{mainPosts.length}</div>
                   <div className="text-xs font-medium text-gray-600">บทความ</div>
                 </div>
 
@@ -243,7 +249,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                               selectedTag === tag ? 'text-white/80' : 'text-gray-400'
                             }`}
                           >
-                            {posts.filter((post) => post.tags.includes(tag)).length}
+                            {mainPosts.filter((post) => post.tags.includes(tag)).length}
                           </span>
                         )}
                       </motion.button>

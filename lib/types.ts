@@ -8,6 +8,9 @@ export interface Post {
   date: string;
   cover: string | null;
   content?: string;
+  isParent?: boolean;
+  parentSlug?: string;
+  episodeNumber?: number;
 }
 
 export interface NotionPage {
@@ -35,6 +38,17 @@ export interface NotionPage {
     };
     Published: {
       checkbox: boolean;
+    };
+    IsParent?: {
+      checkbox: boolean;
+    };
+    ParentSlug?: {
+      rich_text: Array<{
+        plain_text: string;
+      }>;
+    };
+    EpisodeNumber?: {
+      number: number;
     };
   };
   cover: {

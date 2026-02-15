@@ -1,4 +1,9 @@
-import { getPostBySlug, getPostContent, getPublishedPosts } from '@/lib/notion';
+import {
+  getPostBySlug,
+  getPostContent,
+  getPublishedPosts,
+  getEpisodesByParentSlug,
+} from '@/lib/notion';
 import { Navbar } from '@/components/Navbar';
 import { Card } from '@/components/Card';
 import { Footer } from '@/components/Footer';
@@ -6,6 +11,7 @@ import { BlogPostContent } from '@/components/BlogPostContent';
 import { ShareButtons } from '@/components/ShareButtons';
 import { TableOfContents } from '@/components/TableOfContents';
 import { BackToTop } from '@/components/BackToTop';
+import { EpisodeList } from '@/components/EpisodeList';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight, BookOpen, Calendar, Tag, Clock, User, FileX } from 'lucide-react';
@@ -114,6 +120,22 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     );
   }
 
+  // If this is a parent post (series), show episode list
+  if (post.isParent) {
+    const episodes = await getEpisodesByParentSlug(slug).catch(() => []);
+    const allPosts = await getPublishedPosts().catch(() => []);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+        <Navbar posts={allPosts} />
+        <EpisodeList episodes={episodes} seriesTitle={post.title} />
+        <Footer />
+        <BackToTop />
+      </div>
+    );
+  }
+
+  // Regular post - show content
   const content = await getPostContent(post.id);
   const allPosts = await getPublishedPosts().catch(() => []);
 
