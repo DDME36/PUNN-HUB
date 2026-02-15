@@ -123,7 +123,7 @@ export const EpisodeList = ({ episodes, seriesTitle }: EpisodeListProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="mt-12 text-center"
+        className="mb-16 mt-12 text-center"
       >
         <Link
           href="/blog"
