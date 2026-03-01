@@ -1,0 +1,327 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  TrendingUp,
+  Database,
+  Share2,
+  Target,
+  Code,
+  User,
+  ArrowUpRight,
+  Menu as MenuIcon,
+  X as XIcon,
+  Home,
+  Ticket,
+  Bell,
+  BookOpen,
+  Music,
+} from 'lucide-react';
+import { SearchModal } from './SearchModal';
+
+const menuLinks = [
+  {
+    name: 'หน้าแรก',
+    href: '/',
+    icon: Home,
+    internal: true,
+  },
+  {
+    name: 'บทความ',
+    href: '/blog',
+    icon: BookOpen,
+    internal: true,
+  },
+  {
+    name: 'PUNN INVESTING',
+    href: 'https://ddme36.github.io/PUNN-INVESTING/',
+    icon: TrendingUp,
+  },
+  {
+    name: 'Smart AI Stock',
+    href: 'https://smartaistock.vercel.app/',
+    icon: Bell,
+  },
+  {
+    name: 'ข้อมูลปัง',
+    href: 'https://ddme36.github.io/KhomunPang/',
+    icon: Database,
+  },
+  {
+    name: 'PurrDrop',
+    href: 'https://purrdrop.onrender.com/',
+    icon: Share2,
+  },
+  {
+    name: 'จดหวย',
+    href: 'https://ddme36.github.io/JodHuay/',
+    icon: Ticket,
+  },
+  {
+    name: 'HEARTOPIANO',
+    href: 'https://www.punn.site/blog/HowToUseHeartopiano',
+    icon: Music,
+    internal: true,
+  },
+  {
+    name: '2026 Goals',
+    href: 'https://2026-vision-goals.vercel.app/',
+    icon: Target,
+  },
+  { name: 'GitHub', href: 'https://github.com/DDME36', icon: Code },
+  { name: 'เว็บส่วนตัว', href: 'https://satayupongpan.site/', icon: User },
+];
+
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  tags: string[];
+  date: string;
+  cover: string | null;
+}
+
+interface NavbarProps {
+  posts?: Post[];
+}
+
+export const Navbar = ({ posts = [] }: NavbarProps) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    let rafId: number;
+    let lastScrollY = 0;
+
+    const handleScroll = () => {
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        // Only update if scrolled more than 10px to reduce re-renders
+        if (Math.abs(currentScrollY - lastScrollY) > 10) {
+          setScrolled(currentScrollY > 50);
+          lastScrollY = currentScrollY;
+        }
+        rafId = 0;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <>
+      {/* Sticky Navigation - Soft UI */}
+      <motion.nav
+        initial={{ y: 0 }}
+        animate={{ y: 0 }}
+        className={`fixed left-0 right-0 top-0 z-40 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/90 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-2xl'
+            : 'bg-transparent py-4'
+        }`}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
+          <Link
+            href="/"
+            className="font-display text-xl font-black tracking-tighter transition-opacity hover:opacity-80 sm:text-2xl"
+          >
+            <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
+              PUNN HUB
+            </span>
+            <span className="text-gray-800">.</span>
+          </Link>
+
+          {/* Desktop Quick Links */}
+          <div className="hidden items-center gap-8 md:flex">
+            <Link
+              href="/"
+              className={`group relative text-sm font-medium transition-all ${
+                pathname === '/' ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
+              }`}
+            >
+              หน้าแรก
+              {pathname === '/' && (
+                <motion.div
+                  layoutId="navbar-indicator"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+            <Link
+              href="/blog"
+              className={`group relative text-sm font-medium transition-all ${
+                pathname === '/blog' || pathname?.startsWith('/blog/')
+                  ? 'text-rose-500'
+                  : 'text-gray-600 hover:text-rose-500'
+              }`}
+            >
+              บทความ
+              {(pathname === '/blog' || pathname?.startsWith('/blog/')) && (
+                <motion.div
+                  layoutId="navbar-indicator"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Search Button - Always reserve space but hide on non-blog pages */}
+            <div
+              className={
+                pathname === '/blog' || pathname?.startsWith('/blog/')
+                  ? 'block'
+                  : 'pointer-events-none invisible'
+              }
+            >
+              <SearchModal posts={posts} />
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setMenuOpen(true)}
+              aria-label="เปิดเมนู"
+              aria-expanded={menuOpen}
+              className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/80 px-6 py-2.5 text-sm font-medium text-gray-700 shadow-sm backdrop-blur-md transition-all hover:border-rose-200 hover:shadow-md"
+            >
+              <MenuIcon size={16} />
+              <span className="hidden sm:inline">เมนู</span>
+            </motion.button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Spacer for fixed nav */}
+      <div className="sm:h-18 h-16"></div>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Slide-in Menu Panel */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="เมนูหลัก"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="fixed right-0 top-0 z-50 flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white shadow-2xl sm:w-96 sm:max-w-[85vw]"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-gray-100 p-6">
+              <h2 className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text font-display text-xl font-bold text-transparent">
+                เมนู
+              </h2>
+              <button
+                onClick={() => setMenuOpen(false)}
+                aria-label="ปิดเมนู"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 transition-colors hover:bg-gray-100"
+              >
+                <XIcon size={20} />
+              </button>
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex-1 space-y-2 p-6">
+              {menuLinks.map((link, index) => {
+                const isActive = pathname === link.href;
+                const LinkComponent = link.internal ? Link : 'a';
+                const IconComponent = link.icon;
+                const linkProps = link.internal
+                  ? { href: link.href }
+                  : { href: link.href, target: '_blank', rel: 'noopener noreferrer' };
+
+                return (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 + 0.1 }}
+                  >
+                    <LinkComponent
+                      {...linkProps}
+                      className={`group flex items-center gap-3 rounded-xl p-4 transition-all ${
+                        isActive
+                          ? 'border border-rose-100 bg-gradient-to-r from-rose-50 to-purple-50 shadow-sm'
+                          : 'hover:bg-gray-50'
+                      }`}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl transition-all ${
+                          isActive
+                            ? 'bg-gradient-to-br from-rose-400 to-purple-400 text-white shadow-md'
+                            : 'border border-gray-100 bg-white text-gray-700 shadow-sm group-hover:bg-gray-100'
+                        }`}
+                      >
+                        <IconComponent size={18} />
+                      </div>
+                      <span
+                        className={`flex-1 text-sm font-semibold ${
+                          isActive ? 'text-rose-500' : 'text-gray-700'
+                        }`}
+                      >
+                        {link.name}
+                      </span>
+                      {!link.internal && (
+                        <ArrowUpRight
+                          className="text-gray-400 transition-colors group-hover:text-rose-400"
+                          size={16}
+                        />
+                      )}
+                    </LinkComponent>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Footer Note */}
+            <div className="border-t border-gray-100 p-6">
+              <p className="text-center text-sm text-gray-500">
+                © {new Date().getFullYear()} PUNN HUB
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};

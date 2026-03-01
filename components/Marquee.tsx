@@ -1,0 +1,83 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
+const skills = [
+  'React',
+  'Next.js',
+  'TypeScript',
+  'Node.js',
+  'Python',
+  'AI/ML',
+  'Web3',
+  'Mobile Apps',
+  'UI/UX',
+  'DevOps',
+];
+
+export const Marquee = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20, rotate: 2 }}
+      animate={{ opacity: 1, y: 0, rotate: 2 }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-rose-100/50 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 py-6 shadow-lg sm:-mt-12 sm:mb-8"
+    >
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(251,113,133,0.1) 0%, transparent 50%),
+                                     radial-gradient(circle at 80% 50%, rgba(196,181,253,0.1) 0%, transparent 50%)`,
+          }}
+        ></div>
+      </div>
+
+      {/* Top marquee - Pure CSS Animation (GPU Accelerated) */}
+      <div className="relative mb-3 flex overflow-hidden whitespace-nowrap">
+        <div
+          className="animate-marquee flex whitespace-nowrap font-display text-xl font-black tracking-wide sm:text-3xl md:text-4xl lg:text-5xl"
+          style={{ willChange: 'transform' }}
+        >
+          {/* Duplicate content 2 ครั้งเพื่อให้วนลูปไม่มีรอยต่อ */}
+          {[...Array(2)].map((_, groupIndex) => (
+            <div key={groupIndex} className="flex">
+              {[...Array(6)].map((_, i) => (
+                <span
+                  key={i}
+                  className="mx-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent sm:mx-8 md:mx-12"
+                >
+                  โปรเจกต์ • ไอเดีย • ความรู้ • แชร์ประสบการณ์
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Skills marquee - Pure CSS Animation (opposite direction) */}
+      <div className="relative flex overflow-hidden whitespace-nowrap">
+        <div
+          className="animate-marquee-reverse flex whitespace-nowrap text-sm font-semibold tracking-wide sm:text-base"
+          style={{ willChange: 'transform' }}
+        >
+          {/* Duplicate content 2 ครั้งเพื่อให้วนลูปไม่มีรอยต่อ */}
+          {[...Array(2)].map((_, groupIndex) => (
+            <div key={groupIndex} className="flex">
+              {[...Array(20)].map((_, i) => (
+                <span key={i} className="mx-6 text-gray-500 sm:mx-8">
+                  {skills[i % skills.length]}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Gradient overlays */}
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-rose-50 to-transparent"></div>
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-blue-50 to-transparent"></div>
+    </motion.div>
+  );
+};
