@@ -116,7 +116,9 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
   if (!isClient) {
     return (
       <div className="prose prose-lg mx-auto max-w-none overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-xl md:p-12">
-        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+          {content}
+        </ReactMarkdown>
       </div>
     );
   }
@@ -230,9 +232,12 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
               img: ({ src, alt }) => {
                 if (!src || typeof src !== 'string') return null;
 
-                const isNotionImage = src.includes('notion.so') || src.includes('amazonaws.com') || src.includes('secure.notion-static.com');
+                const isNotionImage =
+                  src.includes('notion.so') ||
+                  src.includes('amazonaws.com') ||
+                  src.includes('secure.notion-static.com');
                 const imageSrc =
-                  (isNotionImage || src.startsWith('http'))
+                  isNotionImage || src.startsWith('http')
                     ? `/api/image-proxy?url=${encodeURIComponent(src)}`
                     : src;
 

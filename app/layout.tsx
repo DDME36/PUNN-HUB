@@ -100,7 +100,7 @@ export default function RootLayout({
   return (
     <html lang="th" className={`${inter.variable} ${kanit.variable}`}>
       <body
-        className="font-sans min-h-screen overflow-x-hidden antialiased"
+        className="min-h-screen overflow-x-hidden font-sans antialiased"
         style={{ scrollBehavior: 'smooth' }}
       >
         <ScrollProgressBar />

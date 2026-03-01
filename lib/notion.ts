@@ -27,7 +27,12 @@ const mapNotionPageToPost = (notionPage: NotionPage): Post => {
   const rawCover = notionPage.cover?.external?.url || notionPage.cover?.file?.url || null;
   let cover = rawCover;
 
-  if (rawCover && (rawCover.includes('notion.so') || rawCover.includes('amazonaws.com') || rawCover.includes('secure.notion-static.com'))) {
+  if (
+    rawCover &&
+    (rawCover.includes('notion.so') ||
+      rawCover.includes('amazonaws.com') ||
+      rawCover.includes('secure.notion-static.com'))
+  ) {
     cover = `/api/image-proxy?url=${encodeURIComponent(rawCover)}`;
   }
 
