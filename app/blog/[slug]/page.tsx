@@ -13,6 +13,7 @@ import { ShareButtons } from '@/components/ShareButtons';
 import { TableOfContents } from '@/components/TableOfContents';
 import { BackToTop } from '@/components/BackToTop';
 import { EpisodeList } from '@/components/EpisodeList';
+import { AnimatedBreadcrumb } from '@/components/AnimatedBreadcrumb';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/lib/types';
@@ -174,35 +175,20 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <Navbar posts={allPosts} />
 
-      {/* Enhanced Breadcrumb */}
-      <div className="sticky top-[56px] z-30 border-b border-gray-100 bg-white/90 backdrop-blur-md sm:top-[64px]">
-        <div className="mx-auto max-w-6xl px-4 py-3">
-          <nav className="flex items-center gap-2 text-sm text-gray-500">
-            <Link href="/" className="font-medium transition-colors hover:text-rose-500">
-              หน้าแรก
-            </Link>
-            <span className="text-gray-300">/</span>
-            <Link href="/blog" className="font-medium transition-colors hover:text-rose-500">
-              บทความ
-            </Link>
-            {parentPost && (
-              <>
-                <span className="text-gray-300">/</span>
-                <Link
-                  href={`/blog/${parentPost.slug}`}
-                  className="font-medium transition-colors hover:text-rose-500"
-                >
-                  {parentPost.title}
-                </Link>
-              </>
-            )}
-            <span className="text-gray-300">/</span>
-            <span className="truncate font-semibold text-gray-900">{post.title}</span>
-          </nav>
-        </div>
-      </div>
+      {/* Remove the old sticky breadcrumb block entirely */}
 
-      <article className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+      <article className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        {/* Animated Breadcrumb (Integration) */}
+        <div className="mb-8 hidden sm:block">
+          <AnimatedBreadcrumb
+            items={[
+              { label: 'บทความ', href: '/blog' },
+              ...(parentPost ? [{ label: parentPost.title, href: `/blog/${parentPost.slug}` }] : []),
+              { label: post.title, href: '#' }
+            ]}
+          />
+        </div>
+
         {/* Table of Contents */}
         <TableOfContents content={content} />
 
