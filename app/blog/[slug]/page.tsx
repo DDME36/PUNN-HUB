@@ -183,8 +183,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <AnimatedBreadcrumb
             items={[
               { label: 'บทความ', href: '/blog' },
-              ...(parentPost ? [{ label: parentPost.title, href: `/blog/${parentPost.slug}` }] : []),
-              { label: post.title, href: '#' }
+              ...(parentPost
+                ? [{ label: parentPost.title, href: `/blog/${parentPost.slug}` }]
+                : []),
+              { label: post.title, href: '#' },
             ]}
           />
         </div>
