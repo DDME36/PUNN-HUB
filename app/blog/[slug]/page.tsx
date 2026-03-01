@@ -5,7 +5,6 @@ import {
   getEpisodesByParentSlug,
   getImageBlocks,
 } from '@/lib/notion';
-import { Navbar } from '@/components/Navbar';
 import { Card } from '@/components/Card';
 import { Footer } from '@/components/Footer';
 import { BlogPostContent } from '@/components/BlogPostContent';
@@ -103,8 +102,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <Navbar />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-20">
         <div className="mx-auto max-w-3xl px-4 pt-20 text-center">
           <div className="mb-8">
             <FileX className="mx-auto h-32 w-32 text-gray-300" />
@@ -126,11 +124,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   // If this is a parent post (series), show episode list
   if (post.isParent) {
     const episodes = await getEpisodesByParentSlug(slug).catch(() => []);
-    const allPosts = await getPublishedPosts().catch(() => []);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-        <Navbar posts={allPosts} />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 pt-20">
         <EpisodeList episodes={episodes} seriesTitle={post.title} />
         <Footer />
         <BackToTop />
@@ -172,8 +168,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const readingTime = Math.max(Math.ceil(wordCount / wordsPerMinute), 1); // Minimum 1 minute
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-      <Navbar posts={allPosts} />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 pt-20">
 
       {/* Remove the old sticky breadcrumb block entirely */}
 

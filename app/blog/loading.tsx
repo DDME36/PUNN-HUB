@@ -1,12 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Navbar } from '@/components/Navbar';
+import { SkeletonCard } from '@/components/SkeletonCard';
 
 export default function BlogLoading() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
+    <div className="min-h-screen bg-gray-50 pt-20">
 
       {/* Hero Skeleton */}
       <div className="relative bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 py-16 sm:py-20">
@@ -47,20 +46,11 @@ export default function BlogLoading() {
         </div>
       </div>
 
-      {/* Content Skeleton */}
-      <div className="mx-auto max-w-5xl px-6 py-12">
-        <div className="space-y-6">
-          {[1, 2, 3].map((i) => (
-            <motion.div
-              key={i}
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
-              className="rounded-2xl border border-white/60 bg-white/90 p-6 shadow-[0_4px_20px_rgb(0,0,0,0.04)] backdrop-blur-xl"
-            >
-              <div className="mb-4 h-48 rounded-xl bg-gray-200" />
-              <div className="mb-3 h-6 w-3/4 rounded-lg bg-gray-200" />
-              <div className="h-4 w-1/2 rounded-lg bg-gray-200" />
-            </motion.div>
+      {/* Content Skeleton Grid */}
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <SkeletonCard key={i} />
           ))}
         </div>
       </div>

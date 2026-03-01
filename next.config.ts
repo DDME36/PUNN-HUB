@@ -1,10 +1,30 @@
 import type { NextConfig } from 'next';
 
+// Suppress DEP0169 warning (url.parse() deprecation) globally for both Webpack and Turbopack
+const originalEmit = process.emit;
+// @ts-expect-error - Suppressing Node warning
+process.emit = function (name: string, data: unknown, ...args: unknown[]) {
+  if (
+    name === 'warning' &&
+    data &&
+    typeof data === 'object' &&
+    (data as Error).name === 'DeprecationWarning' &&
+    (data as Error).message?.includes('url.parse()')
+  ) {
+    return false;
+  }
+  // @ts-expect-error - Applying arguments to process
+  return originalEmit.apply(process, [name, data, ...args]);
+};
+
 const nextConfig: NextConfig = {
   // Performance optimizations
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  webpack: (config) => {
+    return config;
+  },
 
   // Experimental features
   experimental: {
@@ -21,6 +41,9 @@ const nextConfig: NextConfig = {
       },
       {
         pathname: '/api/image-proxy',
+      },
+      {
+        pathname: '/images/**',
       },
     ],
     remotePatterns: [

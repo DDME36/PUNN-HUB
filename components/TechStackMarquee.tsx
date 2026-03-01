@@ -56,7 +56,7 @@ export const TechStackMarquee = () => {
                 return (
                   <div
                     key={`topic-${index}`}
-                    className={`flex-shrink-0 bg-gradient-to-br ${topic.bg} group relative cursor-pointer overflow-hidden rounded-2xl border-none p-6 shadow-[0_8px_30px_rgba(0,0,0,0.15)] transition-all hover:-translate-y-1 hover:scale-105 hover:shadow-[0_12px_40px_rgba(0,0,0,0.25)]`}
+                    className={`flex-shrink-0 bg-gradient-to-br ${topic.bg} group relative cursor-pointer overflow-hidden rounded-2xl border-none p-6 transition-all hover:-translate-y-1 hover:scale-105`}
                   >
                     {/* Background Icon */}
                     <div className="absolute -bottom-4 -right-4 text-white/40 opacity-20 transition-opacity group-hover:opacity-30">

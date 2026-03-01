@@ -351,6 +351,22 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
                   {children}
                 </blockquote>
               ),
+              // Notion Callout Support (rendered as blockquote with icon)
+              aside: ({ children, ...props }: any) => {
+                // Notion callouts are rendered as <aside> by notion-to-md
+                return (
+                  <div className="my-8 flex gap-4 rounded-2xl border-l-4 border-blue-400 bg-gradient-to-r from-blue-50 to-transparent p-6">
+                    <div className="flex-shrink-0 text-2xl">💡</div>
+                    <div className="flex-1">{children}</div>
+                  </div>
+                );
+              },
+              // Horizontal Rule / Divider
+              hr: () => (
+                <div className="my-12 flex items-center justify-center">
+                  <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+                </div>
+              ),
               code: ({ inline, className, children }: any) => {
                 const match = /language-(\w+)/.exec(className || '');
                 const codeString = String(children).replace(/\n$/, '');

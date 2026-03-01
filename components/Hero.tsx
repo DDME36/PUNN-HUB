@@ -5,6 +5,8 @@ import { Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { TypewriterText } from './TypewriterText';
 import { GradientText } from './GradientText';
+import { MagneticButton } from './MagneticButton';
+import { MeshGradient } from './MeshGradient';
 
 export const Hero = () => {
   const [animationKey, setAnimationKey] = useState(0);
@@ -51,13 +53,9 @@ export const Hero = () => {
   const currentAnimation = animations[animationKey % animations.length];
 
   return (
-    <section className="relative flex min-h-[40vh] items-center justify-center overflow-hidden bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 py-16 sm:min-h-[50vh] sm:py-24">
-      {/* Soft Floating Orbs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-20 top-20 h-72 w-72 rounded-full bg-gradient-to-br from-rose-200/20 to-rose-300/10 blur-3xl" />
-        <div className="absolute bottom-20 right-20 h-96 w-96 rounded-full bg-gradient-to-br from-purple-200/20 to-purple-300/10 blur-3xl" />
-        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-200/15 to-blue-300/10 blur-3xl" />
-      </div>
+    <section className="relative flex min-h-[40vh] items-center justify-center overflow-hidden py-16 sm:min-h-[50vh] sm:py-24">
+      {/* Animated Mesh Gradient Background */}
+      <MeshGradient />
 
       {/* Centered Content */}
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
@@ -119,16 +117,16 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4"
+          className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
         >
-          <motion.a
-            href="/blog"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="group rounded-2xl bg-gradient-to-br from-rose-400 to-purple-400 px-8 py-4 text-center font-semibold text-white shadow-[0_8px_30px_rgb(251,113,133,0.3)] transition-all hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)]"
-          >
-            <span className="flex items-center justify-center gap-2">
-              อ่านบทความ
+          <MagneticButton>
+            <motion.a
+              href="/blog"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-rose-400 to-purple-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_rgb(251,113,133,0.3)] transition-all hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)] sm:px-8 sm:py-4 sm:text-base"
+            >
+              บทความ
               <motion.svg
                 className="h-4 w-4"
                 fill="none"
@@ -144,21 +142,24 @@ export const Hero = () => {
                   d="M9 5l7 7-7 7"
                 />
               </motion.svg>
-            </span>
-          </motion.a>
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              document.getElementById('projects')?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-              });
-            }}
-            className="rounded-2xl border border-white/60 bg-white/90 px-8 py-4 font-semibold text-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-md transition-all hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)]"
-          >
-            ดูโปรเจกต์
-          </motion.button>
+            </motion.a>
+          </MagneticButton>
+
+          <MagneticButton>
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                document.getElementById('projects')?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/60 bg-white/90 px-6 py-3 text-sm font-semibold text-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-md transition-all hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] sm:px-8 sm:py-4 sm:text-base"
+            >
+              โปรเจกต์
+            </motion.button>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>

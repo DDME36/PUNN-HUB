@@ -31,7 +31,7 @@ export const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.4 }}
             className="flex flex-col items-center text-center"
           >
@@ -74,7 +74,7 @@ export const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.4, delay: 0.1 }}
             className="flex flex-col items-center text-center"
           >
@@ -101,7 +101,7 @@ export const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.4, delay: 0.2 }}
             className="flex flex-col items-center text-center"
           >
@@ -131,7 +131,13 @@ export const Footer = () => {
         <div className="mb-4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent sm:mb-6" />
 
         {/* Bottom Section */}
-        <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4"
+        >
           <p className="flex items-center gap-2 text-center text-xs text-gray-500 sm:text-left">
             © {currentYear} PUNN HUB · Made with
             <Heart size={12} className="fill-rose-400 text-rose-400" />
@@ -149,7 +155,7 @@ export const Footer = () => {
               Tailwind
             </span>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

@@ -2,7 +2,6 @@ import { getPublishedPosts } from '@/lib/notion';
 import { EnhancedBentoGrid } from '@/components/EnhancedBentoGrid';
 import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
-import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { TechStackMarquee } from '@/components/TechStackMarquee';
 
@@ -15,8 +14,7 @@ export default async function Home() {
   });
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white">
-      <Navbar posts={posts} />
+    <main className="min-h-screen bg-white">
       <Hero />
       <Marquee />
       <section id="projects">

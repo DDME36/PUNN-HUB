@@ -3,6 +3,9 @@ import { Inter, Kanit } from 'next/font/google';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ScrollProgressBar } from '@/components/ScrollProgressBar';
+import { Navbar } from '@/components/Navbar';
+import { SmoothScroller } from '@/components/SmoothScroller';
+import { getPublishedPosts } from '@/lib/notion';
 import { Analytics } from '@/components/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -92,22 +95,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const posts = await getPublishedPosts().catch(() => []);
+
   return (
     <html lang="th" className={`${inter.variable} ${kanit.variable}`}>
-      <body
-        className="min-h-screen overflow-x-hidden font-sans antialiased"
-        style={{ scrollBehavior: 'smooth' }}
-      >
+      <body className="min-h-screen overflow-x-hidden font-sans antialiased">
+        <SmoothScroller />
+        <Navbar posts={posts} />
         <ScrollProgressBar />
         <Analytics />
         <VercelAnalytics />
         <SpeedInsights />
-        <div className="bg-noise pointer-events-none fixed inset-0 -z-10 opacity-[0.04]" />
         <ErrorBoundary>{children}</ErrorBoundary>
       </body>
     </html>

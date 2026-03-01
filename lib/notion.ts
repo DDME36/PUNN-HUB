@@ -14,9 +14,14 @@ const mapNotionPageToPost = (notionPage: NotionPage): Post => {
   const title = notionPage.properties.Name?.title?.[0]?.plain_text || 'Untitled';
   const slug = notionPage.properties.Slug?.rich_text?.[0]?.plain_text || notionPage.id;
 
+  // Handle Tags - support both Multi-select and Rich Text
   let tags: string[] = [];
   if (notionPage.properties.Tags?.multi_select) {
     tags = notionPage.properties.Tags.multi_select.map((tag) => tag.name);
+  } else if ((notionPage.properties.Tags as any)?.rich_text?.[0]?.plain_text) {
+    // Fallback: if Tags is Rich Text, split by comma
+    const tagsText = (notionPage.properties.Tags as any).rich_text[0].plain_text;
+    tags = tagsText.split(',').map((tag: string) => tag.trim()).filter(Boolean);
   }
 
   const date = notionPage.properties.Date?.date?.start || new Date().toISOString();
@@ -51,64 +56,79 @@ const mapNotionPageToPost = (notionPage: NotionPage): Post => {
 
 export const getPublishedPosts = unstable_cache(
   async (): Promise<Post[]> => {
-    const databaseId = process.env.NOTION_DATABASE_ID;
-    if (!databaseId) throw new Error('Missing NOTION_DATABASE_ID');
+    try {
+      const databaseId = process.env.NOTION_DATABASE_ID;
+      if (!databaseId) {
+        console.error('❌ NOTION_DATABASE_ID is not set');
+        return [];
+      }
 
-    const response = await notion.databases.query({
-      database_id: databaseId,
-      filter: {
-        property: 'Published',
-        checkbox: {
-          equals: true,
+      const response = await notion.databases.query({
+        database_id: databaseId,
+        filter: {
+          property: 'Published',
+          checkbox: {
+            equals: true,
+          },
         },
-      },
-      sorts: [
-        {
-          timestamp: 'created_time',
-          direction: 'descending',
-        },
-      ],
-    });
+        sorts: [
+          {
+            timestamp: 'created_time',
+            direction: 'descending',
+          },
+        ],
+      });
 
-    const posts = response.results.map((page) => {
-      const notionPage = page as unknown as NotionPage;
-      return mapNotionPageToPost(notionPage);
-    });
+      console.log(`✅ Fetched ${response.results.length} published posts from Notion`);
 
-    return posts;
+      const posts = response.results.map((page) => {
+        const notionPage = page as unknown as NotionPage;
+        return mapNotionPageToPost(notionPage);
+      });
+
+      return posts;
+    } catch (e) {
+      console.error('❌ Error fetching Notion posts:', e);
+      return [];
+    }
   },
   ['notion-published-posts'],
   {
     tags: ['notion-posts'],
-    revalidate: 86400, // 24 hours, but can be revalidated on-demand
+    revalidate: 3600, // 1 hour instead of 24 hours
   }
 );
 
 export const getPostBySlug = unstable_cache(
   async (slug: string): Promise<Post | null> => {
-    const databaseId = process.env.NOTION_DATABASE_ID;
-    if (!databaseId) throw new Error('Missing NOTION_DATABASE_ID');
+    try {
+      const databaseId = process.env.NOTION_DATABASE_ID;
+      if (!databaseId) return null;
 
-    const response = await notion.databases.query({
-      database_id: databaseId,
-      filter: {
-        property: 'Slug',
-        rich_text: {
-          equals: slug,
+      const response = await notion.databases.query({
+        database_id: databaseId,
+        filter: {
+          property: 'Slug',
+          rich_text: {
+            equals: slug,
+          },
         },
-      },
-    });
+      });
 
-    const page = response.results[0];
-    if (!page) return null;
+      const page = response.results[0];
+      if (!page) return null;
 
-    const notionPage = page as unknown as NotionPage;
-    return mapNotionPageToPost(notionPage);
+      const notionPage = page as unknown as NotionPage;
+      return mapNotionPageToPost(notionPage);
+    } catch (e) {
+      console.error('❌ Error fetching post by slug:', e);
+      return null;
+    }
   },
   ['notion-post-by-slug'],
   {
     tags: ['notion-posts'],
-    revalidate: 86400,
+    revalidate: 3600, // 1 hour
   }
 );
 
@@ -118,8 +138,7 @@ export const getPostContent = async (pageId: string): Promise<string> => {
     const mdString = n2m.toMarkdownString(mdblocks);
     return mdString.parent || '';
   } catch (error) {
-    console.error('Error fetching post content:', error);
-    return '';
+    return 'ไม่พบเนื้อหาบทความเนื่องจาก API รันไม่สำเร็จ ลองใส่ API Key ที่ `.env.local` เพื่อดูเนื้อหาจริงครับ';
   }
 };
 
@@ -160,45 +179,40 @@ export const getImageBlocks = async (pageId: string): Promise<Map<string, number
 
 export const getEpisodesByParentSlug = unstable_cache(
   async (parentSlug: string): Promise<Post[]> => {
-    const databaseId = process.env.NOTION_DATABASE_ID;
-    if (!databaseId) throw new Error('Missing NOTION_DATABASE_ID');
+    try {
+      const databaseId = process.env.NOTION_DATABASE_ID;
+      if (!databaseId) return [];
 
-    const response = await notion.databases.query({
-      database_id: databaseId,
-      filter: {
-        and: [
-          {
-            property: 'Published',
-            checkbox: {
-              equals: true,
-            },
+      const response = await notion.databases.query({
+        database_id: databaseId,
+        filter: {
+          property: 'ParentSlug',
+          rich_text: {
+            equals: parentSlug,
           },
+        },
+        sorts: [
           {
-            property: 'ParentSlug',
-            rich_text: {
-              equals: parentSlug,
-            },
+            property: 'EpisodeNumber',
+            direction: 'ascending',
           },
         ],
-      },
-      sorts: [
-        {
-          property: 'EpisodeNumber',
-          direction: 'ascending',
-        },
-      ],
-    });
+      });
 
-    const episodes = response.results.map((page) => {
-      const notionPage = page as unknown as NotionPage;
-      return mapNotionPageToPost(notionPage);
-    });
+      const episodes = response.results.map((page) => {
+        const notionPage = page as unknown as NotionPage;
+        return mapNotionPageToPost(notionPage);
+      });
 
-    return episodes;
+      return episodes;
+    } catch (e) {
+      console.error('❌ Error fetching episodes:', e);
+      return [];
+    }
   },
   ['notion-episodes-by-parent'],
   {
     tags: ['notion-posts'],
-    revalidate: 86400,
+    revalidate: 3600, // 1 hour
   }
 );

@@ -21,6 +21,7 @@ import {
   Music,
 } from 'lucide-react';
 import { SearchModal } from './SearchModal';
+import { MagneticButton } from './MagneticButton';
 
 const menuLinks = [
   {
@@ -107,52 +108,36 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
   }, [menuOpen]);
 
   useEffect(() => {
-    let rafId: number;
-    let lastScrollY = 0;
-
     const handleScroll = () => {
-      if (rafId) return;
-
-      rafId = requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-        // Only update if scrolled more than 10px to reduce re-renders
-        if (Math.abs(currentScrollY - lastScrollY) > 10) {
-          setScrolled(currentScrollY > 50);
-          lastScrollY = currentScrollY;
-        }
-        rafId = 0;
-      });
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
       {/* Sticky Navigation - Soft UI */}
-      <motion.nav
-        initial={{ y: 0 }}
-        animate={{ y: 0 }}
-        className={`fixed left-0 right-0 top-0 z-40 transition-all duration-300 ${
+      <nav
+        className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
           scrolled
-            ? 'bg-white/90 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-2xl'
-            : 'bg-transparent py-4'
+            ? 'bg-white/95 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl'
+            : 'bg-white/80 py-4 backdrop-blur-md'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
-          <Link
-            href="/"
-            className="font-display text-xl font-black tracking-tighter transition-opacity hover:opacity-80 sm:text-2xl"
-          >
-            <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
-              PUNN HUB
-            </span>
-            <span className="text-gray-800">.</span>
-          </Link>
+          <MagneticButton intensity={0.1}>
+            <Link
+              href="/"
+              className="block font-display text-xl font-black tracking-tighter transition-opacity hover:opacity-80 sm:text-2xl"
+            >
+              <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
+                PUNN HUB
+              </span>
+              <span className="text-gray-800">.</span>
+            </Link>
+          </MagneticButton>
 
           {/* Desktop Quick Links */}
           <div className="hidden items-center gap-8 md:flex">
@@ -202,23 +187,25 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
               <SearchModal posts={posts} />
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setMenuOpen(true)}
-              aria-label="เปิดเมนู"
-              aria-expanded={menuOpen}
-              className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/80 px-6 py-2.5 text-sm font-medium text-gray-700 shadow-sm backdrop-blur-md transition-all hover:border-rose-200 hover:shadow-md"
-            >
-              <MenuIcon size={16} />
-              <span className="hidden sm:inline">เมนู</span>
-            </motion.button>
+            <MagneticButton intensity={0.15}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setMenuOpen(true)}
+                aria-label="เปิดเมนู"
+                aria-expanded={menuOpen}
+                className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/80 px-6 py-2.5 text-sm font-medium text-gray-700 shadow-sm backdrop-blur-md transition-all hover:border-rose-200 hover:shadow-md"
+              >
+                <MenuIcon size={16} />
+                <span className="hidden sm:inline">เมนู</span>
+              </motion.button>
+            </MagneticButton>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Spacer for fixed nav */}
-      <div className="sm:h-18 h-16"></div>
+      <div className="h-20 sm:h-24"></div>
       <AnimatePresence>
         {menuOpen && (
           <motion.div

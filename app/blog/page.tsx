@@ -1,8 +1,8 @@
 import { getPublishedPosts } from '@/lib/notion';
-import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { BlogList } from '@/components/BlogList';
 import { BackToTop } from '@/components/BackToTop';
+import { Post } from '@/lib/types';
 import { Metadata } from 'next';
 
 export const revalidate = 3600; // ขณะ production ใช้ 1 ชั่วโมง
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  let posts: any[] = [];
+  let posts: Post[] = [];
   let error = null;
 
   try {
@@ -30,8 +30,7 @@ export default async function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar posts={posts} />
+    <div className="min-h-screen bg-gray-50 pt-20">
       <BlogList posts={posts} error={error} />
       <Footer />
       <BackToTop />
