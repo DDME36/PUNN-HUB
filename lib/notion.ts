@@ -24,13 +24,20 @@ const mapNotionPageToPost = (notionPage: NotionPage): Post => {
   const parentSlug = notionPage.properties.ParentSlug?.rich_text?.[0]?.plain_text || undefined;
   const episodeNumber = notionPage.properties.EpisodeNumber?.number || undefined;
 
+  const rawCover = notionPage.cover?.external?.url || notionPage.cover?.file?.url || null;
+  let cover = rawCover;
+
+  if (rawCover && (rawCover.includes('notion.so') || rawCover.includes('amazonaws.com') || rawCover.includes('secure.notion-static.com'))) {
+    cover = `/api/image-proxy?url=${encodeURIComponent(rawCover)}`;
+  }
+
   return {
     id: notionPage.id,
     title,
     slug,
     tags,
     date,
-    cover: notionPage.cover?.external?.url || notionPage.cover?.file?.url || null,
+    cover,
     isParent,
     parentSlug,
     episodeNumber,

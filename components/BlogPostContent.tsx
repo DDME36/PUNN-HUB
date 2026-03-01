@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Copy, Check, Minus, Plus, Type, ChevronRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -115,7 +116,7 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
   if (!isClient) {
     return (
       <div className="prose prose-lg mx-auto max-w-none overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-xl md:p-12">
-        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
       </div>
     );
   }
@@ -223,14 +224,15 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
           style={{ contain: 'layout' }}
         >
           <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
             components={{
               img: ({ src, alt }) => {
                 if (!src || typeof src !== 'string') return null;
 
-                const shouldProxy = !src.includes('notion.so') && !src.includes('amazonaws.com');
+                const isNotionImage = src.includes('notion.so') || src.includes('amazonaws.com') || src.includes('secure.notion-static.com');
                 const imageSrc =
-                  shouldProxy && src.startsWith('http')
+                  (isNotionImage || src.startsWith('http'))
                     ? `/api/image-proxy?url=${encodeURIComponent(src)}`
                     : src;
 
@@ -425,6 +427,42 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
                   />
                   <span className="flex-1">{children}</span>
                 </summary>
+              ),
+              // Table Support (remark-gfm)
+              table: ({ children, ...props }: any) => (
+                <div className="my-8 overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+                  <table {...props} className="min-w-full divide-y divide-gray-200 text-sm">
+                    {children}
+                  </table>
+                </div>
+              ),
+              thead: ({ children, ...props }: any) => (
+                <thead {...props} className="bg-gray-50/80">
+                  {children}
+                </thead>
+              ),
+              tbody: ({ children, ...props }: any) => (
+                <tbody {...props} className="divide-y divide-gray-100 bg-white">
+                  {children}
+                </tbody>
+              ),
+              tr: ({ children, ...props }: any) => (
+                <tr {...props} className="transition-colors hover:bg-rose-50/30">
+                  {children}
+                </tr>
+              ),
+              th: ({ children, ...props }: any) => (
+                <th
+                  {...props}
+                  className="whitespace-nowrap px-6 py-4 text-left font-semibold text-gray-900"
+                >
+                  {children}
+                </th>
+              ),
+              td: ({ children, ...props }: any) => (
+                <td {...props} className="px-6 py-4 text-gray-700">
+                  {children}
+                </td>
               ),
             }}
           >
