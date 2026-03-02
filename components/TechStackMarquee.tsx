@@ -14,17 +14,7 @@ const researchTopics = [
 
 export const TechStackMarquee = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-gray-50/50 via-white to-gray-50/50 py-12 sm:py-16">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 30% 50%, rgba(251,113,133,0.08) 0%, transparent 50%),
-                                     radial-gradient(circle at 70% 50%, rgba(196,181,253,0.08) 0%, transparent 50%)`,
-          }}
-        ></div>
-      </div>
+    <section className="relative overflow-hidden bg-transparent py-12 sm:py-16">
 
       <div className="relative mx-auto max-w-6xl px-6">
         {/* Header */}
@@ -42,9 +32,9 @@ export const TechStackMarquee = () => {
 
         {/* Scrolling Content - Single Row */}
         <div className="relative">
-          {/* Gradient Overlays */}
-          <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-24 bg-gradient-to-r from-white to-transparent"></div>
-          <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-24 bg-gradient-to-l from-white to-transparent"></div>
+          {/* Gradient Overlays - Smooth fade */}
+          <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-32 bg-gradient-to-r from-gray-50/60 via-gray-50/30 to-transparent"></div>
+          <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-32 bg-gradient-to-l from-gray-50/60 via-gray-50/30 to-transparent"></div>
 
           {/* Single Row - Pure CSS Smooth Scroll (GPU Accelerated) */}
           <div className="flex overflow-hidden py-4">

@@ -23,7 +23,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-gray-100 bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-700">
+    <footer className="relative border-t border-gray-100/50 bg-transparent text-gray-700">
       <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Main Footer Content */}
         <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3 md:justify-items-center">

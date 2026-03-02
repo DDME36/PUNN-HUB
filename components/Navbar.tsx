@@ -122,8 +122,8 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
       <nav
         className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl'
-            : 'bg-white/80 py-4 backdrop-blur-md'
+            ? 'bg-white/60 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl'
+            : 'bg-white/40 py-4 backdrop-blur-lg'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
@@ -204,8 +204,6 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
         </div>
       </nav>
 
-      {/* Spacer for fixed nav */}
-      <div className="h-20 sm:h-24"></div>
       <AnimatePresence>
         {menuOpen && (
           <motion.div

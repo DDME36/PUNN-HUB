@@ -5,6 +5,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ScrollProgressBar } from '@/components/ScrollProgressBar';
 import { Navbar } from '@/components/Navbar';
 import { SmoothScroller } from '@/components/SmoothScroller';
+import { MeshGradient } from '@/components/MeshGradient';
 import { getPublishedPosts } from '@/lib/notion';
 import { Analytics } from '@/components/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
@@ -105,6 +106,7 @@ export default async function RootLayout({
   return (
     <html lang="th" className={`${inter.variable} ${kanit.variable}`}>
       <body className="min-h-screen overflow-x-hidden font-sans antialiased">
+        <MeshGradient />
         <SmoothScroller />
         <Navbar posts={posts} />
         <ScrollProgressBar />

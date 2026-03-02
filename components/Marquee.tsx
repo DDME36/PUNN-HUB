@@ -21,18 +21,8 @@ export const Marquee = () => {
       initial={{ opacity: 0, y: 20, rotate: 2 }}
       animate={{ opacity: 1, y: 0, rotate: 2 }}
       transition={{ duration: 0.6, delay: 0.3 }}
-      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-rose-100/50 bg-gradient-to-r from-rose-50 via-purple-50 to-blue-50 py-6 shadow-lg sm:-mt-12 sm:mb-8"
+      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-gray-200/50 bg-white/90 py-6 shadow-lg backdrop-blur-sm sm:-mt-12 sm:mb-8"
     >
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(251,113,133,0.1) 0%, transparent 50%),
-                                     radial-gradient(circle at 80% 50%, rgba(196,181,253,0.1) 0%, transparent 50%)`,
-          }}
-        ></div>
-      </div>
 
       {/* Top marquee - Pure CSS Animation (GPU Accelerated) */}
       <div className="relative mb-3 flex overflow-hidden whitespace-nowrap">

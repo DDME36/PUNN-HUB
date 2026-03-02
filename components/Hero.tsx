@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { TypewriterText } from './TypewriterText';
 import { GradientText } from './GradientText';
 import { MagneticButton } from './MagneticButton';
-import { MeshGradient } from './MeshGradient';
 
 export const Hero = () => {
   const [animationKey, setAnimationKey] = useState(0);
@@ -54,9 +53,6 @@ export const Hero = () => {
 
   return (
     <section className="relative flex min-h-[40vh] items-center justify-center overflow-hidden py-16 sm:min-h-[50vh] sm:py-24">
-      {/* Animated Mesh Gradient Background */}
-      <MeshGradient />
-
       {/* Centered Content */}
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
         {/* Floating Badge */}

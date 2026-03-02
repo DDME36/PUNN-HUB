@@ -14,7 +14,7 @@ export default async function Home() {
   });
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-transparent pt-20 sm:pt-24">
       <Hero />
       <Marquee />
       <section id="projects">

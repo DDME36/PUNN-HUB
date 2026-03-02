@@ -25,15 +25,24 @@ interface BlogListProps {
   error: string | null;
 }
 
-// Helper function to calculate reading time - removed as requested
-// const calculateReadingTime = (title: string): number => {
-//     // Mock reading time based on title length (in real app, use content length)
-//     const hash = title.split('').reduce((a, b) => {
-//         a = ((a << 5) - a) + b.charCodeAt(0);
-//         return a & a;
-//     }, 0);
-//     return Math.abs(hash % 8) + 3; // 3-10 minutes
-// };
+// Premium Gradient Fallbacks for posts without covers
+const coverGradients = [
+  'from-rose-400 via-fuchsia-500 to-indigo-500',
+  'from-blue-400 via-indigo-500 to-purple-500',
+  'from-emerald-400 via-teal-500 to-cyan-500',
+  'from-amber-400 via-orange-500 to-rose-500',
+  'from-violet-400 via-fuchsia-500 to-pink-500',
+  'from-cyan-400 via-blue-500 to-indigo-500',
+];
+
+// Helper to deterministically pick a gradient based on post title
+const getGradientForPost = (title: string) => {
+  const hash = title.split('').reduce((a, b) => {
+    a = (a << 5) - a + b.charCodeAt(0);
+    return a & a;
+  }, 0);
+  return coverGradients[Math.abs(hash) % coverGradients.length];
+};
 
 // Animation variants for stagger
 const containerVariants: Variants = {
@@ -72,17 +81,7 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
   return (
     <>
       {/* Hero Section - Soft UI Card */}
-      <div className="relative bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 py-12 sm:py-16">
-        {/* Soft Background Pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 25% 25%, rgba(253,164,175,0.15) 0%, transparent 50%), 
-                                         radial-gradient(circle at 75% 75%, rgba(196,181,253,0.15) 0%, transparent 50%)`,
-            }}
-          ></div>
-        </div>
+      <div className="relative bg-transparent py-12 sm:py-16">
 
         {/* Centered Card Container */}
         <motion.div
@@ -291,8 +290,15 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                               }}
                             />
                           ) : (
-                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rose-100/80 via-purple-100/80 to-blue-100/80">
-                              <BookOpen size={64} className="text-rose-300" />
+                            <div
+                              className={`flex h-full w-full flex-col items-center justify-center bg-gradient-to-br ${getGradientForPost(post.title)} p-6 text-white text-center`}
+                            >
+                              <div className="mb-3 rounded-full bg-white/20 p-4 backdrop-blur-md shadow-inner">
+                                <BookOpen size={32} className="text-white drop-shadow-md" />
+                              </div>
+                              <span className="font-display text-sm font-bold uppercase tracking-widest text-white/90 drop-shadow-md">
+                                PUNN HUB
+                              </span>
                             </div>
                           )}
 
