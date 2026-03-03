@@ -169,7 +169,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="min-h-screen bg-transparent pt-20">
-
       {/* Remove the old sticky breadcrumb block entirely */}
 
       <article className="mx-auto max-w-6xl px-4 py-8 sm:py-12">

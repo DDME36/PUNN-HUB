@@ -21,7 +21,10 @@ const mapNotionPageToPost = (notionPage: NotionPage): Post => {
   } else if ((notionPage.properties.Tags as any)?.rich_text?.[0]?.plain_text) {
     // Fallback: if Tags is Rich Text, split by comma
     const tagsText = (notionPage.properties.Tags as any).rich_text[0].plain_text;
-    tags = tagsText.split(',').map((tag: string) => tag.trim()).filter(Boolean);
+    tags = tagsText
+      .split(',')
+      .map((tag: string) => tag.trim())
+      .filter(Boolean);
   }
 
   const date = notionPage.properties.Date?.date?.start || new Date().toISOString();

@@ -15,7 +15,6 @@ const researchTopics = [
 export const TechStackMarquee = () => {
   return (
     <section className="relative overflow-hidden bg-transparent py-12 sm:py-16">
-
       <div className="relative mx-auto max-w-6xl px-6">
         {/* Header */}
         <motion.div
@@ -33,11 +32,13 @@ export const TechStackMarquee = () => {
         {/* Scrolling Content - Single Row */}
         <div className="relative">
           {/* Single Row - Pure CSS Smooth Scroll (GPU Accelerated) */}
-          <div 
+          <div
             className="flex overflow-hidden py-4"
             style={{
-              maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)'
+              maskImage:
+                'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+              WebkitMaskImage:
+                'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
             }}
           >
             <div className="animate-marquee-slow flex gap-4" style={{ willChange: 'transform' }}>

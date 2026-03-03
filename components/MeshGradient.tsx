@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export const MeshGradient = () => {
   return (
-    <div className="fixed inset-0 -z-10 bg-white overflow-hidden">
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-white">
       {/* Ambient Glow 1 - Top Left (Rose to Peach) */}
       <motion.div
         animate={{
@@ -41,21 +41,24 @@ export const MeshGradient = () => {
       />
 
       {/* Subtle Engineering Grid Overlay using CSS */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{ 
-          backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px)',
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
           maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, black 10%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, black 10%, transparent 80%)'
-        }} 
+          WebkitMaskImage:
+            'radial-gradient(ellipse 60% 60% at 50% 50%, black 10%, transparent 80%)',
+        }}
       />
 
       {/* Soft radial vignette - fades edges without harsh overlay */}
-      <div 
-        className="pointer-events-none absolute inset-0" 
+      <div
+        className="pointer-events-none absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(255,255,255,0.7) 100%)'
+          background:
+            'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(255,255,255,0.7) 100%)',
         }}
       ></div>
     </div>

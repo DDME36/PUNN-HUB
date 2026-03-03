@@ -82,7 +82,6 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
     <>
       {/* Hero Section - Soft UI Card */}
       <div className="relative bg-transparent py-12 sm:py-16">
-
         {/* Centered Card Container */}
         <motion.div
           variants={containerVariants}
@@ -291,9 +290,9 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                             />
                           ) : (
                             <div
-                              className={`flex h-full w-full flex-col items-center justify-center bg-gradient-to-br ${getGradientForPost(post.title)} p-6 text-white text-center`}
+                              className={`flex h-full w-full flex-col items-center justify-center bg-gradient-to-br ${getGradientForPost(post.title)} p-6 text-center text-white`}
                             >
-                              <div className="mb-3 rounded-full bg-white/20 p-4 backdrop-blur-md shadow-inner">
+                              <div className="mb-3 rounded-full bg-white/20 p-4 shadow-inner backdrop-blur-md">
                                 <BookOpen size={32} className="text-white drop-shadow-md" />
                               </div>
                               <span className="font-display text-sm font-bold uppercase tracking-widest text-white/90 drop-shadow-md">

@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     }
 
     const contentType = response.headers.get('content-type') || 'image/jpeg';
-    
+
     // Validate content type
     if (!contentType.startsWith('image/')) {
       console.error(`Invalid content type: ${contentType} - ${url}`);

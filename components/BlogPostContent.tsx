@@ -21,7 +21,6 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const articleRef = useRef<HTMLDivElement>(null);
 
-
   // Initialize client-side only values
   useEffect(() => {
     setIsClient(true);
@@ -39,8 +38,6 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
     window.addEventListener('resize', updateSettings);
     return () => window.removeEventListener('resize', updateSettings);
   }, [title]);
-
-
 
   const copyToClipboard = async () => {
     try {
@@ -78,8 +75,6 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
 
   return (
     <>
-
-
       {/* Desktop Floating Reading Controls */}
       <div className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 lg:block">
         <div className="space-y-2 rounded-2xl border border-gray-200/80 bg-white/95 p-3 shadow-xl backdrop-blur-md">

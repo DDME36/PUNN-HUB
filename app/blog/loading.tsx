@@ -6,7 +6,6 @@ import { SkeletonCard } from '@/components/SkeletonCard';
 export default function BlogLoading() {
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-
       {/* Hero Skeleton */}
       <div className="relative bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 py-16 sm:py-20">
         <div className="relative mx-auto max-w-5xl px-6">

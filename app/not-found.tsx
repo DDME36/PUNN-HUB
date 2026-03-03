@@ -7,7 +7,6 @@ import { Home, ArrowLeft, Search } from 'lucide-react';
 export default function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
-
       <div className="relative z-10 max-w-2xl text-center">
         {/* 404 Animation */}
         <motion.div

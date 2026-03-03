@@ -23,7 +23,6 @@ export const Marquee = () => {
       transition={{ duration: 0.6, delay: 0.3 }}
       className="relative mb-12 mt-6 w-full overflow-hidden border-y border-gray-200/30 bg-white/70 py-6 shadow-lg backdrop-blur-md sm:-mt-12 sm:mb-8"
     >
-
       {/* Top marquee - Pure CSS Animation (GPU Accelerated) */}
       <div className="relative mb-3 flex overflow-hidden whitespace-nowrap">
         <div
