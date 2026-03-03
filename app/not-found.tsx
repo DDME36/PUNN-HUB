@@ -6,12 +6,7 @@ import { Home, ArrowLeft, Search } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 px-4">
-      {/* Background Orbs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-20 top-20 h-72 w-72 rounded-full bg-gradient-to-br from-rose-200/20 to-rose-300/10 blur-3xl" />
-        <div className="absolute bottom-20 right-20 h-96 w-96 rounded-full bg-gradient-to-br from-purple-200/20 to-purple-300/10 blur-3xl" />
-      </div>
+    <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
 
       <div className="relative z-10 max-w-2xl text-center">
         {/* 404 Animation */}

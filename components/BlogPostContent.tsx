@@ -20,7 +20,7 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
   const [isClient, setIsClient] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const articleRef = useRef<HTMLDivElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
+
 
   // Initialize client-side only values
   useEffect(() => {
@@ -40,54 +40,7 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
     return () => window.removeEventListener('resize', updateSettings);
   }, [title]);
 
-  // Reading progress tracker - Optimized for Zero Layout Thrashing
-  useEffect(() => {
-    if (!isClient) return;
 
-    let ticking = false;
-    let cachedTotalHeight = 0;
-
-    // ฟังก์ชันคำนวณความสูง (ทำเฉพาะตอนโหลด หรือตอนย่อ/ขยายจอ)
-    const calculateHeight = () => {
-      const el = articleRef.current;
-      if (el) {
-        cachedTotalHeight = el.scrollHeight - window.innerHeight;
-      }
-    };
-
-    // คำนวณรอบแรก
-    calculateHeight();
-
-    // คำนวณใหม่เฉพาะตอน Resize จอ
-    window.addEventListener('resize', calculateHeight);
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const el = articleRef.current;
-          const bar = progressBarRef.current;
-
-          if (el && bar && cachedTotalHeight > 0) {
-            // ใช้ el.getBoundingClientRect().top ได้ เพราะกินสเปกน้อยกว่า scrollHeight
-            const rect = el.getBoundingClientRect();
-            const scrolled = -rect.top;
-            const progress = Math.min(Math.max(scrolled / cachedTotalHeight, 0), 1);
-
-            bar.style.transform = `scaleX(${progress})`;
-          }
-
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', calculateHeight);
-    };
-  }, [isClient]);
 
   const copyToClipboard = async () => {
     try {
@@ -125,17 +78,7 @@ export const BlogPostContent = ({ content, title, imageWidths }: BlogPostContent
 
   return (
     <>
-      {/* Reading Progress Bar */}
-      <div
-        className="pointer-events-none fixed left-0 right-0 top-0 z-50 h-1"
-        style={{ contain: 'layout' }}
-      >
-        <div
-          ref={progressBarRef}
-          className="h-full origin-left bg-gradient-to-r from-rose-400 via-purple-400 to-blue-400"
-          style={{ transform: 'scaleX(0)', willChange: 'transform' }}
-        />
-      </div>
+
 
       {/* Desktop Floating Reading Controls */}
       <div className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 lg:block">

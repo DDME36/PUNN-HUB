@@ -102,7 +102,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-20">
+      <div className="min-h-screen bg-transparent pt-20">
         <div className="mx-auto max-w-3xl px-4 pt-20 text-center">
           <div className="mb-8">
             <FileX className="mx-auto h-32 w-32 text-gray-300" />
@@ -126,7 +126,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     const episodes = await getEpisodesByParentSlug(slug).catch(() => []);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 pt-20">
+      <div className="min-h-screen bg-transparent pt-20">
         <EpisodeList episodes={episodes} seriesTitle={post.title} />
         <Footer />
         <BackToTop />
@@ -168,7 +168,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const readingTime = Math.max(Math.ceil(wordCount / wordsPerMinute), 1); // Minimum 1 minute
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 pt-20">
+    <div className="min-h-screen bg-transparent pt-20">
 
       {/* Remove the old sticky breadcrumb block entirely */}
 
@@ -292,7 +292,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Enhanced Related Articles */}
       {relatedPosts.length > 0 && (
-        <section className="border-t border-gray-100 bg-gradient-to-br from-gray-50 via-white to-gray-50 py-12 sm:py-16">
+        <section className="border-t border-gray-100/50 bg-white/60 py-12 backdrop-blur-sm sm:py-16">
           <div className="mx-auto max-w-6xl px-4">
             <div className="mb-10 text-center">
               <h2 className="mb-3 font-display text-3xl font-bold text-gray-800">
@@ -374,7 +374,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       )}
 
       {/* Enhanced Navigation */}
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 py-8 sm:py-10">
+      <div className="bg-white/50 py-8 backdrop-blur-sm sm:py-10">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <Link
             href="/blog"

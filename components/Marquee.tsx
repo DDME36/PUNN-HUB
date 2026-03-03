@@ -21,7 +21,7 @@ export const Marquee = () => {
       initial={{ opacity: 0, y: 20, rotate: 2 }}
       animate={{ opacity: 1, y: 0, rotate: 2 }}
       transition={{ duration: 0.6, delay: 0.3 }}
-      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-gray-200/50 bg-white/90 py-6 shadow-lg backdrop-blur-sm sm:-mt-12 sm:mb-8"
+      className="relative mb-12 mt-6 w-full overflow-hidden border-y border-gray-200/30 bg-white/70 py-6 shadow-lg backdrop-blur-md sm:-mt-12 sm:mb-8"
     >
 
       {/* Top marquee - Pure CSS Animation (GPU Accelerated) */}
@@ -66,8 +66,8 @@ export const Marquee = () => {
       </div>
 
       {/* Gradient overlays */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-rose-50 to-transparent"></div>
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-blue-50 to-transparent"></div>
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-white/80 to-transparent"></div>
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-white/80 to-transparent"></div>
     </motion.div>
   );
 };

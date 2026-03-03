@@ -32,12 +32,14 @@ export const TechStackMarquee = () => {
 
         {/* Scrolling Content - Single Row */}
         <div className="relative">
-          {/* Gradient Overlays - Smooth fade */}
-          <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-32 bg-gradient-to-r from-gray-50/60 via-gray-50/30 to-transparent"></div>
-          <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-32 bg-gradient-to-l from-gray-50/60 via-gray-50/30 to-transparent"></div>
-
           {/* Single Row - Pure CSS Smooth Scroll (GPU Accelerated) */}
-          <div className="flex overflow-hidden py-4">
+          <div 
+            className="flex overflow-hidden py-4"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)'
+            }}
+          >
             <div className="animate-marquee-slow flex gap-4" style={{ willChange: 'transform' }}>
               {[...researchTopics, ...researchTopics].map((topic, index) => {
                 // นำ Icon มาใส่ตัวแปรตัวพิมพ์ใหญ่ (React Component ต้องขึ้นต้นด้วยตัวพิมพ์ใหญ่)

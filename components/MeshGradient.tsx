@@ -51,8 +51,13 @@ export const MeshGradient = () => {
         }} 
       />
 
-      {/* Global Wash Overlay to unify colors and soften the look but keep it bright */}
-      <div className="pointer-events-none absolute inset-0 bg-white/30 backdrop-blur-[1px]"></div>
+      {/* Soft radial vignette - fades edges without harsh overlay */}
+      <div 
+        className="pointer-events-none absolute inset-0" 
+        style={{
+          background: 'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(255,255,255,0.7) 100%)'
+        }}
+      ></div>
     </div>
   );
 };
