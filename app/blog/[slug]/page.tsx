@@ -1,0 +1,418 @@
+import {
+  getPostBySlug,
+  getPostContent,
+  getPublishedPosts,
+  getEpisodesByParentSlug,
+} from '@/lib/mdx';
+import { Card } from '@/components/Card';
+import { Footer } from '@/components/Footer';
+import { BlogPostContent } from '@/components/BlogPostContent';
+import { ShareButtons } from '@/components/ShareButtons';
+import { TableOfContents } from '@/components/TableOfContents';
+import { BackToTop } from '@/components/BackToTop';
+import { EpisodeList } from '@/components/EpisodeList';
+import { AnimatedBreadcrumb } from '@/components/AnimatedBreadcrumb';
+import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/structured-data';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Post } from '@/lib/types';
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, Tag, Clock, User, FileX } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const revalidate = 3600; // ขณะ production ใช้ 1 ชั่วโมง
+
+export async function generateStaticParams() {
+  const posts = await getPublishedPosts().catch(() => []);
+  return posts.map((post: Post) => ({
+    slug: post.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug).catch(() => null);
+
+  if (!post) {
+    return {
+      title: 'Article Not Found',
+    };
+  }
+
+  const content = await getPostContent(post.id).catch(() => '');
+  const description =
+    content
+      .slice(0, 160)
+      .replace(/[#*`\n]/g, ' ')
+      .trim() || `อ่านบทความ "${post.title}" ใน PUNN HUB`;
+
+  return {
+    title: `${post.title} - PUNN HUB`,
+    description: description,
+    alternates: {
+      canonical: `https://punn.site/blog/${slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: description,
+      url: `https://punn.site/blog/${slug}`,
+      siteName: 'PUNN HUB',
+      images: post.cover
+        ? [
+            {
+              url: post.cover,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+              type: 'image/png',
+            },
+          ]
+        : [
+            {
+              url: 'https://punn.site/icon-512.png',
+              width: 512,
+              height: 512,
+              alt: 'PUNN HUB',
+              type: 'image/png',
+            },
+          ],
+      locale: 'th_TH',
+      type: 'article',
+      publishedTime: post.date,
+      authors: ['Satayu Pongpan'],
+      tags: post.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: description,
+      images: post.cover ? [post.cover] : ['https://punn.site/icon-512.png'],
+      creator: '@punnhub',
+      site: '@punnhub',
+    },
+    other: {
+      'theme-color': '#fb7185',
+    },
+  };
+}
+
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug).catch(() => null);
+
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-transparent pt-20">
+        <div className="mx-auto max-w-3xl px-4 pt-20 text-center">
+          <div className="mb-8">
+            <FileX className="mx-auto h-32 w-32 text-gray-300" />
+          </div>
+          <h1 className="mb-6 text-4xl font-bold text-gray-400">ไม่พบบทความนี้</h1>
+          <p className="mb-8 text-lg text-gray-500">บทความอาจถูกลบหรือ URL ไม่ถูกต้อง</p>
+          <Link
+            href="/blog"
+            className="inline-flex transform items-center gap-2 rounded-full bg-gradient-to-r from-rose-400 to-purple-400 px-8 py-4 font-bold text-white shadow-lg transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)]"
+          >
+            <ArrowLeft size={20} /> กลับไปหน้าบทความ
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // If this is a parent post (series), show episode list
+  if (post.isParent) {
+    const episodes = await getEpisodesByParentSlug(slug).catch(() => []);
+
+    return (
+      <div className="min-h-screen bg-transparent pt-20">
+        <EpisodeList episodes={episodes} seriesTitle={post.title} />
+        <Footer />
+        <BackToTop />
+      </div>
+    );
+  }
+
+  // Regular post - show content
+  const content = await getPostContent(post.id);
+  const allPosts = await getPublishedPosts().catch(() => []);
+
+  // If this is an episode, get parent post info
+  let parentPost = null;
+  if (post.parentSlug) {
+    parentPost = await getPostBySlug(post.parentSlug).catch(() => null);
+  }
+
+  // หาบทความที่เกี่ยวข้องตาม tags (ไม่รวมบทความย่อย)
+  const relatedPosts = allPosts
+    .filter((p: Post) => p.id !== post.id && !p.parentSlug)
+    .map((p: Post) => {
+      // นับจำนวน tags ที่ตรงกัน
+      const matchingTags = p.tags.filter((tag: string) => post.tags.includes(tag)).length;
+      return { ...p, matchingTags };
+    })
+    .sort((a: Post & { matchingTags: number }, b: Post & { matchingTags: number }) => {
+      // เรียงตามจำนวน tags ที่ตรงกัน แล้วตามวันที่
+      if (b.matchingTags !== a.matchingTags) {
+        return b.matchingTags - a.matchingTags;
+      }
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+    .slice(0, 3);
+
+  // Calculate reading time (more accurate)
+  const wordsPerMinute = 200;
+  const wordCount = content ? content.split(/\s+/).length : 0;
+  const readingTime = Math.max(Math.ceil(wordCount / wordsPerMinute), 1); // Minimum 1 minute
+
+  // Generate structured data
+  const articleSchema = generateArticleSchema(post, `https://punn.site/blog/${slug}`);
+  const breadcrumbItems = [
+    { name: 'หน้าแรก', url: 'https://punn.site' },
+    { name: 'บทความ', url: 'https://punn.site/blog' },
+    { name: post.title, url: `https://punn.site/blog/${slug}` },
+  ];
+  if (parentPost) {
+    breadcrumbItems.splice(2, 0, {
+      name: parentPost.title,
+      url: `https://punn.site/blog/${parentPost.slug}`,
+    });
+  }
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+
+  return (
+    <div className="min-h-screen bg-transparent pt-20">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <article className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        {/* Animated Breadcrumb (Integration) */}
+        <div className="mb-8 hidden sm:block">
+          <AnimatedBreadcrumb
+            items={[
+              { label: 'บทความ', href: '/blog' },
+              ...(parentPost
+                ? [{ label: parentPost.title, href: `/blog/${parentPost.slug}` }]
+                : []),
+              { label: post.title, href: '#' },
+            ]}
+          />
+        </div>
+
+        {/* Table of Contents */}
+        <TableOfContents content={content} />
+
+        {/* Hero Cover Image - Panoramic Ratio */}
+        {post.cover && (
+          <div className="group relative mb-12 h-64 w-full overflow-hidden rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl sm:h-72 md:h-96 lg:h-[450px]">
+            <Image
+              src={post.cover}
+              alt={`ภาพปกบทความ: ${post.title}`}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              style={{ objectPosition: post.coverPosition || 'center' }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              priority
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" aria-hidden="true"></div>
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="mb-4 flex flex-wrap gap-2" role="list" aria-label="หมวดหมู่บทความ">
+                {post.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    role="listitem"
+                    className="flex items-center gap-1 rounded-full border border-white/30 bg-white/20 px-3 py-1.5 text-sm font-bold text-white backdrop-blur-md"
+                  >
+                    <Tag size={12} aria-hidden="true" />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Article Header */}
+        <header className="mx-auto mb-16 max-w-4xl text-center">
+          {/* Tags (if no cover image) */}
+          {!post.cover && (
+            <div className="mb-8 flex flex-wrap justify-center gap-2">
+              {post.tags.map((tag: string) => (
+                <span
+                  key={tag}
+                  className="flex items-center gap-1 rounded-full border border-emerald-200 bg-gradient-to-r from-emerald-100 to-blue-100 px-4 py-2 text-sm font-bold text-emerald-700"
+                >
+                  <Tag size={12} />
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Title - Responsive Typography */}
+          <h1 className="mb-8 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text font-display text-2xl font-black leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-5xl">
+            {post.title}
+          </h1>
+
+          {/* Enhanced Meta Info */}
+          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-white/60 bg-white/90 p-6 text-sm text-gray-600 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-md sm:flex-row sm:gap-6">
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-rose-100 to-rose-200">
+                <User size={14} className="text-rose-600" />
+              </div>
+              <span className="font-medium">PUNN</span>
+            </div>
+            <div className="hidden h-6 w-px bg-gray-200 sm:block"></div>
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-blue-200">
+                <Calendar size={14} className="text-blue-600" />
+              </div>
+              <span suppressHydrationWarning className="text-center sm:text-left">
+                {new Date(post.date).toLocaleDateString('th-TH', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
+            </div>
+            <div className="hidden h-6 w-px bg-gray-200 sm:block"></div>
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-purple-200">
+                <Clock size={14} className="text-purple-600" />
+              </div>
+              <span>อ่าน {readingTime} นาที</span>
+            </div>
+          </div>
+        </header>
+
+        {/* Enhanced Article Content */}
+        <BlogPostContent content={content} title={post.title} />
+
+        {/* Enhanced Share Section */}
+        <ShareButtons title={post.title} url={`https://punn.site/blog/${slug}`} />
+
+        {/* Back to Series Button (if this is an episode) */}
+        {parentPost && (
+          <div className="mt-12 text-center">
+            <Link
+              href={`/blog/${parentPost.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-gradient-to-r from-purple-50 to-blue-50 px-6 py-3 font-semibold text-purple-600 shadow-md backdrop-blur-md transition-all hover:border-purple-300 hover:from-purple-100 hover:to-blue-100 hover:shadow-lg"
+            >
+              <BookOpen size={18} />
+              ดูตอนอื่นๆ ใน &quot;{parentPost.title}&quot;
+            </Link>
+          </div>
+        )}
+      </article>
+
+      {/* Enhanced Related Articles */}
+      {relatedPosts.length > 0 && (
+        <section className="border-t border-gray-100/50 bg-white/60 py-12 backdrop-blur-sm sm:py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="mb-10 text-center">
+              <h2 className="mb-3 font-display text-3xl font-bold text-gray-800">
+                บทความที่เกี่ยวข้อง
+              </h2>
+              <p className="text-gray-600">บทความอื่นๆ ที่คุณอาจสนใจ</p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((p: Post & { matchingTags: number }) => (
+                <Card
+                  key={p.id}
+                  href={`/blog/${p.slug}`}
+                  className="group flex h-full transform flex-col !border-gray-100 bg-white/90 p-0 backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-rose-200 hover:shadow-xl"
+                >
+                  <div
+                    className="relative h-48 w-full shrink-0 overflow-hidden rounded-t-2xl bg-gray-100 sm:h-52"
+                    style={{
+                      maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                      WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                    }}
+                  >
+                    {p.cover ? (
+                      <Image
+                        src={p.cover}
+                        alt={p.title}
+                        fill
+                        loading="lazy"
+                        placeholder="blur"
+                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2Y5ZjlmOSIvPjwvc3ZnPg=="
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rose-100 via-purple-100 to-blue-100 text-rose-400">
+                        <BookOpen size={32} />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="mb-3 flex min-h-[28px] flex-wrap gap-1.5">
+                      {p.tags.slice(0, 2).map((tag: string) => (
+                        <span
+                          key={tag}
+                          className="rounded-lg border border-rose-100 bg-rose-50 px-2.5 py-1 text-xs font-medium text-rose-600"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="mb-2 line-clamp-2 min-h-[3.5rem] font-display text-lg font-bold transition-colors group-hover:text-rose-500">
+                      {p.title}
+                    </h3>
+                    <div className="mt-auto flex items-center gap-2 pt-2 text-xs text-gray-500">
+                      <Calendar size={12} />
+                      <span suppressHydrationWarning>
+                        {new Date(p.date).toLocaleDateString('th-TH', {
+                          month: 'short',
+                          day: 'numeric',
+                        })}
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/blog"
+                className="inline-flex transform items-center gap-2 rounded-full bg-gradient-to-r from-rose-400 to-purple-400 px-8 py-3 font-bold text-white shadow-lg transition-all hover:scale-105 hover:shadow-[0_12px_40px_rgb(251,113,133,0.4)]"
+              >
+                ดูบทความทั้งหมด <ArrowRight size={18} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Enhanced Navigation */}
+      <div className="bg-white/50 py-8 backdrop-blur-sm sm:py-10">
+        <div className="mx-auto max-w-6xl px-4 text-center">
+          <Link
+            href="/blog"
+            className="inline-flex transform items-center gap-3 rounded-full border border-gray-200 bg-white/90 px-8 py-3 font-semibold text-gray-700 shadow-md backdrop-blur-md transition-all hover:scale-105 hover:border-rose-200 hover:text-rose-500 hover:shadow-lg"
+          >
+            <ArrowLeft size={18} /> กลับไปหน้าบทความรวม
+          </Link>
+        </div>
+      </div>
+
+      <Footer />
+      <BackToTop />
+    </div>
+  );
+}

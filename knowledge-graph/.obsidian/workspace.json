@@ -1,0 +1,208 @@
+{
+  "main": {
+    "id": "8ccd4db523f1b64e",
+    "type": "split",
+    "children": [
+      {
+        "id": "8b3fd3ea6938dc50",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f891d2cd163442ea",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ee50f9c11fcf494a",
+    "type": "split",
+    "children": [
+      {
+        "id": "0b44a6401efdc011",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "119f3b6919ea452e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "09d5aeb26f79ea96",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "f73dd0f6e451b72b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "124ead61653b76cd",
+    "type": "split",
+    "children": [
+      {
+        "id": "37d8373fc5877d72",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b27e35a074ebc7fa",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "e717fd9f1a96a7e1",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "83c56b21ece56b5f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "96629290fecc211f",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "6aea1937f41a648b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "f891d2cd163442ea",
+  "lastOpenFiles": [
+    "Electricity-Bill-Calculation.md",
+    "Electrical-Diagram-Standards.md",
+    "Transformer-Types.md",
+    "Fault-Analysis.md",
+    "Step-Touch-Voltage.md",
+    "Per-Unit-System.md",
+    "MCB-MCCB-RCCB-RCBO.md",
+    "Transmission-Line-Parameters.md",
+    "Percent-Impedance-Z.md",
+    "Power-Factor-PF.md",
+    "Eddy-Current-Loss.md",
+    "Delta-Connection.md",
+    "Harmonics.md",
+    "Motor.md",
+    "CT-VT.md",
+    "RCD.md",
+    "Wire-Sizing.md",
+    "Load-Flow-Analysis.md",
+    "Mesh-Current-Analysis.md",
+    "Node-Voltage-Analysis.md",
+    "Energy-Meter.md",
+    "Kirchhoffs-Laws.md",
+    "Nameplate-Reading.md",
+    "Wound-Rotor-Motor.md",
+    "Soft-Starter.md",
+    "VSD.md"
+  ]
+}
