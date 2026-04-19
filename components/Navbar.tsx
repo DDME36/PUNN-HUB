@@ -150,9 +150,11 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
               หน้าแรก
               {pathname === '/' && (
                 <motion.div
-                  layoutId="navbar-indicator"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  exit={{ scaleX: 0 }}
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 origin-left rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
                 />
               )}
             </Link>
@@ -167,9 +169,11 @@ export const Navbar = ({ posts = [] }: NavbarProps) => {
               บทความ
               {(pathname === '/blog' || pathname?.startsWith('/blog/')) && (
                 <motion.div
-                  layoutId="navbar-indicator"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  exit={{ scaleX: 0 }}
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 origin-left rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
                 />
               )}
             </Link>
