@@ -1,7 +1,5 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
 import { BentoGrid } from './BentoGrid';
 
 interface Post {
@@ -17,18 +15,15 @@ interface EnhancedBentoGridProps {
   posts: Post[];
 }
 
+/**
+ * EnhancedBentoGrid - Wrapper for BentoGrid.
+ * Entrance animations are now handled by individual Card components 
+ * for better performance and to prevent flickering.
+ */
 export const EnhancedBentoGrid = ({ posts }: EnhancedBentoGridProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-    >
+    <div className="relative w-full">
       <BentoGrid posts={posts} />
-    </motion.div>
+    </div>
   );
 };

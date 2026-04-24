@@ -13,7 +13,7 @@ export const MeshGradient = () => {
           rotate: [0, 45, 0],
         }}
         transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -left-[10%] -top-[10%] h-[70vh] w-[70vw] rounded-full bg-gradient-to-br from-rose-200 to-orange-100 blur-[100px] sm:w-[50vw]"
+        className="will-change-transform absolute -left-[10%] -top-[10%] h-[70vh] w-[70vw] rounded-full bg-gradient-to-br from-rose-200 to-orange-100 blur-[100px] sm:w-[50vw]"
       />
 
       {/* Ambient Glow 2 - Bottom Right (Purple to Blue) */}
@@ -25,7 +25,7 @@ export const MeshGradient = () => {
           y: ['0%', '-5%', '0%'],
         }}
         transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute -bottom-[10%] -right-[10%] h-[80vh] w-[80vw] rounded-full bg-gradient-to-tl from-purple-200 to-blue-200 blur-[110px] sm:w-[60vw]"
+        className="will-change-transform absolute -bottom-[10%] -right-[10%] h-[80vh] w-[80vw] rounded-full bg-gradient-to-tl from-purple-200 to-blue-200 blur-[110px] sm:w-[60vw]"
       />
 
       {/* Ambient Glow 3 - Center Flow (Teal/Rose hint) */}
@@ -37,7 +37,29 @@ export const MeshGradient = () => {
           x: ['-5%', '5%', '-5%'],
         }}
         transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-        className="absolute left-[15%] top-[20%] h-[60vh] w-[60vw] rounded-full bg-gradient-to-r from-teal-100 to-rose-200 blur-[90px]"
+        className="will-change-transform absolute left-[15%] top-[20%] h-[60vh] w-[60vw] rounded-full bg-gradient-to-r from-teal-100 to-rose-200 blur-[90px]"
+      />
+
+      {/* Ambient Glow 4 - Bottom Left (Blue hint) */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+          x: ['0%', '10%', '0%'],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        className="will-change-transform absolute bottom-[10%] left-[-10%] h-[50vh] w-[50vw] rounded-full bg-blue-100/50 blur-[100px]"
+      />
+
+      {/* Ambient Glow 5 - Dynamic Spot (Rose/Indigo) */}
+      <motion.div
+        animate={{
+          x: ['-20%', '20%', '-20%'],
+          y: ['20%', '-20%', '20%'],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+        className="will-change-transform absolute left-[40%] top-[40%] h-[50vh] w-[50vw] rounded-full bg-gradient-to-tr from-rose-100/40 to-indigo-100/40 blur-[120px]"
       />
 
       {/* Subtle Engineering Grid Overlay using CSS */}

@@ -14,6 +14,7 @@ import {
   Bell,
   Music,
   Sparkles,
+  Brain,
 } from 'lucide-react';
 import { Card } from './Card';
 import Link from 'next/link';
@@ -41,7 +42,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           href="https://ddme36.github.io/PUNN-INVESTING/"
           BgIcon={TrendingUp}
           className="group relative col-span-1 row-span-2 !border-none !bg-gradient-to-br from-emerald-500 to-teal-600 !text-white shadow-[0_8px_30px_rgba(16,185,129,0.25)] sm:col-span-2 md:col-span-2 lg:col-span-2"
-          delay={0.1}
           glowColor="rgba(255,255,255,0.2)"
         >
           {/* Soft Shimmer Effect with blur */}
@@ -86,7 +86,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           href="https://satayupongpan.site/"
           BgIcon={User}
           className="col-span-1 row-span-2 !border-none !bg-gradient-to-br from-gray-800 to-gray-900 !text-white shadow-[0_8px_30px_rgba(0,0,0,0.15)] sm:col-span-1"
-          delay={0.2}
         >
           <div className="flex h-full flex-col items-center justify-between text-center">
             <div className="relative z-20 mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gray-700 to-gray-600 font-display text-lg font-bold text-gray-300 shadow-inner">
@@ -96,7 +95,7 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
               <h3 className="font-display text-sm font-bold uppercase">FOUNDER</h3>
               <p className="mt-1 text-xs text-gray-300">Satayu Pongpan</p>
             </div>
-            <div className="mt-2 w-full cursor-pointer rounded-xl bg-white py-2 text-xs font-bold text-gray-900 shadow-sm transition-colors hover:bg-gray-100">
+            <div className="mt-2 w-full cursor-pointer rounded-xl bg-white py-2 text-xs font-bold text-gray-900 shadow-sm transition-none hover:bg-gray-100">
               ดูโปรไฟล์
             </div>
           </div>
@@ -107,7 +106,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           href="https://ddme36.github.io/KhomunPang/"
           BgIcon={Database}
           className="col-span-1 row-span-2 !border-none !bg-gradient-to-br from-blue-500 to-indigo-600 !text-white shadow-[0_8px_30px_rgba(59,130,246,0.25)] sm:col-span-1"
-          delay={0.25}
         >
           <div className="flex h-full flex-col items-center justify-between text-center">
             <div className="relative z-20 mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/20 font-display text-white shadow-inner backdrop-blur-sm">
@@ -117,8 +115,41 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
               <h3 className="font-display text-sm font-bold">ข้อมูลปัง</h3>
               <p className="mt-1 text-xs text-blue-50">ผู้เชี่ยวชาญจัดการข้อมูล</p>
             </div>
-            <div className="mt-2 w-full cursor-pointer rounded-xl border border-white/30 bg-white/20 py-2 text-xs font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/30">
+            <div className="mt-2 w-full cursor-pointer rounded-xl border border-white/30 bg-white/20 py-2 text-xs font-bold text-white backdrop-blur-sm transition-none hover:bg-white/30">
               <span>ดูผลงาน</span>
+            </div>
+          </div>
+        </Card>
+
+        {/* MemoKard - New Project */}
+        <Card
+          href="https://memokard.vercel.app/"
+          BgIcon={Brain}
+          className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-orange-400 to-rose-500 !text-white shadow-[0_8px_30px_rgba(251,146,60,0.25)] sm:col-span-2 md:col-span-2"
+        >
+          <div className="flex h-full flex-col justify-between">
+            <div className="flex items-start justify-between">
+              <div className="mb-1 flex items-center gap-2">
+                <Brain className="h-4 w-4 text-orange-100" />
+                <span className="rounded-lg border border-white/30 bg-white/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+                  FSRS
+                </span>
+              </div>
+              <ArrowUpRight className="text-orange-100" size={18} />
+            </div>
+            <div>
+              <h3 className="mb-1 font-display text-lg font-bold">MemoKard</h3>
+              <p className="text-sm leading-relaxed text-orange-50">
+                Flashcard สมัยใหม่พร้อมระบบ FSRS และโหมดการเรียนรู้ที่หลากหลาย
+              </p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
+                  Spaced Repetition
+                </span>
+                <span className="rounded-lg border border-white/25 bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur-sm">
+                  Multi-mode
+                </span>
+              </div>
             </div>
           </div>
         </Card>
@@ -128,7 +159,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           href="https://smartaistock.vercel.app/"
           BgIcon={Bell}
           className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-indigo-500 to-purple-600 !text-white shadow-[0_8px_30px_rgba(99,102,241,0.25)] sm:col-span-2 md:col-span-2"
-          delay={0.28}
         >
           <div className="flex h-full flex-col justify-between">
             <div className="flex items-start justify-between">
@@ -163,7 +193,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           bgImage="/images/purrdrop.png"
           priority={true}
           className="col-span-1 row-span-1 !border-none !text-white sm:col-span-2 md:col-span-1"
-          delay={0.3}
         >
           <div className="flex h-full flex-col justify-between">
             <div className="flex items-start justify-between">
@@ -187,7 +216,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           href="https://ddme36.github.io/JodHuay/"
           BgIcon={Ticket}
           className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-amber-400 to-orange-500 !text-white shadow-[0_8px_30px_rgba(251,191,36,0.25)]"
-          delay={0.32}
         >
           <div className="flex h-full flex-col items-center justify-center text-center">
             <Ticket className="mb-2 h-5 w-5 text-amber-50" />
@@ -201,7 +229,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           href="https://www.punn.site/blog/HowToUseHeartopiano"
           BgIcon={Music}
           className="col-span-1 row-span-1 !border-none !bg-gradient-to-br from-pink-400 via-rose-400 to-purple-500 !text-white shadow-[0_8px_30px_rgba(236,72,153,0.25)]"
-          delay={0.34}
         >
           <div className="flex h-full flex-col items-center justify-center text-center">
             <Music className="mb-2 h-5 w-5 text-pink-50" />
@@ -214,7 +241,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
         <Card
           href="https://github.com/DDME36"
           className="col-span-1 row-span-1 !border-none !bg-gray-800 !text-white"
-          delay={0.35}
         >
           <div className="flex h-full flex-col items-center justify-center text-center">
             <Code className="mb-2 h-5 w-5 text-gray-400" />
@@ -227,7 +253,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
         <Card
           href="https://2026-vision-goals.vercel.app/"
           className="col-span-1 row-span-1 !border-none !bg-gradient-to-r from-slate-900 to-slate-800 !text-white"
-          delay={0.4}
         >
           <div className="flex h-full flex-col items-center justify-center text-center">
             <Target className="mb-2 h-5 w-5 text-rose-400" />
@@ -238,13 +263,12 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
         {/* Articles Section - ปรับให้สวยขึ้น */}
         <Card
           BgIcon={BookOpen}
-          className="col-span-1 row-span-1 !border-rose-100 bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50 transition-all duration-300 hover:shadow-xl sm:col-span-2 md:col-span-2 lg:col-span-2"
-          delay={0.45}
+          className="col-span-1 row-span-1 !border-rose-100 bg-gradient-to-br from-rose-50 via-purple-50 to-blue-50 sm:col-span-2 md:col-span-2 lg:col-span-2"
         >
           <div className="flex h-full flex-col">
             <Link
               href="/blog"
-              className="group/header mb-3 flex w-fit items-center gap-2 transition-opacity hover:opacity-80"
+              className="group/header mb-3 flex w-fit items-center gap-2 transition-none hover:opacity-80"
             >
               <div className="rounded-lg bg-gradient-to-r from-rose-400 to-purple-400 p-2">
                 <BookOpen className="h-4 w-4 text-white" />
@@ -261,7 +285,7 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
                   <Link
                     key={post.id}
                     href={`/blog/${post.slug}`}
-                    className="flex w-full items-center gap-2 truncate rounded-lg border border-rose-100/50 px-3 py-2 text-left text-sm font-medium text-gray-700 transition-colors hover:border-rose-200 hover:bg-rose-100/50 hover:text-rose-600"
+                    className="flex w-full items-center gap-2 truncate rounded-lg border border-rose-100/50 px-3 py-2 text-left text-sm font-medium text-gray-700 transition-none hover:border-rose-200 hover:bg-rose-100/50 hover:text-rose-600"
                   >
                     <span className="h-2 w-2 flex-shrink-0 rounded-full bg-rose-400"></span>
                     <span className="truncate">{post.title}</span>
@@ -279,29 +303,6 @@ export const BentoGrid = ({ posts }: BentoGridProps) => {
           </div>
         </Card>
 
-        {/* About Section */}
-        <Card
-          className="group relative col-span-1 row-span-1 !border-none !bg-gradient-to-r from-rose-400 via-purple-500 to-indigo-500 !text-white transition-all duration-300 hover:shadow-xl sm:col-span-2 md:col-span-2 lg:col-span-2"
-          delay={0.5}
-        >
-          {/* Soft Shimmer Effect with blur */}
-          <div className="shimmer-effect animate-[shimmer_3s_infinite] delay-500"></div>
-
-          {/* Background Icon */}
-          <div className="absolute -bottom-8 -right-8 opacity-10 transition-opacity group-hover:opacity-20">
-            <Sparkles size={180} strokeWidth={1} />
-          </div>
-
-          <div className="relative z-10 flex h-full items-center justify-between">
-            <div className="flex flex-col justify-center">
-              <h3 className="font-display text-base font-bold sm:text-lg">PUNN HUB</h3>
-              <p className="text-sm text-white/90">แหล่งรวมความรู้และโปรเจกต์</p>
-            </div>
-            <div className="rounded-full bg-white/20 p-3 text-white backdrop-blur-sm transition-all duration-300 group-hover:scale-110">
-              <Sparkles size={20} />
-            </div>
-          </div>
-        </Card>
       </div>
     </>
   );

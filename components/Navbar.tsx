@@ -15,300 +15,162 @@ import {
   Menu as MenuIcon,
   X as XIcon,
   Home,
-  Ticket,
   Bell,
   BookOpen,
   Music,
+  Brain,
+  Ticket,
 } from 'lucide-react';
-import { SearchModal } from './SearchModal';
 import { MagneticButton } from './MagneticButton';
 
 const menuLinks = [
-  {
-    name: 'หน้าแรก',
-    href: '/',
-    icon: Home,
-    internal: true,
-  },
-  {
-    name: 'บทความ',
-    href: '/blog',
-    icon: BookOpen,
-    internal: true,
-  },
-  {
-    name: 'PUNN INVESTING',
-    href: 'https://ddme36.github.io/PUNN-INVESTING/',
-    icon: TrendingUp,
-  },
-  {
-    name: 'Smart AI Stock',
-    href: 'https://smartaistock.vercel.app/',
-    icon: Bell,
-  },
-  {
-    name: 'ข้อมูลปัง',
-    href: 'https://ddme36.github.io/KhomunPang/',
-    icon: Database,
-  },
-  {
-    name: 'PurrDrop',
-    href: 'https://purrdrop.onrender.com/',
-    icon: Share2,
-  },
-  {
-    name: 'จดหวย',
-    href: 'https://ddme36.github.io/JodHuay/',
-    icon: Ticket,
-  },
-  {
-    name: 'HEARTOPIANO',
-    href: 'https://www.punn.site/blog/HowToUseHeartopiano',
-    icon: Music,
-    internal: true,
-  },
-  {
-    name: '2026 Goals',
-    href: 'https://2026-vision-goals.vercel.app/',
-    icon: Target,
-  },
+  { name: 'หน้าแรก', href: '/', icon: Home, internal: true },
+  { name: 'บทความ', href: '/blog', icon: BookOpen, internal: true },
+  { name: 'PUNN INVESTING', href: 'https://ddme36.github.io/PUNN-INVESTING/', icon: TrendingUp },
+  { name: 'Smart AI Stock', href: 'https://smartaistock.vercel.app/', icon: Bell },
+  { name: 'MemoKard', href: 'https://memokard.vercel.app/', icon: Brain },
+  { name: 'ข้อมูลปัง', href: 'https://ddme36.github.io/KhomunPang/', icon: Database },
+  { name: 'PurrDrop', href: 'https://purrdrop.onrender.com/', icon: Share2 },
+  { name: 'จดหวย', href: 'https://ddme36.github.io/JodHuay/', icon: Ticket },
+  { name: 'HEARTOPIANO', href: 'https://www.punn.site/blog/HowToUseHeartopiano', icon: Music, internal: true },
+  { name: '2026 Goals', href: 'https://2026-vision-goals.vercel.app/', icon: Target },
   { name: 'GitHub', href: 'https://github.com/DDME36', icon: Code },
   { name: 'เว็บส่วนตัว', href: 'https://satayupongpan.site/', icon: User },
 ];
 
-interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  tags: string[];
-  date: string;
-  cover: string | null;
-}
-
-interface NavbarProps {
-  posts?: Post[];
-}
-
-export const Navbar = ({ posts = [] }: NavbarProps) => {
+export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 40);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
-      {/* Sticky Navigation - Soft UI */}
-      <nav
-        className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/60 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl'
-            : 'bg-white/40 py-4 backdrop-blur-lg'
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
-          <MagneticButton intensity={0.1}>
-            <Link
-              href="/"
-              className="block font-display text-xl font-black tracking-tighter transition-opacity hover:opacity-80 sm:text-2xl"
-            >
-              <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
-                PUNN HUB
-              </span>
-              <span className="text-gray-800">.</span>
-            </Link>
-          </MagneticButton>
-
-          {/* Desktop Quick Links */}
-          <div className="hidden items-center gap-8 md:flex">
-            <Link
-              href="/"
-              className={`group relative text-sm font-medium transition-all ${
-                pathname === '/' ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
-              }`}
-            >
-              หน้าแรก
-              {pathname === '/' && (
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  exit={{ scaleX: 0 }}
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 origin-left rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                />
-              )}
-            </Link>
-            <Link
-              href="/blog"
-              className={`group relative text-sm font-medium transition-all ${
-                pathname === '/blog' || pathname?.startsWith('/blog/')
-                  ? 'text-rose-500'
-                  : 'text-gray-600 hover:text-rose-500'
-              }`}
-            >
-              บทความ
-              {(pathname === '/blog' || pathname?.startsWith('/blog/')) && (
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  exit={{ scaleX: 0 }}
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 origin-left rounded-full bg-gradient-to-r from-rose-400 to-purple-400"
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                />
-              )}
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Search Button - Always reserve space but hide on non-blog pages */}
-            <div
-              className={
-                pathname === '/blog' || pathname?.startsWith('/blog/')
-                  ? 'block'
-                  : 'pointer-events-none invisible'
-              }
-            >
-              <SearchModal posts={posts} />
-            </div>
-
-            <MagneticButton intensity={0.15}>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setMenuOpen(true)}
-                aria-label="เปิดเมนู"
-                aria-expanded={menuOpen}
-                className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/80 px-6 py-2.5 text-sm font-medium text-gray-700 shadow-sm backdrop-blur-md transition-all hover:border-rose-200 hover:shadow-md"
-              >
-                <MenuIcon size={16} />
-                <span className="hidden sm:inline">เมนู</span>
-              </motion.button>
+      <div className="fixed inset-x-0 top-0 z-[100] flex justify-center p-4 pointer-events-none">
+        <motion.nav
+          initial={false}
+          animate={{
+            maxWidth: scrolled ? '650px' : '1280px',
+            backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0)',
+            backdropFilter: scrolled ? 'blur(20px)' : 'blur(0px)',
+            borderRadius: scrolled ? '40px' : '0px',
+            borderWidth: scrolled ? '1px' : '0px',
+            borderColor: 'rgba(255, 255, 255, 0.4)',
+            boxShadow: scrolled ? '0 10px 40px -10px rgba(0,0,0,0.1)' : '0 0 0 rgba(0,0,0,0)',
+            y: scrolled ? 4 : 0,
+            paddingLeft: scrolled ? '20px' : '32px',
+            paddingRight: scrolled ? '20px' : '32px',
+          }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className="pointer-events-auto flex w-full items-center justify-between h-[56px] sm:h-[64px]"
+        >
+          {/* Left: Logo */}
+          <div className="flex-1 flex justify-start items-center min-w-[80px]">
+            <MagneticButton intensity={0.1}>
+              <Link href="/" className="flex items-center font-display text-lg font-black tracking-tighter sm:text-2xl">
+                <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
+                  PUNN
+                </span>
+                <AnimatePresence mode="wait">
+                  {!scrolled && (
+                    <motion.span
+                      key="hub-text"
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -5 }}
+                      className="ml-1 text-gray-800"
+                    >
+                      HUB
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </Link>
             </MagneticButton>
           </div>
-        </div>
-      </nav>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-[2px]"
-            onClick={() => setMenuOpen(false)}
-            aria-hidden="true"
-          />
-        )}
-      </AnimatePresence>
+          {/* Center: Main Links (TRULY CLEAN) */}
+          <div className="hidden md:flex items-center justify-center gap-6 sm:gap-8">
+            <Link href="/" className={`text-sm font-bold transition-all hover:scale-105 ${pathname === '/' ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'}`}>
+              หน้าแรก
+            </Link>
+            <Link href="/blog" className={`text-sm font-bold transition-all hover:scale-105 ${pathname === '/blog' || pathname?.startsWith('/blog/') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'}`}>
+              บทความ
+            </Link>
+          </div>
 
-      {/* Slide-in Menu Panel */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="เมนูหลัก"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed right-0 top-0 z-[210] flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white shadow-2xl sm:w-96 sm:max-w-[85vw]"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-gray-100 p-6">
-              <h2 className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text font-display text-xl font-bold text-transparent">
-                เมนู
-              </h2>
+          {/* Right: Menu Button */}
+          <div className="flex-1 flex justify-end items-center min-w-[80px]">
+            <MagneticButton intensity={0.15}>
               <button
-                onClick={() => setMenuOpen(false)}
-                aria-label="ปิดเมนู"
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 transition-colors hover:bg-gray-100"
+                onClick={() => setMenuOpen(true)}
+                className={`flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white/80 text-sm font-bold text-gray-700 shadow-sm transition-all hover:border-rose-200 ${
+                  scrolled 
+                    ? 'w-11 h-11 sm:w-12 sm:h-12' 
+                    : 'px-4 py-2 sm:px-6 sm:py-2.5'
+                }`}
               >
-                <XIcon size={20} />
+                <MenuIcon size={scrolled ? 22 : 18} />
+                {!scrolled && <span className="inline">เมนู</span>}
               </button>
-            </div>
+            </MagneticButton>
+          </div>
+        </motion.nav>
+      </div>
 
-            {/* Menu Items */}
-            <div className="flex-1 space-y-2 p-6">
-              {menuLinks.map((link, index) => {
-                const isActive = pathname === link.href;
-                const LinkComponent = link.internal ? Link : 'a';
-                const IconComponent = link.icon;
-                const linkProps = link.internal
-                  ? { href: link.href }
-                  : { href: link.href, target: '_blank', rel: 'noopener noreferrer' };
-
-                return (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 + 0.1 }}
-                  >
-                    <LinkComponent
-                      {...linkProps}
-                      className={`group flex items-center gap-3 rounded-xl p-4 transition-all ${
-                        isActive
-                          ? 'border border-rose-100 bg-gradient-to-r from-rose-50 to-purple-50 shadow-sm'
-                          : 'hover:bg-gray-50'
-                      }`}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-xl transition-all ${
-                          isActive
-                            ? 'bg-gradient-to-br from-rose-400 to-purple-400 text-white shadow-md'
-                            : 'border border-gray-100 bg-white text-gray-700 shadow-sm group-hover:bg-gray-100'
-                        }`}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-[2px]"
+              onClick={() => setMenuOpen(false)}
+            />
+            <motion.div
+              role="dialog"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="fixed right-0 top-0 z-[210] flex h-full w-full flex-col overflow-y-auto border-l border-gray-100 bg-white shadow-2xl sm:w-96"
+            >
+              <div className="flex items-center justify-between border-b border-gray-100 p-6">
+                <h2 className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text font-display text-xl font-bold text-transparent">เมนู</h2>
+                <button onClick={() => setMenuOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100">
+                  <XIcon size={20} />
+                </button>
+              </div>
+              <div className="flex-1 space-y-1 p-4">
+                {menuLinks.map((link, index) => {
+                  const isActive = pathname === link.href;
+                  const LinkComponent = link.internal ? Link : 'a';
+                  return (
+                    <motion.div key={link.name} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.03 }}>
+                      <LinkComponent 
+                        href={link.href}
+                        {...(!link.internal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className={`group flex items-center gap-3 rounded-2xl p-3 transition-all ${isActive ? 'bg-rose-50 text-rose-500' : 'hover:bg-gray-50 text-gray-700'}`} 
+                        onClick={() => setMenuOpen(false)}
                       >
-                        <IconComponent size={18} />
-                      </div>
-                      <span
-                        className={`flex-1 text-sm font-semibold ${
-                          isActive ? 'text-rose-500' : 'text-gray-700'
-                        }`}
-                      >
-                        {link.name}
-                      </span>
-                      {!link.internal && (
-                        <ArrowUpRight
-                          className="text-gray-400 transition-colors group-hover:text-rose-400"
-                          size={16}
-                        />
-                      )}
-                    </LinkComponent>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Footer Note */}
-            <div className="border-t border-gray-100 p-6">
-              <p className="text-center text-sm text-gray-500">
-                © {new Date().getFullYear()} PUNN HUB
-              </p>
-            </div>
-          </motion.div>
+                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${isActive ? 'bg-white text-rose-500 shadow-sm' : 'bg-gray-100 text-gray-500'}`}>
+                          <link.icon size={18} />
+                        </div>
+                        <span className="flex-1 text-sm font-bold">{link.name}</span>
+                        {!link.internal && <ArrowUpRight size={14} className="opacity-30" />}
+                      </LinkComponent>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

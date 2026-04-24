@@ -5,6 +5,7 @@ import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { BookOpen, Calendar, X, ArrowUpRight, AlertCircle, FileText, Search } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SearchModal } from './SearchModal';
 
 interface Post {
   id: string;
@@ -91,9 +92,9 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
         >
           {/* Floating Card */}
           <div className="rounded-3xl border border-white/60 bg-white p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] sm:p-10">
-            <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-              {/* Left Side - Main Content */}
-              <div className="text-center sm:text-left">
+            <div className="flex flex-col items-center justify-center gap-8 text-center">
+              {/* Main Content */}
+              <div>
                 <motion.div
                   variants={itemVariants}
                   className="mb-4 inline-flex items-center gap-2 rounded-full border border-rose-100/50 bg-gradient-to-r from-rose-50 to-purple-50 px-4 py-2 text-sm font-semibold"
@@ -115,20 +116,23 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
                 </motion.p>
               </div>
 
-              {/* Right Side - Stats Cards */}
-              <motion.div variants={itemVariants} className="flex items-center gap-6">
+              {/* Stats Cards - Centered */}
+              <motion.div 
+                variants={itemVariants} 
+                className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-2"
+              >
                 {/* Stat Card 1 */}
-                <div className="rounded-2xl border border-rose-100/50 bg-gradient-to-br from-rose-50 to-rose-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(251,113,133,0.1)]">
-                  <div className="mb-1 text-3xl font-black text-rose-500">{mainPosts.length}</div>
-                  <div className="text-xs font-medium text-gray-600">บทความ</div>
+                <div className="flex flex-col items-center justify-center min-w-[110px] rounded-2xl border border-rose-100/50 bg-gradient-to-br from-rose-50 to-rose-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(251,113,133,0.1)]">
+                  <div className="text-3xl font-black text-rose-500 leading-none mb-1">{mainPosts.length}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">บทความ</div>
                 </div>
 
                 {/* Stat Card 2 */}
-                <div className="rounded-2xl border border-purple-100/50 bg-gradient-to-br from-purple-50 to-purple-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(192,132,252,0.1)]">
-                  <div className="mb-1 text-3xl font-black text-purple-500">
+                <div className="flex flex-col items-center justify-center min-w-[110px] rounded-2xl border border-purple-100/50 bg-gradient-to-br from-purple-50 to-purple-100/50 px-6 py-4 text-center shadow-[0_4px_20px_rgb(192,132,252,0.1)]">
+                  <div className="text-3xl font-black text-purple-500 leading-none mb-1">
                     {allTags.length - 1}
                   </div>
-                  <div className="text-xs font-medium text-gray-600">หมวดหมู่</div>
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">หมวดหมู่</div>
                 </div>
               </motion.div>
             </div>
@@ -169,72 +173,63 @@ export const BlogList = ({ posts, error }: BlogListProps) => {
           </motion.div>
         ) : (
           <>
-            {/* Filter Section - Floating Card */}
+            {/* Search and Filter Section - Floating Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8"
+              className="mb-8 space-y-4"
             >
+              {/* Integrated Search Bar */}
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1">
+                  <SearchModal posts={posts} />
+                </div>
+                
+                {/* Clear Filter Button - Only show when filtered */}
+                {selectedTag !== 'All' && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedTag('All')}
+                    className="flex h-11 items-center gap-2 rounded-xl border border-rose-100 bg-white px-4 text-sm font-bold text-rose-500 shadow-sm transition-all hover:bg-rose-50"
+                  >
+                    <X size={14} />
+                    ล้างตัวกรอง
+                  </motion.button>
+                )}
+              </div>
+
               {/* Filter Card */}
               <div className="overflow-visible rounded-3xl border border-white/60 bg-white p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)]">
                 <div className="mb-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <h2 className="text-lg font-bold text-gray-800">
-                      {filteredPosts.length} บทความ
-                      {selectedTag !== 'All' && (
-                        <span className="ml-2 text-base text-rose-400">· {selectedTag}</span>
-                      )}
-                    </h2>
-                  </div>
-
-                  {/* Clear Filter Button */}
-                  {selectedTag !== 'All' && (
-                    <motion.button
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => setSelectedTag('All')}
-                      aria-label="ล้างตัวกรอง"
-                      className="flex min-h-[44px] items-center gap-2 rounded-full border border-rose-100/50 bg-gradient-to-r from-rose-50 to-purple-50 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:from-rose-100 hover:to-purple-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2"
-                    >
-                      <X size={14} aria-hidden="true" />
-                      ล้าง
-                    </motion.button>
-                  )}
+                  <h2 className="text-lg font-bold text-gray-800">
+                    {filteredPosts.length} บทความ
+                    {selectedTag !== 'All' && (
+                      <span className="ml-2 text-base text-rose-400 font-medium">· {selectedTag}</span>
+                    )}
+                  </h2>
                 </div>
 
                 {/* Scrollable Filter Pills */}
-                <div className="scrollbar-hide -mx-2 overflow-x-auto px-2 pb-4 pt-2">
-                  <div className="flex min-w-max gap-2 py-2">
+                <div className="scrollbar-hide -mx-2 overflow-x-auto px-2 pb-2">
+                  <div className="flex min-w-max gap-2 py-1">
                     {allTags.map((tag, index) => (
                       <motion.button
                         key={tag}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 + index * 0.03, ease: [0.16, 1, 0.3, 1] }}
-                        whileHover={{ scale: 1.08, y: -3 }}
+                        whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setSelectedTag(tag)}
-                        aria-label={`กรองบทความด้วยหมวดหมู่ ${tag}`}
-                        aria-pressed={selectedTag === tag}
-                        className={`relative min-h-[44px] whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 ${
+                        className={`relative whitespace-nowrap rounded-full px-5 py-2 text-sm font-bold transition-all duration-300 ${
                           selectedTag === tag
-                            ? 'bg-gradient-to-r from-rose-400 to-purple-400 text-white shadow-[0_8px_24px_-4px_rgba(251,113,133,0.5)]'
-                            : 'border border-gray-100 bg-white text-gray-700 shadow-[0_4px_16px_-2px_rgba(0,0,0,0.06)] hover:bg-gradient-to-r hover:from-rose-50 hover:to-purple-50 hover:shadow-[0_6px_20px_-2px_rgba(0,0,0,0.1)]'
+                            ? 'bg-gradient-to-r from-rose-400 to-purple-400 text-white shadow-md'
+                            : 'border border-gray-100 bg-white text-gray-600 hover:bg-gray-50'
                         }`}
                       >
                         {tag}
-                        {tag !== 'All' && (
-                          <span
-                            className={`ml-2 text-xs ${
-                              selectedTag === tag ? 'text-white/80' : 'text-gray-400'
-                            }`}
-                          >
-                            {mainPosts.filter((post) => post.tags.includes(tag)).length}
-                          </span>
-                        )}
                       </motion.button>
                     ))}
                   </div>

@@ -115,19 +115,26 @@ export const Hero = () => {
 
         {/* Main Heading with Typewriter */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-5 font-display text-3xl font-black leading-[1.1] tracking-tight text-gray-800 sm:text-4xl lg:text-5xl"
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-5 font-display text-3xl font-black leading-[1.1] tracking-tight text-gray-800 sm:text-4xl lg:text-5xl will-change-transform"
         >
-          <span className="mb-2 block">
-            <TypewriterText
-              texts={['Knowledge Hub', 'แหล่งความรู้', 'Tech Blog', 'Developer Hub']}
-              typingSpeed={150}
-              deletingSpeed={100}
-              delayBetween={3000}
+          <span className="mb-2 block overflow-hidden">
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block"
-            />
+            >
+              <TypewriterText
+                texts={['Knowledge Hub', 'แหล่งความรู้', 'Tech Blog', 'Developer Hub']}
+                typingSpeed={150}
+                deletingSpeed={100}
+                delayBetween={3000}
+                className="inline-block"
+              />
+            </motion.span>
           </span>
           <GradientText className="block">สำหรับนักพัฒนา</GradientText>
         </motion.h1>
@@ -136,8 +143,8 @@ export const Hero = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mb-7 max-w-xl text-base font-light leading-relaxed text-gray-500 sm:text-lg"
+          transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto mb-7 max-w-xl text-base font-light leading-relaxed text-gray-500 sm:text-lg will-change-transform"
         >
           แหล่งรวมความรู้ ไอเดีย และเทคนิคต่างๆ
           <br className="hidden sm:block" />

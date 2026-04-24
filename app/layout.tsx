@@ -124,6 +124,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="min-h-screen overflow-x-hidden font-sans antialiased">
+        <div className="bg-grain" />
         <a href="#main-content" className="skip-to-main">
           ข้ามไปยังเนื้อหาหลัก
         </a>

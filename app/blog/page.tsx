@@ -42,7 +42,7 @@ export default async function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pt-20 sm:pt-24">
+    <div className="min-h-screen bg-transparent pt-20 sm:pt-24">
       <BlogList posts={posts} error={error} />
       <Footer />
       <BackToTop />

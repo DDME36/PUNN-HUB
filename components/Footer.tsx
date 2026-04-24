@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Github, Heart, Sparkles, Rss } from 'lucide-react';
+import { Github, Heart, Sparkles, Rss, ArrowRight, Mail } from 'lucide-react';
 
 const quickLinks = [
   { name: 'หน้าแรก', href: '/' },
@@ -15,147 +15,82 @@ const quickLinks = [
 const projects = [
   { name: 'PUNN INVESTING', href: 'https://ddme36.github.io/PUNN-INVESTING/' },
   { name: 'Smart AI Stock', href: 'https://smartaistock.vercel.app/' },
-  { name: 'PurrDrop', href: 'https://purrdrop.onrender.com/' },
-  { name: 'จดหวย', href: 'https://ddme36.github.io/JodHuay/' },
+  { name: 'MemoKard', href: 'https://memokard.vercel.app/' },
+  { name: 'ข้อมูลปัง', href: 'https://ddme36.github.io/KhomunPang/' },
 ];
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-gray-100/50 bg-white text-gray-700">
-      <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-        {/* Main Footer Content */}
-        <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3 md:justify-items-center">
-          {/* Brand Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.4 }}
-            className="flex flex-col items-center text-center"
-          >
-            <h3 className="mb-3 font-display text-2xl font-black">
-              <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">
-                PUNN
-              </span>
+    <footer className="relative border-t border-gray-100/50 bg-transparent text-gray-700">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        
+        {/* Main Footer Links */}
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-4 mb-16">
+          {/* Column 1: Brand */}
+          <div className="md:col-span-2 space-y-6">
+            <Link href="/" className="inline-block font-display text-3xl font-black tracking-tighter">
+              <span className="bg-gradient-to-r from-rose-400 to-purple-400 bg-clip-text text-transparent">PUNN</span>
               <span className="text-gray-800"> HUB</span>
-            </h3>
-            <p className="mb-4 text-sm leading-relaxed text-gray-600">
-              Knowledge Hub สำหรับนักพัฒนา
-              <br />
-              แชร์ความรู้ ไอเดีย และเทคนิค
+            </Link>
+            <p className="text-gray-500 text-lg leading-relaxed max-w-sm">
+              แหล่งรวมความรู้ เทคนิคการเขียนโปรแกรม และอัปเดตเทคโนโลยีใหม่ๆ เพื่อช่วยให้การพัฒนาซอฟต์แวร์เป็นเรื่องง่ายและสนุก
             </p>
-
-            {/* Social Links */}
-            <div className="flex justify-center gap-2">
-              <a
-                href="https://github.com/DDME36"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-100 bg-white shadow-sm transition-colors hover:border-rose-200 hover:text-rose-500"
-                aria-label="GitHub"
-              >
-                <Github size={16} className="text-gray-700" />
+            <div className="flex gap-4">
+              <a href="https://github.com/DDME36" target="_blank" rel="noreferrer" className="h-12 w-12 flex items-center justify-center rounded-2xl border border-gray-100 bg-white shadow-sm hover:border-rose-200 hover:text-rose-500 transition-all">
+                <Github size={20} />
               </a>
-              <a
-                href="/feed.xml"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-100 bg-white shadow-sm transition-colors hover:border-orange-200 hover:bg-orange-50"
-                aria-label="RSS Feed"
-              >
-                <Rss size={16} className="text-orange-500" />
+              <a href="/feed.xml" target="_blank" rel="noreferrer" className="h-12 w-12 flex items-center justify-center rounded-2xl border border-gray-100 bg-white shadow-sm hover:border-orange-200 hover:text-orange-500 transition-all">
+                <Rss size={20} />
               </a>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="flex flex-col items-center text-center"
-          >
-            <h4 className="mb-3 flex items-center justify-center gap-2 text-sm font-bold text-gray-800">
-              <Sparkles size={14} className="text-rose-400" />
-              ลิงก์ด่วน
-            </h4>
-            <ul className="flex flex-col items-center space-y-2">
-              {quickLinks.map((link) => (
+          {/* Column 2: Quick Links */}
+          <div className="space-y-6">
+            <h4 className="text-sm font-black uppercase tracking-widest text-gray-400">ลิงก์หลัก</h4>
+            <ul className="space-y-4">
+              {quickLinks.slice(0, 3).map((link) => (
                 <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="group flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-rose-500"
-                  >
-                    <div className="h-1 w-1 rounded-full bg-rose-300 transition-colors group-hover:bg-rose-400" />
-                    {link.name}
-                  </Link>
+                  <Link href={link.href} className="text-gray-600 font-bold hover:text-rose-500 transition-colors">{link.name}</Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Projects */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="flex flex-col items-center text-center"
-          >
-            <h4 className="mb-3 flex items-center justify-center gap-2 text-sm font-bold text-gray-800">
-              <Sparkles size={14} className="text-purple-400" />
-              โปรเจกต์
-            </h4>
-            <ul className="flex flex-col items-center space-y-2">
+          {/* Column 3: Projects */}
+          <div className="space-y-6">
+            <h4 className="text-sm font-black uppercase tracking-widest text-gray-400">โปรเจกต์เด่น</h4>
+            <ul className="space-y-4">
               {projects.map((project) => (
                 <li key={project.name}>
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-purple-500"
-                  >
-                    <div className="h-1 w-1 rounded-full bg-purple-300 transition-colors group-hover:bg-purple-400" />
-                    <span className="truncate">{project.name}</span>
-                  </a>
+                  <a href={project.href} target="_blank" rel="noreferrer" className="text-gray-600 font-bold hover:text-purple-500 transition-colors">{project.name}</a>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
         </div>
 
         {/* Divider */}
-        <div className="mb-4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent sm:mb-6" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-8" />
 
-        {/* Bottom Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-20px' }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4"
-        >
-          <p className="flex items-center gap-2 text-center text-xs text-gray-500 sm:text-left">
-            © {currentYear} PUNN HUB · Made with
-            <Heart size={12} className="fill-rose-400 text-rose-400" />
-            in Thailand
-          </p>
-
-          <div className="flex items-center gap-2 text-xs text-gray-500 sm:gap-3">
-            <span className="flex items-center gap-1.5">
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-sm font-medium text-gray-400">
+          <div className="flex items-center gap-2">
+            © {currentYear} PUNN HUB · Made with <Heart size={14} className="fill-rose-400 text-rose-400" /> in Thailand
+          </div>
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-2 hover:text-gray-600 transition-colors cursor-default">
               <div className="h-1.5 w-1.5 rounded-full bg-rose-300" />
-              Next.js
+              Next.js 15
             </span>
-            <span className="text-gray-300">·</span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-2 hover:text-gray-600 transition-colors cursor-default">
               <div className="h-1.5 w-1.5 rounded-full bg-purple-300" />
-              Tailwind
+              Tailwind v4
             </span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

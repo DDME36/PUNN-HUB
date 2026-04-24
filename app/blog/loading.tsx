@@ -5,39 +5,39 @@ import { SkeletonCard } from '@/components/SkeletonCard';
 
 export default function BlogLoading() {
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      {/* Hero Skeleton */}
-      <div className="relative bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50 py-16 sm:py-20">
-        <div className="relative mx-auto max-w-5xl px-6">
-          <div className="rounded-3xl border border-white/60 bg-white/80 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl sm:p-10">
-            <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-              <div className="flex-1 text-center sm:text-left">
+    <div className="min-h-screen bg-transparent pt-24">
+      {/* Centered Hero Skeleton */}
+      <div className="relative py-12 sm:py-16">
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="rounded-[3rem] border border-white/60 bg-white/50 p-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl">
+            <div className="flex flex-col items-center justify-center text-center">
+              <motion.div
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="mb-6 h-8 w-32 rounded-full bg-gray-100"
+              />
+              <motion.div
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.1 }}
+                className="mb-4 h-12 w-48 rounded-2xl bg-gray-100"
+              />
+              <motion.div
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                className="mb-10 h-5 w-64 rounded-lg bg-gray-50"
+              />
+              
+              {/* Stats Skeleton */}
+              <div className="flex gap-6">
                 <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="mx-auto mb-4 h-8 w-32 rounded-full bg-gray-200 sm:mx-0"
-                />
-                <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.1 }}
-                  className="mx-auto mb-3 h-12 w-48 rounded-lg bg-gray-200 sm:mx-0"
-                />
-                <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-                  className="mx-auto h-6 w-64 rounded-lg bg-gray-200 sm:mx-0"
-                />
-              </div>
-              <div className="flex items-center gap-6">
-                <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                  className="h-24 w-24 rounded-2xl bg-gray-200"
+                  className="h-24 w-28 rounded-2xl bg-white"
                 />
                 <motion.div
-                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
-                  className="h-24 w-24 rounded-2xl bg-gray-200"
+                  className="h-24 w-28 rounded-2xl bg-white"
                 />
               </div>
             </div>
@@ -46,7 +46,8 @@ export default function BlogLoading() {
       </div>
 
       {/* Content Skeleton Grid */}
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+      <div className="mx-auto max-w-6xl px-4 py-8">
+        <div className="mb-8 h-12 w-full max-w-md rounded-2xl bg-white/50 animate-pulse" />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <SkeletonCard key={i} />

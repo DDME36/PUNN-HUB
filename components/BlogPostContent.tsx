@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Copy, Check, Minus, Plus, Type } from 'lucide-react';
+import { Copy, Check, Minus, Plus, Type, Image as ImageIcon } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
@@ -10,31 +10,77 @@ import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { motion, AnimatePresence } from 'framer-motion';
+import { slugify, extractText } from '@/lib/utils';
 
 interface BlogPostContentProps {
   content: string;
   title: string;
 }
 
+const ImageWithReveal = ({ src, alt }: { src: string; alt: string }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  return (
+    <div className="relative my-10 flex w-full flex-col items-center">
+      <div className={`relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-700 ${loaded ? 'scale-100' : 'scale-95 blur-lg bg-gray-100'}`}>
+        {!loaded && !error && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-50/50">
+            <motion.div 
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ImageIcon className="text-gray-300" size={40} />
+            </motion.div>
+          </div>
+        )}
+        
+        {error ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-2xl bg-gray-50 p-12 text-gray-400 border border-gray-100">
+            <XIcon size={32} />
+            <span className="text-sm font-medium">ไม่สามารถโหลดรูปได้</span>
+          </div>
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={src}
+            alt={alt}
+            onLoad={() => setLoaded(true)}
+            onError={() => setError(true)}
+            className={`max-h-[75vh] w-auto object-contain transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
+      </div>
+      {alt && loaded && (
+        <span className="mt-4 text-center text-xs font-medium italic text-gray-400 tracking-wide">
+          — {alt} —
+        </span>
+      )}
+    </div>
+  );
+};
+
+const XIcon = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+);
+
 export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
-  const [fontSize, setFontSize] = useState(16);
+  const [fontSize, setFontSize] = useState(18);
   const [copied, setCopied] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const articleRef = useRef<HTMLDivElement>(null);
 
-  // Initialize client-side only values
   useEffect(() => {
     setIsClient(true);
-    // ตั้งค่า font size ตามขนาดหน้าจอ
     const updateSettings = () => {
-      if (window.innerWidth >= 1024) {
-        setFontSize(18); // Desktop
-      } else if (window.innerWidth >= 640) {
-        setFontSize(16); // Tablet
-      } else {
-        setFontSize(15); // Mobile
-      }
+      if (window.innerWidth >= 1024) setFontSize(18);
+      else if (window.innerWidth >= 640) setFontSize(17);
+      else setFontSize(16);
     };
     updateSettings();
     window.addEventListener('resize', updateSettings);
@@ -46,9 +92,7 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy: ', err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const copyCode = async (code: string) => {
@@ -56,342 +100,141 @@ export const BlogPostContent = ({ content, title }: BlogPostContentProps) => {
       await navigator.clipboard.writeText(code);
       setCopiedCode(code);
       setTimeout(() => setCopiedCode(null), 2000);
-    } catch (err) {
-      console.error('Failed to copy code: ', err);
-    }
+    } catch (err) { console.error(err); }
   };
 
-  // Add IDs to headings for TOC
-  let headingIndex = 0;
-
-  // Don't render client-specific content until hydrated
-  if (!isClient) {
-    return (
-      <div className="prose prose-lg mx-auto max-w-none overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-xl md:p-12">
-        <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeRaw, rehypeKatex]}>
-          {content}
-        </ReactMarkdown>
-      </div>
-    );
-  }
+  if (!isClient) return <div className="h-96 w-full animate-pulse rounded-3xl bg-gray-50" />;
 
   return (
     <>
-      {/* Desktop Floating Reading Controls */}
+      {/* Premium Reading Controls */}
       <div className="fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 lg:block">
-        <div className="space-y-2 rounded-2xl border border-gray-200/80 bg-white/95 p-3 shadow-xl backdrop-blur-md">
-          {/* Font Size Controls */}
-          <div className="flex flex-col items-center gap-1">
-            <span className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
-              ตัวอักษร
-            </span>
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex flex-col gap-2 rounded-3xl border border-gray-200/50 bg-white/70 p-2 shadow-2xl backdrop-blur-xl"
+        >
+          <div className="flex flex-col items-center gap-1 p-2">
             <button
-              onClick={() => setFontSize((prev) => Math.min(prev + 2, 28))}
-              aria-label="เพิ่มขนาดตัวอักษร"
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-50 text-gray-600 transition-all hover:bg-rose-50 hover:text-rose-600"
-              title="เพิ่มขนาดตัวอักษร"
+              onClick={() => setFontSize((p) => Math.min(p + 1, 24))}
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gray-50 text-gray-600 hover:bg-rose-50 hover:text-rose-500 transition-all"
             >
-              <Plus size={15} />
+              <Plus size={16} />
             </button>
-            <span className="text-xs font-bold tabular-nums text-gray-800">{fontSize}</span>
+            <div className="py-1 text-[10px] font-black text-gray-400 tabular-nums">{fontSize}</div>
             <button
-              onClick={() => setFontSize((prev) => Math.max(prev - 2, 12))}
-              aria-label="ลดขนาดตัวอักษร"
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-50 text-gray-600 transition-all hover:bg-rose-50 hover:text-rose-600"
-              title="ลดขนาดตัวอักษร"
+              onClick={() => setFontSize((p) => Math.max(p - 1, 14))}
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gray-50 text-gray-600 hover:bg-rose-50 hover:text-rose-500 transition-all"
             >
-              <Minus size={15} />
+              <Minus size={16} />
             </button>
           </div>
-
-          <div className="mx-1 h-px bg-gray-200" />
-
-          {/* Share Button */}
-          <div className="flex justify-center">
+          <div className="h-px bg-gray-100 mx-2" />
+          <div className="flex justify-center p-2">
             <button
               onClick={copyToClipboard}
-              aria-label="คัดลอกลิงก์"
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-50 text-gray-600 transition-all hover:bg-purple-50 hover:text-purple-600"
-              title="คัดลอกลิงก์"
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gray-50 text-gray-600 hover:bg-purple-50 hover:text-purple-600 transition-all"
             >
-              {copied ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
+              {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Mobile Bottom Controls Bar - Improved spacing */}
-      <div
-        className="fixed bottom-0 left-0 right-0 z-30 lg:hidden"
-        style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 8px)' }}
-      >
-        <div
-          className="flex items-center justify-center gap-2 border-t border-gray-200/80 bg-white/95 px-4 py-3 backdrop-blur-md"
-          style={{ boxShadow: '0 -2px 10px rgba(0,0,0,0.05)' }}
-        >
-          {/* Font Controls */}
-          <div className="flex items-center gap-1.5 rounded-xl bg-gray-50 p-1.5">
-            <Type size={14} className="ml-1 text-gray-400" aria-hidden="true" />
-            <button
-              onClick={() => setFontSize((prev) => Math.max(prev - 2, 12))}
-              aria-label="ลดขนาดตัวอักษร"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 transition-colors active:bg-gray-200"
-            >
-              <Minus size={14} />
-            </button>
-            <span className="min-w-[32px] text-center text-sm font-bold tabular-nums text-gray-800">
-              {fontSize}
-            </span>
-            <button
-              onClick={() => setFontSize((prev) => Math.min(prev + 2, 28))}
-              aria-label="เพิ่มขนาดตัวอักษร"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 transition-colors active:bg-gray-200"
-            >
-              <Plus size={14} />
-            </button>
-          </div>
-
-          {/* Copy Link Button */}
-          <button
-            onClick={copyToClipboard}
-            aria-label="คัดลอกลิงก์"
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-50 text-gray-600 transition-colors active:bg-purple-50 active:text-purple-600"
-          >
-            {copied ? <Check size={16} className="text-green-600" /> : <Copy size={16} />}
-          </button>
-        </div>
-      </div>
-
-      <div
+      <motion.div
         ref={articleRef}
-        className="prose prose-lg mx-auto max-w-none overflow-hidden overflow-x-hidden rounded-3xl border border-gray-100 bg-white pb-20 shadow-xl prose-headings:font-display prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-rose-500 prose-img:rounded-2xl sm:pb-16 lg:pb-8"
-        style={{
-          fontSize: `${fontSize}px`,
-          lineHeight: '1.8',
-          minHeight: '60vh',
-        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="prose prose-lg mx-auto max-w-none overflow-visible rounded-[40px] border border-gray-100 bg-white/80 pb-20 shadow-2xl backdrop-blur-sm prose-headings:font-display prose-headings:tracking-tight prose-a:no-underline"
+        style={{ fontSize: `${fontSize}px`, lineHeight: '1.8' }}
       >
-        {/* Content with Enhanced Styling */}
-        <div
-          className="overflow-x-hidden break-words p-4 sm:p-8 md:p-12"
-          style={{ contain: 'layout' }}
-        >
+        <div className="p-6 sm:p-12 md:p-16 lg:p-20">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeRaw, rehypeKatex]}
             components={{
-              img: ({ src, alt }) => {
-                if (!src || typeof src !== 'string') return null;
-
-                const isInternalImage = src.startsWith('/');
-                const imageSrc = isInternalImage ? src : src;
-
-                return (
-                  <div className="my-6 flex w-full justify-center">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={imageSrc}
-                      alt={alt || 'รูปภาพประกอบ'}
-                      loading="lazy"
-                      decoding="async"
-                      className="rounded-xl shadow-md"
-                      style={{
-                        maxWidth: '100%',
-                        maxHeight: '70vh', // Prevent images from being taller than 70% of screen height
-                        height: 'auto',
-                        width: 'auto',      // Prevent stretching small images
-                        display: 'block',
-                        objectFit: 'contain',
-                      }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          const fallback = document.createElement('div');
-                          fallback.className =
-                            'flex flex-col items-center justify-center gap-3 rounded-xl bg-gray-100 p-12 text-gray-400';
-                          fallback.innerHTML = `
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                            <span class="text-sm">ไม่สามารถโหลดรูปได้</span>
-                          `;
-                          parent.appendChild(fallback);
-                        }
-                      }}
-                    />
-                  </div>
-                );
-              },
+              img: ({ src, alt }: any) => <ImageWithReveal src={src} alt={alt} />,
               h1: ({ children }) => {
-                const id = `heading-${headingIndex++}`;
+                const id = slugify(extractText(children));
                 return (
-                  <h1
-                    id={id}
-                    className="relative mb-8 mt-16 scroll-mt-24 break-words rounded-r-2xl border-l-4 border-rose-400 bg-gradient-to-r from-rose-50 to-transparent py-4 pl-4 font-display text-2xl font-bold sm:pl-6 sm:text-3xl"
-                  >
+                  <h1 id={id} className="relative mb-10 mt-20 scroll-mt-[120px] text-3xl font-black text-gray-900 md:text-4xl">
+                    <span className="absolute -left-6 top-0 h-full w-1.5 rounded-full bg-gradient-to-b from-rose-400 to-purple-500" />
                     {children}
                   </h1>
                 );
               },
               h2: ({ children }) => {
-                const id = `heading-${headingIndex++}`;
+                const id = slugify(extractText(children));
                 return (
-                  <h2
-                    id={id}
-                    className="relative mb-6 mt-12 scroll-mt-24 break-words pl-4 font-display text-xl font-bold text-gray-800 sm:pl-6 sm:text-2xl"
-                  >
+                  <h2 id={id} className="mb-8 mt-16 scroll-mt-[120px] text-2xl font-bold text-gray-800 md:text-3xl">
                     {children}
                   </h2>
                 );
               },
               h3: ({ children }) => {
-                const id = `heading-${headingIndex++}`;
-                return (
-                  <h3
-                    id={id}
-                    className="relative mb-4 mt-10 scroll-mt-24 break-words pl-4 font-display text-lg font-bold text-gray-800 sm:text-xl"
-                  >
-                    {children}
-                  </h3>
-                );
+                const id = slugify(extractText(children));
+                return <h3 id={id} className="mb-6 mt-12 scroll-mt-[120px] text-xl font-bold text-gray-800 md:text-2xl">{children}</h3>;
               },
               p: ({ children, node }: any) => {
-                // Check if paragraph contains only an image
-                const hasImage = node?.children?.some((child: any) => child.tagName === 'img');
-
-                // If it contains an image, return children without extra wrapper (image div already has my-8)
-                if (hasImage) {
-                  return <>{children}</>;
-                }
-
-                return (
-                  <div
-                    className="overflow-wrap-anywhere mb-8 text-justify leading-[1.8] text-gray-700 sm:text-left"
-                    style={{ minHeight: '1.5rem' }}
-                  >
-                    {children}
-                  </div>
-                );
+                if (node?.children?.some((child: any) => child.tagName === 'img')) return <>{children}</>;
+                return <p className="mb-8 text-gray-600 leading-relaxed md:leading-loose text-justify sm:text-left">{children}</p>;
               },
               blockquote: ({ children }) => (
-                <blockquote className="relative my-8 rounded-r-2xl border-l-4 border-purple-400 bg-gradient-to-r from-purple-50 to-transparent p-6 italic">
-                  {children}
+                <blockquote className="my-10 rounded-3xl border-l-0 bg-gradient-to-br from-rose-50/50 to-purple-50/50 p-8 md:p-10 italic shadow-inner">
+                  <div className="text-rose-500 mb-4 font-serif text-4xl opacity-50">“</div>
+                  <div className="text-gray-600 font-medium leading-relaxed">{children}</div>
                 </blockquote>
               ),
-
-              // Horizontal Rule / Divider
-              hr: () => (
-                <div className="my-12 flex items-center justify-center">
-                  <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-                </div>
+              a: ({ children, href }: any) => (
+                <a 
+                  href={href} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="relative inline-block font-bold text-rose-500 group"
+                >
+                  {children}
+                  <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-rose-400 transition-all duration-300 group-hover:w-full" />
+                </a>
+              ),
+              ul: (props: any) => <ul {...props} className="my-8 space-y-4" />,
+              li: ({ children }: any) => (
+                <li className="flex items-start gap-4">
+                  <div className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(244,63,94,0.6)]" />
+                  <div className="text-gray-600">{children}</div>
+                </li>
               ),
               code: ({ inline, className, children }: any) => {
                 const match = /language-(\w+)/.exec(className || '');
                 const codeString = String(children).replace(/\n$/, '');
-
                 return !inline && match ? (
-                  <div className="group relative my-6">
-                    <div className="absolute right-3 top-3 z-10">
+                  <div className="group relative my-10 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-gray-200">
+                    <div className="absolute right-4 top-4 z-10 flex items-center gap-2">
                       <button
                         onClick={() => copyCode(codeString)}
-                        className="flex items-center gap-2 rounded-lg bg-gray-700 px-3 py-1.5 text-xs text-white opacity-0 transition-all hover:bg-gray-600 group-hover:opacity-100"
+                        className="rounded-xl bg-white/10 px-4 py-2 text-xs font-bold text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
                       >
-                        {copiedCode === codeString ? (
-                          <>
-                            <Check size={14} />
-                            คัดลอกแล้ว!
-                          </>
-                        ) : (
-                          <>
-                            <Copy size={14} />
-                            คัดลอก
-                          </>
-                        )}
+                        {copiedCode === codeString ? <Check size={14} className="text-green-400" /> : 'Copy'}
                       </button>
                     </div>
-                    <SyntaxHighlighter
-                      style={vscDarkPlus}
-                      language={match[1]}
-                      PreTag="div"
-                      className="!my-0 rounded-2xl shadow-2xl"
-                      showLineNumbers
-                    >
+                    <div className="bg-gray-900 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-gray-500 border-b border-white/5">
+                      {match[1]}
+                    </div>
+                    <SyntaxHighlighter style={vscDarkPlus} language={match[1]} PreTag="div" className="!m-0 !bg-gray-900 !p-6" showLineNumbers>
                       {codeString}
                     </SyntaxHighlighter>
                   </div>
                 ) : (
-                  <code className="rounded border border-gray-200 bg-gray-100 px-2 py-0.5 font-mono text-sm text-gray-800">
+                  <code className="rounded-lg bg-rose-50 px-2 py-0.5 font-mono text-sm font-bold text-rose-600">
                     {children}
                   </code>
                 );
               },
-              pre: ({ children }: any) => <div>{children}</div>,
-              a: (props: any) => (
-                <a
-                  {...props}
-                  className="relative inline-block break-all font-semibold text-rose-500 transition-all duration-200 hover:text-rose-600 hover:underline"
-                  target="_blank"
-                  rel="noreferrer"
-                />
-              ),
-              ul: (props: any) => <ul {...props} className="my-6 space-y-2 pl-1" />,
-              ol: (props: any) => (
-                <ol {...props} className="my-6 list-inside list-decimal space-y-2 pl-6" />
-              ),
-              li: ({ children }: any) => {
-                return (
-                  <li className="flex items-start gap-3 text-left">
-                    <div className="mt-2.5 h-2 w-2 flex-shrink-0 rounded-full bg-rose-400"></div>
-                    <div className="flex-1 text-left">{children}</div>
-                  </li>
-                );
-              },
-
-              // Table Support (remark-gfm)
-              table: ({ children, ...props }: any) => (
-                <div className="my-8 overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
-                  <table {...props} className="min-w-full divide-y divide-gray-200 text-sm">
-                    {children}
-                  </table>
-                </div>
-              ),
-              thead: ({ children, ...props }: any) => (
-                <thead {...props} className="bg-gray-50/80">
-                  {children}
-                </thead>
-              ),
-              tbody: ({ children, ...props }: any) => (
-                <tbody {...props} className="divide-y divide-gray-100 bg-white">
-                  {children}
-                </tbody>
-              ),
-              tr: ({ children, ...props }: any) => (
-                <tr {...props} className="transition-colors hover:bg-rose-50/30">
-                  {children}
-                </tr>
-              ),
-              th: ({ children, ...props }: any) => (
-                <th
-                  {...props}
-                  className="whitespace-nowrap px-6 py-4 text-left font-semibold text-gray-900"
-                >
-                  {children}
-                </th>
-              ),
-              td: ({ children, ...props }: any) => (
-                <td {...props} className="px-6 py-4 text-gray-700">
-                  {children}
-                </td>
-              ),
             }}
           >
             {content}
           </ReactMarkdown>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

@@ -3,61 +3,46 @@
 import { motion } from 'framer-motion';
 
 export default function Loading() {
+  const skeletonItems = [
+    { className: "col-span-1 row-span-2 sm:col-span-2 md:col-span-2 lg:col-span-2" }, // PUNN INVESTING
+    { className: "col-span-1 row-span-2 sm:col-span-1" }, // Founder
+    { className: "col-span-1 row-span-2 sm:col-span-1" }, // KhomunPang
+    { className: "col-span-1 row-span-1 sm:col-span-2 md:col-span-2" }, // MemoKard
+    { className: "col-span-1 row-span-1 sm:col-span-2 md:col-span-2" }, // Smart AI Stock
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-rose-50/50 via-purple-50/50 to-blue-50/50">
-      <div className="text-center">
-        {/* Animated Logo */}
+    <div className="min-h-screen bg-transparent pt-24">
+      {/* Hero Skeleton Area */}
+      <div className="mx-auto max-w-3xl px-6 py-16 text-center">
         <motion.div
-          initial={{ scale: 0.8, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8"
-        >
-          <motion.h1
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="bg-gradient-to-r from-rose-400 via-purple-400 to-rose-400 bg-[length:200%_auto] bg-clip-text font-display text-4xl font-black text-transparent sm:text-5xl"
-          >
-            PUNN HUB
-          </motion.h1>
-        </motion.div>
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="mx-auto mb-6 h-8 w-48 rounded-full bg-gray-100"
+        />
+        <motion.div
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+          className="mx-auto mb-4 h-16 w-full max-w-lg rounded-2xl bg-gray-100"
+        />
+        <motion.div
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+          className="mx-auto h-6 w-64 rounded-lg bg-gray-50"
+        />
+      </div>
 
-        {/* Loading Spinner - Improved */}
-        <div className="flex items-center justify-center gap-2">
-          {[0, 0.15, 0.3].map((delay, i) => (
-            <motion.div
-              key={i}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.4, 1, 0.4],
-              }}
-              transition={{
-                duration: 1.2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay,
-              }}
-              className={`h-3 w-3 rounded-full ${
-                i === 0 ? 'bg-rose-400' : i === 1 ? 'bg-purple-400' : 'bg-blue-400'
-              }`}
-            />
-          ))}
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="mt-6 text-sm text-gray-500"
-        >
-          กำลังโหลด...
-        </motion.p>
+      {/* Bento Grid Skeleton */}
+      <div className="mx-auto grid max-w-6xl auto-rows-[160px] grid-cols-1 gap-4 px-4 py-12 sm:auto-rows-[180px] sm:grid-cols-2 md:grid-cols-4 lg:gap-6">
+        {skeletonItems.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
+            className={`rounded-[2.5rem] border border-gray-100 bg-white/50 ${item.className}`}
+          />
+        ))}
       </div>
     </div>
   );
