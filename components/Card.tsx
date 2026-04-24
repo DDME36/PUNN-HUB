@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue, useSpring, Variants } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -46,7 +46,7 @@ export const Card = ({
     mouseY.set(clientY - top);
   }
 
-  const variants = {
+  const variants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,

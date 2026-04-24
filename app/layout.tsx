@@ -6,7 +6,6 @@ import { ScrollProgressBar } from '@/components/ScrollProgressBar';
 import { Navbar } from '@/components/Navbar';
 import { SmoothScroller } from '@/components/SmoothScroller';
 import { MeshGradient } from '@/components/MeshGradient';
-import { getPublishedPosts } from '@/lib/mdx';
 import { Analytics } from '@/components/Analytics';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -112,7 +111,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const posts = await getPublishedPosts().catch(() => []);
   const websiteSchema = generateWebsiteSchema();
 
   return (
@@ -130,7 +128,7 @@ export default async function RootLayout({
         </a>
         <MeshGradient />
         <SmoothScroller />
-        <Navbar posts={posts} />
+        <Navbar />
         <ScrollProgressBar />
         <Analytics />
         <VercelAnalytics />
